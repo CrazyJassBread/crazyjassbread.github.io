@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>CrazyBread&#39;s Blog</title>
-    <link>https://crazyjassbread.github.io/</link>
-    <description>Recent content on CrazyBread&#39;s Blog</description>
+    <title>Posts on CrazyBread&#39;s Blog</title>
+    <link>https://crazyjassbread.github.io/posts/</link>
+    <description>Recent content in Posts on CrazyBread&#39;s Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 21 May 2025 22:47:46 +0800</lastBuildDate>
-    <atom:link href="https://crazyjassbread.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://crazyjassbread.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hugo</title>
       <link>https://crazyjassbread.github.io/posts/hugo/</link>

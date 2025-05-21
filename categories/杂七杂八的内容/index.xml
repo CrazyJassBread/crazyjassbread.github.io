@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>杂七杂八的内容 on CrazyBread&#39;s Blog</title>
+    <link>http://localhost:1313/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB%E7%9A%84%E5%86%85%E5%AE%B9/</link>
+    <description>Recent content in 杂七杂八的内容 on CrazyBread&#39;s Blog</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 21 May 2025 22:47:46 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB%E7%9A%84%E5%86%85%E5%AE%B9/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo</title>
+      <link>http://localhost:1313/posts/hugo/</link>
+      <pubDate>Wed, 21 May 2025 22:47:46 +0800</pubDate>
+      <guid>http://localhost:1313/posts/hugo/</guid>
+      <description>&lt;h1 id=&#34;hugo写blog必备知识汇总&#34;&gt;Hugo写Blog必备知识汇总！&lt;/h1&gt;</description>
+    </item>
+  </channel>
+</rss>
