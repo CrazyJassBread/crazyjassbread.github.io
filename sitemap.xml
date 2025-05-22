@@ -2,25 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://crazyjassbread.github.io/tags/books/</loc>
+    <lastmod>2025-05-22T19:30:44+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/categories/</loc>
+    <lastmod>2025-05-22T19:30:44+08:00</lastmod>
+  </url><url>
     <loc>https://crazyjassbread.github.io/</loc>
+    <lastmod>2025-05-22T19:30:44+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/categories/list/</loc>
     <lastmod>2025-05-22T19:30:44+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/</loc>
     <lastmod>2025-05-22T19:30:44+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/tags/blog/</loc>
-    <lastmod>2025-05-21T22:47:46+08:00</lastmod>
+    <loc>https://crazyjassbread.github.io/tags/reading/</loc>
+    <lastmod>2025-05-22T19:30:44+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/categories/</loc>
+    <loc>https://crazyjassbread.github.io/posts/reading_list/</loc>
+    <lastmod>2025-05-22T19:30:44+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/</loc>
+    <lastmod>2025-05-22T19:30:44+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/blog/</loc>
     <lastmod>2025-05-21T22:47:46+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/hugo/</loc>
     <lastmod>2025-05-21T22:47:46+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/tags/hugo/</loc>
-    <lastmod>2025-05-21T22:47:46+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/</loc>
     <lastmod>2025-05-21T22:47:46+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/categories/writing/</loc>

@@ -6,8 +6,15 @@
     <description>Recent content in Categories on CrazyBread&#39;s Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 May 2025 22:47:46 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 22 May 2025 19:30:44 +0800</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>List</title>
+      <link>https://crazyjassbread.github.io/categories/list/</link>
+      <pubDate>Thu, 22 May 2025 19:30:44 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/categories/list/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Writing</title>
       <link>https://crazyjassbread.github.io/categories/writing/</link>
