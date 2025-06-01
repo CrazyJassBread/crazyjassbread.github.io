@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on CrazyBread&#39;s Blog</title>
-    <link>http://localhost:1313/categories/</link>
+    <link>https://crazyjassbread.github.io/categories/</link>
     <description>Recent content in Categories on CrazyBread&#39;s Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 25 May 2025 18:58:48 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://crazyjassbread.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Running</title>
-      <link>http://localhost:1313/categories/running/</link>
+      <link>https://crazyjassbread.github.io/categories/running/</link>
       <pubDate>Sun, 25 May 2025 18:58:48 +0800</pubDate>
-      <guid>http://localhost:1313/categories/running/</guid>
+      <guid>https://crazyjassbread.github.io/categories/running/</guid>
       <description></description>
     </item>
     <item>
       <title>List</title>
-      <link>http://localhost:1313/categories/list/</link>
+      <link>https://crazyjassbread.github.io/categories/list/</link>
       <pubDate>Thu, 22 May 2025 19:30:44 +0800</pubDate>
-      <guid>http://localhost:1313/categories/list/</guid>
+      <guid>https://crazyjassbread.github.io/categories/list/</guid>
       <description></description>
     </item>
     <item>
       <title>Writing</title>
-      <link>http://localhost:1313/categories/writing/</link>
+      <link>https://crazyjassbread.github.io/categories/writing/</link>
       <pubDate>Wed, 21 May 2025 22:47:46 +0800</pubDate>
-      <guid>http://localhost:1313/categories/writing/</guid>
+      <guid>https://crazyjassbread.github.io/categories/writing/</guid>
       <description></description>
     </item>
   </channel>
