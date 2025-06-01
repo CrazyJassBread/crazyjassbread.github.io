@@ -2,19 +2,80 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>CrazyBread&#39;s Blog</title>
-    <link>https://crazyjassbread.github.io/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on CrazyBread&#39;s Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 25 May 2025 18:58:48 +0800</lastBuildDate>
-    <atom:link href="https://crazyjassbread.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Summer_Running_Plan</title>
-      <link>https://crazyjassbread.github.io/posts/summer_running_plan/</link>
+      <title>Summer Running Plan</title>
+      <link>http://localhost:1313/posts/summer-running-plan/</link>
       <pubDate>Sun, 25 May 2025 18:58:48 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/summer_running_plan/</guid>
+      <guid>http://localhost:1313/posts/summer-running-plan/</guid>
       <description>&lt;h1 id=&#34;夏训计划&#34;&gt;夏训计划&lt;/h1&gt;
 &lt;p&gt;这次的计划一共有16周，目标是半马140！&lt;/p&gt;
+&lt;p&gt;下面是博主持有的跑鞋&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;款式&lt;/th&gt;
+          &lt;th&gt;里程&lt;/th&gt;
+          &lt;th&gt;感受&lt;/th&gt;
+          &lt;th&gt;在役/退役&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;赤兔6pro&lt;/td&gt;
+          &lt;td&gt;370km&lt;/td&gt;
+          &lt;td&gt;第一双跑鞋，但是鞋面弯着处已磨破&lt;/td&gt;
+          &lt;td&gt;退役&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Nike Pegasus 40 Premium&lt;/td&gt;
+          &lt;td&gt;100km&lt;/td&gt;
+          &lt;td&gt;休闲或放松慢跑使用&lt;/td&gt;
+          &lt;td&gt;在役&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;赤兔7pro&lt;/td&gt;
+          &lt;td&gt;400km&lt;/td&gt;
+          &lt;td&gt;之前最喜欢的一双&lt;/td&gt;
+          &lt;td&gt;在役&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;远征者4.0 PLUS&lt;/td&gt;
+          &lt;td&gt;100km&lt;/td&gt;
+          &lt;td&gt;慢跑鞋，假期回家放松跑使用&lt;/td&gt;
+          &lt;td&gt;在役&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;飞电3c&lt;/td&gt;
+          &lt;td&gt;100km&lt;/td&gt;
+          &lt;td&gt;间歇跑、节奏跑时穿着&lt;/td&gt;
+          &lt;td&gt;在役&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;两千公理2代&lt;/td&gt;
+          &lt;td&gt;80km&lt;/td&gt;
+          &lt;td&gt;有氧慢跑使用（鞋号偏大，需要穿厚袜）&lt;/td&gt;
+          &lt;td&gt;在役&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;菁华15&lt;/td&gt;
+          &lt;td&gt;200km&lt;/td&gt;
+          &lt;td&gt;薄底爱好者的神！适合用来锻炼腿部肌肉&lt;/td&gt;
+          &lt;td&gt;在役&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;中乔飞影pb3.0&lt;/td&gt;
+          &lt;td&gt;50km&lt;/td&gt;
+          &lt;td&gt;目前能力不太能驾驭，冲刺跑时偶尔穿着&lt;/td&gt;
+          &lt;td&gt;在役&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;week 1&lt;/strong&gt;&lt;/p&gt;
 &lt;table&gt;
@@ -58,32 +119,35 @@
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;week 2&lt;/strong&gt;&lt;/p&gt;</description>
+&lt;p&gt;第一周计划训练下来，有点怀疑自己是不是把目标定的太高了💦，任务基本完成，就是中间有两天因为校内体育课和其他事情导致休息恢复效果差，身体稍显疲劳&lt;/p&gt;</description>
     </item>
     <item>
       <title>Reading_list</title>
-      <link>https://crazyjassbread.github.io/posts/reading_list/</link>
+      <link>http://localhost:1313/posts/reading_list/</link>
       <pubDate>Thu, 22 May 2025 19:30:44 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/reading_list/</guid>
+      <guid>http://localhost:1313/posts/reading_list/</guid>
       <description>&lt;h1 id=&#34;读书记录2025522起&#34;&gt;读书记录（2025.5.22起）&lt;/h1&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 射雕英雄传 (reading)&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 射雕英雄传 (三联书店版)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;博主先读的《神雕侠侣》再读的《射雕》，明显可以感受到金庸老先生人物塑造和剧情描绘功力的进步&lt;/p&gt;
+&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Hugo in action (reading)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 欧·亨利短篇小说精选（浙江文艺出版社）&lt;/p&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 君主论 (reading)&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
     <item>
       <title>Hugo</title>
-      <link>https://crazyjassbread.github.io/posts/hugo/</link>
+      <link>http://localhost:1313/posts/hugo/</link>
       <pubDate>Wed, 21 May 2025 22:47:46 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/hugo/</guid>
+      <guid>http://localhost:1313/posts/hugo/</guid>
       <description>&lt;h1 id=&#34;hugo写blog必备知识汇总&#34;&gt;Hugo写Blog必备知识汇总！&lt;/h1&gt;
 &lt;p&gt;最重要的阅读辅助材料是&lt;a href=&#34;https://hugo.opendocs.io/&#34;&gt;官方文档&lt;/a&gt;&lt;/p&gt;</description>
     </item>
