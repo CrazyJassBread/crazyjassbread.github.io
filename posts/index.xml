@@ -2,17 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on CrazyBread&#39;s Blog</title>
-    <link>https://crazyjassbread.github.io/posts/</link>
+    <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on CrazyBread&#39;s Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Jun 2025 14:10:18 +0800</lastBuildDate>
-    <atom:link href="https://crazyjassbread.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Sep 2025 13:46:12 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>南哪入学指南</title>
+      <link>http://localhost:1313/posts/nju_about/</link>
+      <pubDate>Sat, 06 Sep 2025 13:46:12 +0800</pubDate>
+      <guid>http://localhost:1313/posts/nju_about/</guid>
+      <description>&lt;h2 id=&#34;一名njuer的必备网址列表&#34;&gt;一名NJUer的必备网址列表&lt;/h2&gt;
+&lt;h3 id=&#34;基础网站也是必备网站&#34;&gt;基础网站（也是必备网站）&lt;/h3&gt;
+&lt;h4 id=&#34;本科生院&#34;&gt;&lt;a href=&#34;https://jw.nju.edu.cn/&#34;&gt;本科生院&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;重要性不必多言&lt;/p&gt;
+&lt;h4 id=&#34;选课网址&#34;&gt;&lt;a href=&#34;https://xk.nju.edu.cn/&#34;&gt;选课网址&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;只有经历过深夜蹲点抢课的人才算一个真正的NJUer&lt;/p&gt;
+&lt;h4 id=&#34;教服平台&#34;&gt;&lt;a href=&#34;https://jw.nju.edu.cn/24777/list.htm&#34;&gt;教服平台&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;可以查看自己的本学期课程、申请免修不免考等&lt;/p&gt;
+&lt;h4 id=&#34;网上办事大厅&#34;&gt;&lt;a href=&#34;https://ehall.nju.edu.cn/ywtb-portal/official/index.html#/hall&#34;&gt;网上办事大厅&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;也是一个非常重要的网址，当你不知道自己想办的业务需要去那个网站时可以上这个上面碰碰运气&lt;/p&gt;
+&lt;h4 id=&#34;五育管理系统&#34;&gt;&lt;a href=&#34;https://ndwy.nju.edu.cn/&#34;&gt;五育管理系统&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;在这里可以查看学校近期开展的一些五育活动，也可以导出自己的五育成绩单&lt;/p&gt;
+&lt;p&gt;什么？你问我五育活动有什么用？其实没什么用（但是学院每学期的综合测评会作为一个衡量标准，所以越多越好）&lt;/p&gt;
+&lt;p&gt;此外，多余的五育活动也可以转化成选修学分（但是大部分情况下不会用到这个）&lt;/p&gt;
+&lt;h4 id=&#34;第二课堂&#34;&gt;&lt;a href=&#34;https://youth.nju.edu.cn/&#34;&gt;第二课堂&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;用来查看自己的志愿活动时长、参与的社会实践以及加入的社团活动等（这里再次给天健社打广告！欢迎大家加入天健大家庭）&lt;/p&gt;
+&lt;h4 id=&#34;交换生管理系统&#34;&gt;&lt;a href=&#34;http://elite.nju.edu.cn/exchangesystem/&#34;&gt;交换生管理系统&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;建议有意向参加交换活动的同学多多留意网站上的项目&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Tips：可以作为查看自己在学院大致排名的一种方法&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h4 id=&#34;网络认证&#34;&gt;&lt;a href=&#34;http://p.nju.edu.cn&#34;&gt;网络认证&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;打开前记得连接 NJU-WLAN&lt;/p&gt;
+&lt;h3 id=&#34;资源网站&#34;&gt;资源网站&lt;/h3&gt;
+&lt;h4 id=&#34;南大图书馆&#34;&gt;&lt;a href=&#34;https://opac.nju.edu.cn/&#34;&gt;南大图书馆&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;图书馆官网下面提供了很多别的数据库网站（如知网、Web of science等），通过图书馆进入可以使用企业账号登陆，免费下载所需要的大部分论文资料&lt;/p&gt;
+&lt;h4 id=&#34;信息化建设管理平台&#34;&gt;&lt;a href=&#34;https://itsc.nju.edu.cn/main.htm&#34;&gt;信息化建设管理平台&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;在这里你可以下载学校免费提供的正版软件&lt;/p&gt;
+&lt;p&gt;Adobe（Pr、Ps、Acrobat等）、微软全家桶、Matlab等软件都可以在这里下载安装，如果你发现某个软件需要购买或订阅，不妨先来这里看看有无免费版本&lt;/p&gt;
+&lt;p&gt;此外，Notion可以使用学校邮箱登陆，完成学生认证后即可免费使用，不需要缴纳每年365元的订阅费。 Copliot也可以在完成学生认证后免费使用&lt;/p&gt;
+&lt;h3 id=&#34;工具网站&#34;&gt;工具网站&lt;/h3&gt;
+&lt;h4 id=&#34;南大云盘&#34;&gt;&lt;a href=&#34;https://box.nju.edu.cn/&#34;&gt;南大云盘&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;每人都有50G的免费云空间～&lt;/p&gt;
+&lt;h4 id=&#34;南大latex&#34;&gt;&lt;a href=&#34;https://tex.nju.edu.cn/&#34;&gt;南大Latex&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;不想本地配置latex编译环境？那就试试这个吧！&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Movies</title>
-      <link>https://crazyjassbread.github.io/posts/movies/</link>
+      <link>http://localhost:1313/posts/movies/</link>
       <pubDate>Mon, 02 Jun 2025 14:10:18 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/movies/</guid>
+      <guid>http://localhost:1313/posts/movies/</guid>
       <description>&lt;h1 id=&#34;观影记录&#34;&gt;观影记录&lt;/h1&gt;
 &lt;h2 id=&#34;kikujiro菊次郎的夏天&#34;&gt;Kikujiro（菊次郎的夏天）&lt;/h2&gt;
 &lt;p&gt;&lt;img alt=&#34;Kikujiro&#34; loading=&#34;lazy&#34; src=&#34;https://g.udn.com.tw/community/img/PSN_ARTICLE/djiat/f_564560_1.jpg&#34;&gt;&lt;/p&gt;
@@ -25,9 +65,9 @@
     </item>
     <item>
       <title>Summer Running Plan</title>
-      <link>https://crazyjassbread.github.io/posts/summer-running-plan/</link>
+      <link>http://localhost:1313/posts/summer-running-plan/</link>
       <pubDate>Sun, 25 May 2025 18:58:48 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/summer-running-plan/</guid>
+      <guid>http://localhost:1313/posts/summer-running-plan/</guid>
       <description>&lt;h1 id=&#34;夏训计划&#34;&gt;夏训计划&lt;/h1&gt;
 &lt;p&gt;这次的计划一共有16周，目标是半马140！&lt;/p&gt;
 &lt;p&gt;下面是博主持有的跑鞋&lt;/p&gt;
@@ -138,9 +178,9 @@
     </item>
     <item>
       <title>Reading list</title>
-      <link>https://crazyjassbread.github.io/posts/reading-list/</link>
+      <link>http://localhost:1313/posts/reading-list/</link>
       <pubDate>Thu, 22 May 2025 19:30:44 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/reading-list/</guid>
+      <guid>http://localhost:1313/posts/reading-list/</guid>
       <description>&lt;h1 id=&#34;读书记录2025522起&#34;&gt;读书记录（2025.5.22起）&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 射雕英雄传 (三联书店版)&lt;/li&gt;
@@ -156,13 +196,16 @@
 &lt;li&gt;
 &lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 君主论 (reading)&lt;/p&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 跑步圣经（第二版）（已完成前半部分阅读）&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
     <item>
       <title>Hugo</title>
-      <link>https://crazyjassbread.github.io/posts/hugo/</link>
+      <link>http://localhost:1313/posts/hugo/</link>
       <pubDate>Wed, 21 May 2025 22:47:46 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/hugo/</guid>
+      <guid>http://localhost:1313/posts/hugo/</guid>
       <description>&lt;h1 id=&#34;hugo写blog必备知识汇总&#34;&gt;Hugo写Blog必备知识汇总！&lt;/h1&gt;
 &lt;p&gt;最重要的阅读辅助材料是&lt;a href=&#34;https://hugo.opendocs.io/&#34;&gt;官方文档&lt;/a&gt;&lt;/p&gt;</description>
     </item>
