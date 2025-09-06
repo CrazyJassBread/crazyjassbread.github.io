@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>CrazyBread&#39;s Blog</title>
-    <link>http://localhost:1313/</link>
+    <link>https://crazyjassbread.github.io/</link>
     <description>Recent content on CrazyBread&#39;s Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 06 Sep 2025 13:46:12 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://crazyjassbread.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>南哪入学指南</title>
-      <link>http://localhost:1313/posts/nju_about/</link>
+      <link>https://crazyjassbread.github.io/posts/nju_about/</link>
       <pubDate>Sat, 06 Sep 2025 13:46:12 +0800</pubDate>
-      <guid>http://localhost:1313/posts/nju_about/</guid>
+      <guid>https://crazyjassbread.github.io/posts/nju_about/</guid>
       <description>&lt;h2 id=&#34;一名njuer的必备网址列表&#34;&gt;一名NJUer的必备网址列表&lt;/h2&gt;
 &lt;h3 id=&#34;基础网站也是必备网站&#34;&gt;基础网站（也是必备网站）&lt;/h3&gt;
 &lt;h4 id=&#34;本科生院&#34;&gt;&lt;a href=&#34;https://jw.nju.edu.cn/&#34;&gt;本科生院&lt;/a&gt;&lt;/h4&gt;
@@ -50,9 +50,9 @@
     </item>
     <item>
       <title>Movies</title>
-      <link>http://localhost:1313/posts/movies/</link>
+      <link>https://crazyjassbread.github.io/posts/movies/</link>
       <pubDate>Mon, 02 Jun 2025 14:10:18 +0800</pubDate>
-      <guid>http://localhost:1313/posts/movies/</guid>
+      <guid>https://crazyjassbread.github.io/posts/movies/</guid>
       <description>&lt;h1 id=&#34;观影记录&#34;&gt;观影记录&lt;/h1&gt;
 &lt;h2 id=&#34;kikujiro菊次郎的夏天&#34;&gt;Kikujiro（菊次郎的夏天）&lt;/h2&gt;
 &lt;p&gt;&lt;img alt=&#34;Kikujiro&#34; loading=&#34;lazy&#34; src=&#34;https://g.udn.com.tw/community/img/PSN_ARTICLE/djiat/f_564560_1.jpg&#34;&gt;&lt;/p&gt;
@@ -65,9 +65,9 @@
     </item>
     <item>
       <title>Summer Running Plan</title>
-      <link>http://localhost:1313/posts/summer-running-plan/</link>
+      <link>https://crazyjassbread.github.io/posts/summer-running-plan/</link>
       <pubDate>Sun, 25 May 2025 18:58:48 +0800</pubDate>
-      <guid>http://localhost:1313/posts/summer-running-plan/</guid>
+      <guid>https://crazyjassbread.github.io/posts/summer-running-plan/</guid>
       <description>&lt;h1 id=&#34;夏训计划&#34;&gt;夏训计划&lt;/h1&gt;
 &lt;p&gt;这次的计划一共有16周，目标是半马140！&lt;/p&gt;
 &lt;p&gt;下面是博主持有的跑鞋&lt;/p&gt;
@@ -178,9 +178,9 @@
     </item>
     <item>
       <title>Reading list</title>
-      <link>http://localhost:1313/posts/reading-list/</link>
+      <link>https://crazyjassbread.github.io/posts/reading-list/</link>
       <pubDate>Thu, 22 May 2025 19:30:44 +0800</pubDate>
-      <guid>http://localhost:1313/posts/reading-list/</guid>
+      <guid>https://crazyjassbread.github.io/posts/reading-list/</guid>
       <description>&lt;h1 id=&#34;读书记录2025522起&#34;&gt;读书记录（2025.5.22起）&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 射雕英雄传 (三联书店版)&lt;/li&gt;
@@ -203,9 +203,9 @@
     </item>
     <item>
       <title>Hugo</title>
-      <link>http://localhost:1313/posts/hugo/</link>
+      <link>https://crazyjassbread.github.io/posts/hugo/</link>
       <pubDate>Wed, 21 May 2025 22:47:46 +0800</pubDate>
-      <guid>http://localhost:1313/posts/hugo/</guid>
+      <guid>https://crazyjassbread.github.io/posts/hugo/</guid>
       <description>&lt;h1 id=&#34;hugo写blog必备知识汇总&#34;&gt;Hugo写Blog必备知识汇总！&lt;/h1&gt;
 &lt;p&gt;最重要的阅读辅助材料是&lt;a href=&#34;https://hugo.opendocs.io/&#34;&gt;官方文档&lt;/a&gt;&lt;/p&gt;</description>
     </item>

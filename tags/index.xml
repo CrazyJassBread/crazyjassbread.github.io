@@ -2,59 +2,59 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on CrazyBread&#39;s Blog</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://crazyjassbread.github.io/tags/</link>
     <description>Recent content in Tags on CrazyBread&#39;s Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 02 Jun 2025 14:10:18 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://crazyjassbread.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Movies</title>
-      <link>http://localhost:1313/tags/movies/</link>
+      <link>https://crazyjassbread.github.io/tags/movies/</link>
       <pubDate>Mon, 02 Jun 2025 14:10:18 +0800</pubDate>
-      <guid>http://localhost:1313/tags/movies/</guid>
+      <guid>https://crazyjassbread.github.io/tags/movies/</guid>
       <description></description>
     </item>
     <item>
       <title>Plan</title>
-      <link>http://localhost:1313/tags/plan/</link>
+      <link>https://crazyjassbread.github.io/tags/plan/</link>
       <pubDate>Sun, 25 May 2025 18:58:48 +0800</pubDate>
-      <guid>http://localhost:1313/tags/plan/</guid>
+      <guid>https://crazyjassbread.github.io/tags/plan/</guid>
       <description></description>
     </item>
     <item>
       <title>Running</title>
-      <link>http://localhost:1313/tags/running/</link>
+      <link>https://crazyjassbread.github.io/tags/running/</link>
       <pubDate>Sun, 25 May 2025 18:58:48 +0800</pubDate>
-      <guid>http://localhost:1313/tags/running/</guid>
+      <guid>https://crazyjassbread.github.io/tags/running/</guid>
       <description></description>
     </item>
     <item>
       <title>Books</title>
-      <link>http://localhost:1313/tags/books/</link>
+      <link>https://crazyjassbread.github.io/tags/books/</link>
       <pubDate>Thu, 22 May 2025 19:30:44 +0800</pubDate>
-      <guid>http://localhost:1313/tags/books/</guid>
+      <guid>https://crazyjassbread.github.io/tags/books/</guid>
       <description></description>
     </item>
     <item>
       <title>Reading</title>
-      <link>http://localhost:1313/tags/reading/</link>
+      <link>https://crazyjassbread.github.io/tags/reading/</link>
       <pubDate>Thu, 22 May 2025 19:30:44 +0800</pubDate>
-      <guid>http://localhost:1313/tags/reading/</guid>
+      <guid>https://crazyjassbread.github.io/tags/reading/</guid>
       <description></description>
     </item>
     <item>
       <title>Blog</title>
-      <link>http://localhost:1313/tags/blog/</link>
+      <link>https://crazyjassbread.github.io/tags/blog/</link>
       <pubDate>Wed, 21 May 2025 22:47:46 +0800</pubDate>
-      <guid>http://localhost:1313/tags/blog/</guid>
+      <guid>https://crazyjassbread.github.io/tags/blog/</guid>
       <description></description>
     </item>
     <item>
       <title>Hugo</title>
-      <link>http://localhost:1313/tags/hugo/</link>
+      <link>https://crazyjassbread.github.io/tags/hugo/</link>
       <pubDate>Wed, 21 May 2025 22:47:46 +0800</pubDate>
-      <guid>http://localhost:1313/tags/hugo/</guid>
+      <guid>https://crazyjassbread.github.io/tags/hugo/</guid>
       <description></description>
     </item>
   </channel>
