@@ -6,8 +6,40 @@
     <description>Recent content in Posts on CrazyBread&#39;s Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Sep 2025 13:46:12 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 23 Dec 2025 12:11:47 +0800</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Signals and Systems</title>
+      <link>https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/</link>
+      <pubDate>Tue, 23 Dec 2025 12:11:47 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/</guid>
+      <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面&lt;/h2&gt;
+&lt;p&gt;期末周到了，数字信号学的一塌糊涂，创建这个系列也是督促自己好好复习这一门课😢&lt;/p&gt;
+$$E=mc^2$$&lt;p&gt;测试一下是否支持LaTex渲染&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;信号与系统&#34;&gt;信号与系统&lt;/h2&gt;
+&lt;p&gt;本章主要负责介绍一些典型信号与系统，并分析他们的基本性质&lt;/p&gt;
+&lt;h3 id=&#34;能量与功率&#34;&gt;能量与功率&lt;/h3&gt;
+&lt;p&gt;对于一个离散信号 $x[n]$，其能量与功率定义为&lt;/p&gt;
+$$\begin{aligned}
+E &amp;= \sum_{n=-\infty}^{\infty} |x[n]|^2 \\
+P &amp;= \lim_{N \to \infty} \frac{1}{2N+1} \sum_{n=-N}^{N} |x[n]|^2
+\end{aligned}$$&lt;p&gt;对于一个连续信号 $x(t)$，其能量与功率定义为
+&lt;/p&gt;
+$$\begin{aligned}
+E &amp;= \int_{-\infty}^{\infty} |x(t)|^2 dt \\
+P &amp;= \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt
+\end{aligned}$$&lt;h3 id=&#34;脉冲信号--阶跃信号&#34;&gt;脉冲信号 &amp;amp; 阶跃信号&lt;/h3&gt;
+&lt;p&gt;对于离散信号，我们可以规定如下两种特殊性质的信号&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;脉冲信号&lt;/strong&gt;
+&lt;/p&gt;
+$$
+\delta [n] = \begin{cases}
+1, &amp; n = 0 \\
+0, &amp; n \neq 0
+\end{cases}
+$$&lt;p&gt;对于任意的信号 $x[n]$，都有 $x[n] \delta [n] = x[0]\quad x[n] \delta[n-n_0] = x[n_0]$&lt;/p&gt;</description>
+    </item>
     <item>
       <title>南哪入学指南</title>
       <link>https://crazyjassbread.github.io/posts/nju_about/</link>

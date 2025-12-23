@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Categories | CrazyBread&#39;s Blog</title>
+<title>Signals and Systems | CrazyBread&#39;s Blog</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="https://crazyjassbread.github.io/categories/">
+<link rel="canonical" href="https://crazyjassbread.github.io/categories/signals-and-systems/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://crazyjassbread.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://crazyjassbread.github.io/favicon-16x16.png">
@@ -18,8 +18,8 @@
 <link rel="mask-icon" href="https://crazyjassbread.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://crazyjassbread.github.io/categories/index.xml">
-<link rel="alternate" hreflang="en" href="https://crazyjassbread.github.io/categories/">
+<link rel="alternate" type="application/rss+xml" href="https://crazyjassbread.github.io/categories/signals-and-systems/index.xml">
+<link rel="alternate" hreflang="en" href="https://crazyjassbread.github.io/categories/signals-and-systems/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,13 +56,13 @@
         }
 
     </style>
-</noscript><meta property="og:url" content="https://crazyjassbread.github.io/categories/">
+</noscript><meta property="og:url" content="https://crazyjassbread.github.io/categories/signals-and-systems/">
   <meta property="og:site_name" content="CrazyBread&#39;s Blog">
-  <meta property="og:title" content="Categories">
+  <meta property="og:title" content="Signals and Systems">
   <meta property="og:locale" content="en-us">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Categories">
+<meta name="twitter:title" content="Signals and Systems">
 <meta name="twitter:description" content="">
 
      <script
@@ -128,7 +128,7 @@
         <ul id="menu">
             <li>
                 <a href="https://crazyjassbread.github.io/categories/" title="Categories">
-                    <span class="active">Categories</span>
+                    <span>Categories</span>
                 </a>
             </li>
             <li>
@@ -144,22 +144,30 @@
         </ul>
     </nav>
 </header>
-<main class="main">
-<header class="page-header">
-    <h1>Categories</h1>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://crazyjassbread.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://crazyjassbread.github.io/categories/">Categories</a></div>
+  <h1>
+    Signals and Systems
+  </h1>
 </header>
 
-<ul class="terms-tags">
-    <li>
-        <a href="https://crazyjassbread.github.io/categories/record/">Record <sup><strong><sup>3</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://crazyjassbread.github.io/categories/signals-and-systems/">Signals and Systems <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://crazyjassbread.github.io/categories/writing/">writing <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-</ul>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Signals and Systems
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>写在前面 期末周到了，数字信号学的一塌糊涂，创建这个系列也是督促自己好好复习这一门课😢
+$$E=mc^2$$测试一下是否支持LaTex渲染
+信号与系统 本章主要负责介绍一些典型信号与系统，并分析他们的基本性质
+能量与功率 对于一个离散信号 $x[n]$，其能量与功率定义为
+$$\begin{aligned} E &amp;= \sum_{n=-\infty}^{\infty} |x[n]|^2 \\ P &amp;= \lim_{N \to \infty} \frac{1}{2N&#43;1} \sum_{n=-N}^{N} |x[n]|^2 \end{aligned}$$对于一个连续信号 $x(t)$，其能量与功率定义为 $$\begin{aligned} E &amp;= \int_{-\infty}^{\infty} |x(t)|^2 dt \\ P &amp;= \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt \end{aligned}$$脉冲信号 &amp; 阶跃信号 对于离散信号，我们可以规定如下两种特殊性质的信号
+脉冲信号 $$ \delta [n] = \begin{cases} 1, &amp; n = 0 \\ 0, &amp; n \neq 0 \end{cases} $$对于任意的信号 $x[n]$，都有 $x[n] \delta [n] = x[0]\quad x[n] \delta[n-n_0] = x[n_0]$
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-23 12:11:47 +0800 CST'>December 23, 2025</span>&nbsp;·&nbsp;2 min</footer>
+  <a class="entry-link" aria-label="post link to Signals and Systems" href="https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/"></a>
+</article>
     </main>
     
 <footer class="footer">
