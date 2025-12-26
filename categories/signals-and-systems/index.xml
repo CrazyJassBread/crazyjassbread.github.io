@@ -6,8 +6,38 @@
     <description>Recent content in Signals and Systems on CrazyBread&#39;s Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 23 Dec 2025 12:11:47 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 23 Dec 2025 15:09:31 +0800</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/categories/signals-and-systems/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LTI Systems</title>
+      <link>https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/</link>
+      <pubDate>Tue, 23 Dec 2025 15:09:31 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/</guid>
+      <description>&lt;h2 id=&#34;linear-time-invariant-systems-lti-systems&#34;&gt;Linear Time-Invariant Systems (LTI Systems)&lt;/h2&gt;
+&lt;p&gt;这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/&#34;&gt;前置知识回顾：信号与系统基础&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;目录：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9A%E4%B9%89&#34;&gt;线性时不变系统的定义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%A7%E8%B4%A8&#34;&gt;线性时不变系统的性质&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;线性时不变系统的定义&#34;&gt;线性时不变系统的定义&lt;/h2&gt;
+&lt;p&gt;这一部分会介绍离散LTI系统和连续LTI系统&lt;/p&gt;
+&lt;p&gt;不过在开始之前需要研究一下单位脉冲函数的特性🦉&lt;/p&gt;
+&lt;h3 id=&#34;离散lti系统&#34;&gt;离散LTI系统&lt;/h3&gt;
+&lt;p&gt;在上一篇笔记中，有一个很重要的公式 $x[n] \delta[n - n_0] = x[n_0]$ （脉冲信号的筛选特性）&lt;/p&gt;
+&lt;p&gt;由此我们可以用脉冲信号来表示任意的离散信号：&lt;/p&gt;
+$$x[n] = \sum_{k=-\infty}^{\infty} x[k] \delta[n-k]$$&lt;p&gt;假设系统对单位脉冲信号的响应信号为 $h[n]$, 那么不妨定义 $h_k[n]$ 为系统对 $\delta[n-k]$ 的响应信号。&lt;/p&gt;
+&lt;p&gt;利用系统的&lt;mark&gt;线性特性&lt;/mark&gt;，我们可以将任意离散信号的响应表示为
+&lt;/p&gt;
+$$
+y[n] = \sum_{k=-\infty}^{\infty} x[k] h_k[n]
+$$&lt;p&gt;再利用系统的&lt;mark&gt;时不变性&lt;/mark&gt;，我们可以得到 $h_k[n] = h[n-k]$， 从而得到&lt;/p&gt;
+$$
+y[n] = \sum_{k=-\infty}^{\infty} x[k] h[n-k] = x[n] * h[n]
+$$&lt;p&gt;&lt;mark&gt;&lt;strong&gt;Tips&lt;/strong&gt;&lt;/mark&gt;:&lt;/p&gt;
+&lt;p&gt;其实我们可以将表达式 $\sum_{k=-\infty}^{\infty} x[k] h[n-k]$ 当作关于 k 的函数，则$y_k[n] = x[k] h[n-k]$ ，即所有 $y_k[n]$ 的叠加即为系统的输出信号 $y[n]$&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Signals and Systems</title>
       <link>https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/</link>

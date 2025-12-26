@@ -228,6 +228,29 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">LTI Systems
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Linear Time-Invariant Systems (LTI Systems) 这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性
+前置知识回顾：信号与系统基础
+目录：
+线性时不变系统的定义 线性时不变系统的性质 线性时不变系统的定义 这一部分会介绍离散LTI系统和连续LTI系统
+不过在开始之前需要研究一下单位脉冲函数的特性🦉
+离散LTI系统 在上一篇笔记中，有一个很重要的公式 $x[n] \delta[n - n_0] = x[n_0]$ （脉冲信号的筛选特性）
+由此我们可以用脉冲信号来表示任意的离散信号：
+$$x[n] = \sum_{k=-\infty}^{\infty} x[k] \delta[n-k]$$假设系统对单位脉冲信号的响应信号为 $h[n]$, 那么不妨定义 $h_k[n]$ 为系统对 $\delta[n-k]$ 的响应信号。
+利用系统的线性特性，我们可以将任意离散信号的响应表示为 $$ y[n] = \sum_{k=-\infty}^{\infty} x[k] h_k[n] $$再利用系统的时不变性，我们可以得到 $h_k[n] = h[n-k]$， 从而得到
+$$ y[n] = \sum_{k=-\infty}^{\infty} x[k] h[n-k] = x[n] * h[n] $$Tips:
+其实我们可以将表达式 $\sum_{k=-\infty}^{\infty} x[k] h[n-k]$ 当作关于 k 的函数，则$y_k[n] = x[k] h[n-k]$ ，即所有 $y_k[n]$ 的叠加即为系统的输出信号 $y[n]$
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-23 15:09:31 +0800 CST'>December 23, 2025</span>&nbsp;·&nbsp;3 min</footer>
+  <a class="entry-link" aria-label="post link to LTI Systems" href="https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Signals and Systems
     </h2>
   </header>
