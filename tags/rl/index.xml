@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>RL on CrazyBread&#39;s Blog</title>
+    <link>http://localhost:1313/tags/rl/</link>
+    <description>Recent content in RL on CrazyBread&#39;s Blog</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 25 Dec 2025 16:49:43 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/rl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hierarchical Reinforcement Learning</title>
+      <link>http://localhost:1313/posts/reinforcement-learning/hrl/</link>
+      <pubDate>Thu, 25 Dec 2025 16:49:43 +0800</pubDate>
+      <guid>http://localhost:1313/posts/reinforcement-learning/hrl/</guid>
+      <description>&lt;h3 id=&#34;learning-representations-in-model-free-hierarchical-reinforcement-learning&#34;&gt;Learning Representations in Model-Free Hierarchical Reinforcement Learning&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;http://arxiv.org/abs/1810.10096&#34;&gt;论文链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;论文的研究动机是通过引入 HRL 来解决 RL 面对具有 Sparse Reward 的问题表现不佳的问题（个人感觉这是在使用另一种方式去解决 NeSy 方法在做的事情，都是引入抽象的特征表示）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Env&lt;/strong&gt;: 4 Rooms&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;four Rooms&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/static/jpg/HRL/four%20room.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
