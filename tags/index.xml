@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on CrazyBread&#39;s Blog</title>
+    <title>Tags on CrazyBread&#39; Blog</title>
     <link>https://crazyjassbread.github.io/tags/</link>
-    <description>Recent content in Tags on CrazyBread&#39;s Blog</description>
+    <description>Recent content in Tags on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Jun 2025 14:10:18 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Dec 2025 16:49:43 +0800</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HRL</title>
+      <link>https://crazyjassbread.github.io/tags/hrl/</link>
+      <pubDate>Thu, 25 Dec 2025 16:49:43 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/tags/hrl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>RL</title>
+      <link>https://crazyjassbread.github.io/tags/rl/</link>
+      <pubDate>Thu, 25 Dec 2025 16:49:43 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/tags/rl/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Movies</title>
       <link>https://crazyjassbread.github.io/tags/movies/</link>
