@@ -166,10 +166,10 @@
 <main class="main"> 
 <article class="first-entry home-info">
     <header class="entry-header">
-        <h1>Welcome~</h1>
+        <h1>Welcome!</h1>
     </header>
     <div class="entry-content">
-        This is CrazyBread&rsquo;s Blog! The welcome message? Oh, that&rsquo;s a surprise for later 😉
+        This is CrazyBread&rsquo;s Blog! The welcome message? Oh, that&rsquo;s a surprise for later 😼
     </div>
     <footer class="entry-footer">
         <div class="social-icons" >
@@ -238,7 +238,7 @@
   </header>
   <div class="entry-content">
     <p>Data Mining 课程复习笔记 笔记目录
-认识数据 数据预处理 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）
+认识数据 数据预处理 朴素贝叶斯分类器 决策树分类 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）
 这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩
 认识数据 这一节非常无趣且都是死记硬背的知识点，主要由以下几部分组成：
 基本概念 | 数据统计的方法 | 相似性度量 ｜ 复习小巧思
@@ -254,8 +254,31 @@ $IQR = Q_3 - Q_1$
 $\max = Q_3 &#43; 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-12-27 16:25:31 +0800 CST'>December 27, 2025</span>&nbsp;·&nbsp;2 min</footer>
+  <footer class="entry-footer"><span title='2025-12-27 16:25:31 +0800 CST'>December 27, 2025</span>&nbsp;·&nbsp;3 min</footer>
   <a class="entry-link" aria-label="post link to Data Mining Review" href="https://crazyjassbread.github.io/posts/final-exam-review/data-mining/review/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Fourier Series
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>终于到了傅里叶级数的章节了！信号处理打怪修炼已经到了关键的一步，冲破这关我们就能打遍天下无敌手了😼
+前情回顾： 信号与系统基础 | LTI系统
+目录
+写在前面 系统响应特点 复指数信号的表达能力 傅里叶级数 连续时间傅里叶级数 离散时间傅里叶级数 LTI 系统与傅里叶级数 写在前面 在和傅里叶级数打交道之前，需要弄明白一个事情，那就是我们为什么需要它？
+当我们在研究 LTI 系统时，如果能将一个复杂信号拆分成一系列简单信号的叠加，那么就能利用 LTI 系统线性与时不变的特性，利用每个简单信号的响应计算出最终的系统响应，那么这就带来了两个要求：
+(1) 选择的简单信号需要有足够强的表达能力，可以表示几乎所有的信号 (2) 系统对简单信号的响应足够简单，方便计算 那么让我们来看看复指数信号的特性吧
+系统响应特点 $$\begin{aligned} e^{st} &amp;\to e^{st} H(s) \quad (连续 LTI)\\ z^{n} &amp;\to z^{n} H(z) \quad (离散 LTI) \end{aligned}$$从 👆 的公式（证明方法非常简单，套用上一章介绍的卷积操作就可以得到）可以看出，复指数信号经过 LTI 系统后，仍是复指数信号，区别仅在于幅度上的变化。所以对于复指数信号而言，它满足我们提出的第二点要求，剩下要证明的就是第一点了
+复指数信号的表达能力 很可惜，博主当前的能力并不能给出一个严格的证明，所以下面只好假设复指数信号可以表示绝大部分信号了 💦
+不过可以通过一个很好玩的角度来帮助大家理解傅里叶级数系数的含义
+当我们将一个周期（角频率为 $\omega_0$）信号 $x(t)$ 分解为一系列复指数信号的叠加 $\hat{x}(t) = \sum_{k=-\infty}^{\infty} a_k e^{j k \omega_0 t}$ 时，我们的目标是让 $\hat{x}(t)$ 尽可能地接近 $x(t)$，那么如何衡量两者的接近程度呢？
+答案是用能量来衡量，令 $$E = \int_{T} |x(t) - \hat{x}(t)|^2 dt$$那么 $E$ 越小，说明两者越接近，所以最优的傅里叶系数可以通过用 $E$ 对 $a_k$ 求偏导并令其为0来得到
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-27 13:28:12 +0800 CST'>December 27, 2025</span>&nbsp;·&nbsp;4 min</footer>
+  <a class="entry-link" aria-label="post link to Fourier Series" href="https://crazyjassbread.github.io/posts/signals-and-systems/fourier_series/"></a>
 </article>
 
 <article class="post-entry"> 

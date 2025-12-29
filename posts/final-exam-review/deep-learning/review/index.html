@@ -5,47 +5,37 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Review class | CrazyBread&#39; Blog</title>
-<meta name="keywords" content="">
-<meta name="description" content="复习笔记
-题目组成
+<title>Deep Learning Review | CrazyBread&#39; Blog</title>
+<meta name="keywords" content="Deep Learning">
+<meta name="description" content="目录
 
-十道选择
-五道填空
-五道判断
-两道简答
-五道计算
+线性分类器
+正则化与优化
+神经网络与反向传播
 
-Tips：
-题量较大，可参考考研题目 or 网上成套练习题目 （当然PPT里例题过一遍，可能会出现原题）
-01 信号的时域分析
-信号的分类、周期信号判断方法、能量&amp;功率计算方法、信号的分类、信号的尺度变化、时移、翻转
-特殊信号的性质（阶跃、冲激、冲激偶信号）、
-02 系统的时域分析
-系统的分类（因果、稳定、线性、时不变等等）
-卷积的计算与性质（交换、分配、平移、展缩等）、解卷积、奇异信号的卷积（记住 比较常用）
-03 系统的时域分析（微分、差分方程）
-常见方程的齐次解与特解
-系统的零输入响应和零状态响应
-04 信号的傅里叶级数
-级数收敛条件（能量条件、波形条件、狄利克雷条件）
-帕塞瓦尔定理
-常见信号傅里叶级数的计算
-05 信号的傅里叶变换
-傅里叶变换的定义、收敛条件、幅度谱与相位谱
-特殊信号的傅里叶变换（记住）、傅里叶变换的性质
-傅里叶级数与傅里叶变换的关系
-06 信号的采样
-采样定理
-07 调制、解调、滤波
-08 离散信号傅里叶变换
-DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质）
-09 离散信号傅里叶变换（二维）
-10 拉普拉斯变换
-常用信号的拉普拉斯变换、拉普拉斯变换性质、与傅里叶变换关系、反变换计算、系统函数与系统稳定性分析
-11 Z变换">
+
+复习笔记只记录一些重点内容和需要记住的公式
+
+01线性分类器
+图像分类任务的困难——语义鸿沟（semantic gap）：低级别的像素值与高级别的语义概念之间存在巨大的差距
+挑战：视角差异、形变、光照变化、类内差异、杂乱的背景、类间混淆、遮挡、环境干扰
+SVM 的损失函数可以表示为
+
+$$
+L = \frac{1}{N} \sum_{i=1}^{N} \sum_{j \neq y_i} \max(0, s_j - s_{y_i} &#43; \Delta) \quad (\text{PPT中 } \Delta = 1)
+$$$Q_1$: 损失函数的最大值可以逼近正无穷，最小值为0
+$Q_2$: 如果将 Loss 中的 sum 换成 mean，那么新损失函数的值会等缩小，从而减小梯度
+$Q_3$: 如果将每一个样本的损失函数替换成
+
+$$
+L_i = \sum_{j \neq y_i} \max(0, s_j - s_{y_i} &#43; \Delta)^2
+$$那么新损失函数会对错误分类的样本有更大的惩罚力度
+$Q_4$: 当训练开始是，如果 w 的值非常小，那么所有样本的分类分数都接近0，从而每个样本的损失值都接近 $(C-1) \times \Delta$ （$C$ 为类别数）
+$Q_5$: 当我们对所有类别都求和（包含正确类别）时，损失函数的值会增大，且比原损失函数大 $\Delta$
+softmax 的损失函数可以表示为
+">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:56188/posts/signals-and-systems/review_class/">
+<link rel="canonical" href="http://localhost:56188/posts/final-exam-review/deep-learning/review/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:56188/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:56188/favicon-16x16.png">
@@ -54,7 +44,7 @@ DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质�
 <link rel="mask-icon" href="http://localhost:56188/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:56188/posts/signals-and-systems/review_class/">
+<link rel="alternate" hreflang="en" href="http://localhost:56188/posts/final-exam-review/deep-learning/review/">
 <noscript>
     <style>
         #theme-toggle,
@@ -182,7 +172,7 @@ DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质�
   <header class="post-header">
     <div class="breadcrumbs"><a href="http://localhost:56188/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:56188/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
-      Review class
+      Deep Learning Review
       <span class="entry-hint" title="Draft">
         <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
           <path
@@ -190,59 +180,166 @@ DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质�
         </svg>
       </span>
     </h1>
-    <div class="post-meta"><span title='2025-12-25 10:07:40 +0800 CST'>December 25, 2025</span>&nbsp;·&nbsp;1 min
+    <div class="post-meta"><span title='2025-12-28 12:54:12 +0800 CST'>December 28, 2025</span>&nbsp;·&nbsp;3 min
 
 </div>
   </header> 
-  <div class="post-content"><h1 id="复习笔记">复习笔记<a hidden class="anchor" aria-hidden="true" href="#复习笔记">#</a></h1>
-<p><strong>题目组成</strong></p>
+  <div class="post-content"><h2 id="目录">目录<a hidden class="anchor" aria-hidden="true" href="#目录">#</a></h2>
 <ul>
-<li>十道选择</li>
-<li>五道填空</li>
-<li>五道判断</li>
-<li>两道简答</li>
-<li>五道计算</li>
+<li><a href="#01%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8">线性分类器</a></li>
+<li><a href="#02%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96">正则化与优化</a></li>
+<li><a href="#03%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD">神经网络与反向传播</a></li>
 </ul>
-<p>Tips：
-题量较大，可参考考研题目 or 网上成套练习题目 （当然PPT里例题过一遍，可能会出现原题）</p>
-<h2 id="01-信号的时域分析">01 信号的时域分析<a hidden class="anchor" aria-hidden="true" href="#01-信号的时域分析">#</a></h2>
-<p>信号的分类、周期信号判断方法、能量&amp;功率计算方法、信号的分类、信号的尺度变化、时移、翻转</p>
-<p>特殊信号的性质（阶跃、冲激、冲激偶信号）、</p>
-<h2 id="02-系统的时域分析">02 系统的时域分析<a hidden class="anchor" aria-hidden="true" href="#02-系统的时域分析">#</a></h2>
-<p>系统的分类（因果、稳定、线性、时不变等等）</p>
-<p><mark>卷积的计算与性质（交换、分配、平移、展缩等）</mark>、解卷积、奇异信号的卷积（记住 比较常用）</p>
-<h2 id="03-系统的时域分析微分差分方程">03 系统的时域分析（微分、差分方程）<a hidden class="anchor" aria-hidden="true" href="#03-系统的时域分析微分差分方程">#</a></h2>
-<p>常见方程的齐次解与特解</p>
-<p>系统的<mark>零输入响应和零状态响应</mark></p>
-<h2 id="04-信号的傅里叶级数">04 信号的傅里叶级数<a hidden class="anchor" aria-hidden="true" href="#04-信号的傅里叶级数">#</a></h2>
-<p><mark>级数收敛条件（能量条件、波形条件、狄利克雷条件）</mark></p>
-<p><mark>帕塞瓦尔定理</mark></p>
-<p>常见信号傅里叶级数的计算</p>
-<h2 id="05-信号的傅里叶变换">05 信号的傅里叶变换<a hidden class="anchor" aria-hidden="true" href="#05-信号的傅里叶变换">#</a></h2>
-<p>傅里叶变换的定义、收敛条件、幅度谱与相位谱</p>
-<p>特殊信号的傅里叶变换（记住）、<mark>傅里叶变换的性质</mark></p>
-<p>傅里叶级数与傅里叶变换的关系</p>
-<h2 id="06-信号的采样">06 信号的采样<a hidden class="anchor" aria-hidden="true" href="#06-信号的采样">#</a></h2>
-<p><mark>采样定理</mark></p>
-<h2 id="07-调制解调滤波">07 调制、解调、滤波<a hidden class="anchor" aria-hidden="true" href="#07-调制解调滤波">#</a></h2>
-<h2 id="08-离散信号傅里叶变换">08 离散信号傅里叶变换<a hidden class="anchor" aria-hidden="true" href="#08-离散信号傅里叶变换">#</a></h2>
-<p>DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质）</p>
-<h2 id="09-离散信号傅里叶变换二维">09 离散信号傅里叶变换（二维）<a hidden class="anchor" aria-hidden="true" href="#09-离散信号傅里叶变换二维">#</a></h2>
-<h2 id="10-拉普拉斯变换">10 拉普拉斯变换<a hidden class="anchor" aria-hidden="true" href="#10-拉普拉斯变换">#</a></h2>
-<p>常用信号的拉普拉斯变换、拉普拉斯变换性质、与傅里叶变换关系、反变换计算、系统函数与系统稳定性分析</p>
-<h2 id="11-z变换">11 Z变换<a hidden class="anchor" aria-hidden="true" href="#11-z变换">#</a></h2>
+<blockquote>
+<p>复习笔记只记录一些重点内容和需要记住的公式</p></blockquote>
+<hr>
+<h2 id="01线性分类器">01线性分类器<a hidden class="anchor" aria-hidden="true" href="#01线性分类器">#</a></h2>
+<p>图像分类任务的困难——<strong>语义鸿沟（semantic gap）</strong>：低级别的像素值与高级别的语义概念之间存在巨大的差距</p>
+<p>挑战：视角差异、形变、光照变化、类内差异、杂乱的背景、类间混淆、遮挡、环境干扰</p>
+<p><strong>SVM</strong> 的损失函数可以表示为
+</p>
+$$
+L = \frac{1}{N} \sum_{i=1}^{N} \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + \Delta) \quad (\text{PPT中 } \Delta = 1)
+$$<p>$Q_1$: 损失函数的最大值可以逼近正无穷，最小值为0</p>
+<p>$Q_2$: 如果将 Loss 中的 <strong>sum</strong> 换成 <strong>mean</strong>，那么新损失函数的值会等缩小，从而减小梯度</p>
+<p>$Q_3$: 如果将每一个样本的损失函数替换成
+</p>
+$$
+L_i = \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + \Delta)^2
+$$<p>那么新损失函数会对错误分类的样本有更大的惩罚力度</p>
+<p>$Q_4$: 当训练开始是，如果 w 的值非常小，那么所有样本的分类分数都接近0，从而每个样本的损失值都接近 $(C-1) \times \Delta$ （$C$ 为类别数）</p>
+<p>$Q_5$: 当我们对所有类别都求和（包含正确类别）时，损失函数的值会增大，且比原损失函数大 $\Delta$</p>
+<p><strong>softmax</strong> 的损失函数可以表示为
+</p>
+$$
+L_i = -\log \left( \frac{e^{s_{y_i}}}{\sum_{j} e^{s_j}} \right)
+$$<blockquote>
+<p>PPT 在这里突然介绍了 KL 散度 </p>
+$$D_{KL}(P||Q) = \sum_{x} P(x) \log \frac{P(x)}{Q(x)}$$<p> 感觉有点突兀，还没有捣鼓出这里的逻辑关联</p></blockquote>
+<hr>
+<h2 id="02正则化与优化">02正则化与优化<a hidden class="anchor" aria-hidden="true" href="#02正则化与优化">#</a></h2>
+<h3 id="正则化">正则化<a hidden class="anchor" aria-hidden="true" href="#正则化">#</a></h3>
+<p>引入正则化的目的很简单——防止模型过拟合，最简单的例子就是上一节中介绍的 SVM 的参数 W ，把最优的 W 值翻倍仍可以得到 Loss 不变的结果，那么我们更希望 W 的值越小越好</p>
+<blockquote>
+<p>💡 <mark>奥卡姆剃刀</mark>：Among multiple competing hypotheses, the simplest is the best</p></blockquote>
+<p><strong>正则化</strong>：偏好简单的模型</p>
+<ul>
+<li>降低模型对训练数据的过拟合</li>
+<li>降低噪声对模型的干扰</li>
+</ul>
+<p>$Q_1$: 使用正则化：（1）表达对模型参数的偏好 （2）使模型简单，使其适用于测试数据 （3）改进模型优化</p>
+<p>引入正则化的一个方法是在 Loss 中添加<strong>正则化项</strong>（当然 Dropout、Batch Normalization、Stochastic Depth 这些方法也可以看作是正则化手段）
+</p>
+$$
+L = \frac{1}{N} \sum_{i=1}^{N} L_i + \lambda R(W)
+$$<p>常见的正则化项有 L1 正则化和 L2 正则化</p>
+<ul>
+<li>L1 正则化：$R(W) = \sum_{i,j} |W_{i,j}|$ （使得权重稀疏）</li>
+<li>L2 正则化：$R(W) = \sum_{i,j} W_{i,j}^2$ （偏好分散的权重）</li>
+</ul>
+<blockquote>
+<p>💡 相当不错的参考文章 <a href="https://zhuanlan.zhihu.com/p/29360425">深入理解L1、L2正则化 - MrLi的文章</a></p></blockquote>
+<h3 id="模型优化">模型优化<a hidden class="anchor" aria-hidden="true" href="#模型优化">#</a></h3>
+<h4 id="关于参数更新">关于参数更新<a hidden class="anchor" aria-hidden="true" href="#关于参数更新">#</a></h4>
+<p><strong>SGD</strong>
+</p>
+$$\begin{aligned}
+L(w) = & \frac{1}{N} \sum_{i=1}^{N} L_i(w) + \lambda R(w) \\
+\nabla_w L = & \frac{1}{N} \sum_{i=1}^{N} \nabla_w L_i + \lambda \nabla_w R(w) \\
+w = & w - \eta \nabla_w L
+\end{aligned}$$<p>如果只是使用上述的 SGD 方法来优化神经网络，很容易遇到一些问题（比如落入鞍点、局部最优解等）</p>
+<blockquote>
+<p>区分鞍点和局部最优解可以使用 Hessian 矩阵，Hessian 矩阵的特征值全为正 or 负则为局部最优解，正负混合则为鞍点</p></blockquote>
+<p><strong>动量法（SGD + Momentum）</strong>
+</p>
+$$\begin{aligned}
+v = & \rho v +  \nabla_w L \\
+w = & w - \alpha v
+\end{aligned}$$<p><strong>RMSProp</strong></p>
+$$\begin{aligned}
+s = & \beta s + (1 - \beta) (\nabla_w L)^2 \quad (\beta \text{是 decay rate}) \\
+w = & w - \alpha \frac{\nabla_w L}{\sqrt{s} + \epsilon}
+\end{aligned}$$<p>RMSProp 让陡峭的方向更新变小，平坦的方向更新变大，从而加快收敛速度</p>
+<p><strong>AdaGrad</strong>
+</p>
+$$\begin{aligned}
+s = & s + (\nabla_w L)^2 \\
+w = & w - \alpha \frac{\nabla_w L}{\sqrt{s} + \epsilon}
+\end{aligned}$$<p>AdaGrad 适合处理凸优化问题，学习率会随着时间推移不断减小</p>
+<p><strong>Adam</strong>
+</p>
+$$\begin{aligned}
+m = & \beta_1 m + (1 - \beta_1) \nabla_w L \\
+v = & \beta_2 v + (1 - \beta_2) (\nabla_w L)^2 \\
+\hat{m} = & \frac{m}{1 - \beta_1^t} \\
+\hat{v} = & \frac{v}{1 - \beta_2^t} \\
+w = & w - \alpha \frac{\hat{m}}{\sqrt{\hat{v}} + \epsilon}
+\end{aligned}$$<p>标准的 Adam 会在 $\nabla_w L$ 这一项上加入 L2 正则化</p>
+<p><strong>AdamW</strong>
+</p>
+$$
+w = w - \alpha \left( \frac{\hat{m}}{\sqrt{\hat{v}} + \epsilon} + \lambda w \right)
+$$<h4 id="关于学习率的优化">关于学习率的优化<a hidden class="anchor" aria-hidden="true" href="#关于学习率的优化">#</a></h4>
+<p>ResNet 在30、60、90 epoch 时将学习率降低为原来的十分之一</p>
+<p><strong>cosine</strong>
+</p>
+$$
+\eta_t = \eta_{min} + \frac{1}{2} (\eta_{max} - \eta_{min}) \left( 1 + \cos \left(\frac{T_{cur}}{T_{max}} \pi \right) \right)
+$$<p>
+PPT 中的版本 min = 0 max = 初始学习率</p>
+<p><strong>Linear</strong>
+</p>
+$$
+a_t =a_0(1 - \frac{t}{T})
+$$<p><strong>Inverse</strong>
+</p>
+$$
+a_t = \frac{a_0}{\sqrt{t}}
+$$<p>此外，还可以采用 <strong>Warm up</strong> 的方法，在训练初期使用较小的学习率，逐渐增大到设定的学习率，从而避免训练初期参数更新过大导致的不稳定</p>
+<blockquote>
+<p>上面的方法都是 一阶优化 当然也存在 二阶优化，只是计算成本很高，一般不使用</p></blockquote>
+<h2 id="03神经网络与反向传播">03神经网络与反向传播<a hidden class="anchor" aria-hidden="true" href="#03神经网络与反向传播">#</a></h2>
+<h3 id="激活函数">激活函数<a hidden class="anchor" aria-hidden="true" href="#激活函数">#</a></h3>
+<p><strong>Sigmoid</strong>
+</p>
+$$\sigma(x) = \frac{1}{1 + e^{-x}}$$<p>
+<strong>tanh</strong>
+</p>
+$$\tanh(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}$$<p>
+<strong>ReLU</strong>
+</p>
+$$\text{ReLU}(x) = \max(0, x)$$<p>
+<strong>Leaky ReLU</strong>
+</p>
+$$\text{Leaky ReLU}(x) = \begin{cases} x & x \geq 0 \\ \alpha x & x < 0 \end{cases}$$<p>
+<strong>ELU</strong>
+</p>
+$$\text{ELU}(x) = \begin{cases} x & x \geq 0 \\ \alpha (e^{x} - 1) & x < 0 \end{cases}$$<p>
+<strong>Maxout</strong>
+</p>
+$$\text{Maxout}(x) = \max(w_1^T x + b_1, w_2^T x + b_2)$$<h3 id="计算图--反向传播">计算图 + 反向传播<a hidden class="anchor" aria-hidden="true" href="#计算图--反向传播">#</a></h3>
+<p><strong>标量 case</strong>
+这一节需要记住的感觉就是如何绘制计算图以及如何利用计算图进行反向传播的计算了</p>
+<p>有一点需要格外关照的是 add、mul、copy、max 四种 gate 的反向传播特点</p>
+<p>复习的时候可以找点题目练练手</p>
+<ul>
+<li><input disabled="" type="checkbox"> 手撕一遍 PPT 上的例题</li>
+<li><input disabled="" type="checkbox"> 找一些简单的函数实例绘制计算图并标注反向传播每一步的值</li>
+</ul>
+<p><mark><strong>向量 case</strong></mark></p>
 
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="http://localhost:56188/tags/deep-learning/">Deep Learning</a></li>
     </ul>
 
 <ul class="share-buttons">
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Review class on x"
-            href="https://x.com/intent/tweet/?text=Review%20class&amp;url=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2freview_class%2f&amp;hashtags=">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Deep Learning Review on x"
+            href="https://x.com/intent/tweet/?text=Deep%20Learning%20Review&amp;url=http%3a%2f%2flocalhost%3a56188%2fposts%2ffinal-exam-review%2fdeep-learning%2freview%2f&amp;hashtags=DeepLearning">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
@@ -250,8 +347,8 @@ DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质�
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Review class on linkedin"
-            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2freview_class%2f&amp;title=Review%20class&amp;summary=Review%20class&amp;source=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2freview_class%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Deep Learning Review on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a56188%2fposts%2ffinal-exam-review%2fdeep-learning%2freview%2f&amp;title=Deep%20Learning%20Review&amp;summary=Deep%20Learning%20Review&amp;source=http%3a%2f%2flocalhost%3a56188%2fposts%2ffinal-exam-review%2fdeep-learning%2freview%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
@@ -259,8 +356,8 @@ DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质�
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Review class on reddit"
-            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2freview_class%2f&title=Review%20class">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Deep Learning Review on reddit"
+            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a56188%2fposts%2ffinal-exam-review%2fdeep-learning%2freview%2f&title=Deep%20Learning%20Review">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
@@ -268,8 +365,8 @@ DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质�
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Review class on facebook"
-            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2freview_class%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Deep Learning Review on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a56188%2fposts%2ffinal-exam-review%2fdeep-learning%2freview%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
@@ -277,8 +374,8 @@ DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质�
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Review class on whatsapp"
-            href="https://api.whatsapp.com/send?text=Review%20class%20-%20http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2freview_class%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Deep Learning Review on whatsapp"
+            href="https://api.whatsapp.com/send?text=Deep%20Learning%20Review%20-%20http%3a%2f%2flocalhost%3a56188%2fposts%2ffinal-exam-review%2fdeep-learning%2freview%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
@@ -286,8 +383,8 @@ DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质�
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Review class on telegram"
-            href="https://telegram.me/share/url?text=Review%20class&amp;url=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2freview_class%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Deep Learning Review on telegram"
+            href="https://telegram.me/share/url?text=Deep%20Learning%20Review&amp;url=http%3a%2f%2flocalhost%3a56188%2fposts%2ffinal-exam-review%2fdeep-learning%2freview%2f">
             <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
@@ -295,8 +392,8 @@ DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质�
         </a>
     </li>
     <li>
-        <a target="_blank" rel="noopener noreferrer" aria-label="share Review class on ycombinator"
-            href="https://news.ycombinator.com/submitlink?t=Review%20class&u=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2freview_class%2f">
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Deep Learning Review on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=Deep%20Learning%20Review&u=http%3a%2f%2flocalhost%3a56188%2fposts%2ffinal-exam-review%2fdeep-learning%2freview%2f">
             <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
                 xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
                 <path

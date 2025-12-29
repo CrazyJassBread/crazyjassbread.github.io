@@ -2,20 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://crazyjassbread.github.io/</loc>
+    <lastmod>2025-12-29T11:00:06+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/</loc>
+    <lastmod>2025-12-29T11:00:06+08:00</lastmod>
+  </url><url>
     <loc>https://crazyjassbread.github.io/categories/</loc>
     <lastmod>2025-12-27T16:25:31+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/</loc>
-    <lastmod>2025-12-27T16:25:31+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/categories/data-mining/</loc>
+    <loc>https://crazyjassbread.github.io/tags/data-mining/</loc>
     <lastmod>2025-12-27T16:25:31+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/final-exam-review/data-mining/review/</loc>
     <lastmod>2025-12-27T16:25:31+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/posts/</loc>
+    <loc>https://crazyjassbread.github.io/categories/final-exam-review/</loc>
     <lastmod>2025-12-27T16:25:31+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/</loc>
+    <lastmod>2025-12-27T16:25:31+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_series/</loc>
+    <lastmod>2025-12-27T13:28:12+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/categories/signals-and-systems/</loc>
+    <lastmod>2025-12-27T13:28:12+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/reinforcement-learning/hrl/</loc>
     <lastmod>2025-12-25T16:49:43+08:00</lastmod>
@@ -23,16 +35,13 @@
     <loc>https://crazyjassbread.github.io/tags/hrl/</loc>
     <lastmod>2025-12-25T16:49:43+08:00</lastmod>
   </url><url>
+    <loc>https://crazyjassbread.github.io/categories/reinforcement-learning/</loc>
+    <lastmod>2025-12-25T16:49:43+08:00</lastmod>
+  </url><url>
     <loc>https://crazyjassbread.github.io/tags/rl/</loc>
     <lastmod>2025-12-25T16:49:43+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/tags/</loc>
-    <lastmod>2025-12-25T16:49:43+08:00</lastmod>
-  </url><url>
     <loc>https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/</loc>
-    <lastmod>2025-12-23T15:09:31+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/categories/signals-and-systems/</loc>
     <lastmod>2025-12-23T15:09:31+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/</loc>
