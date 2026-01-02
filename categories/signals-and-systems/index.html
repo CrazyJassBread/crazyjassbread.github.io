@@ -158,6 +158,25 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Fourier Transform
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前情回顾： 信号与系统基础 | LTI系统 | 傅里叶级数
+终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧 😤
+目录
+前言 连续时间傅里叶变换 收敛性 常见信号的傅里叶变换 周期信号的傅里叶变换 傅里叶变换的性质 卷积 &amp; 相乘 线性常系数微分方程 离散时间傅里叶变换 收敛性 周期信号的傅里叶变换 离散时间傅里叶变换的性质 卷积 &amp; 相乘 对偶性 前言 在上一节中，我们逐步撕开了傅里叶级数的神秘面纱，那么傅里叶变换有是个什么东西呢，在介绍傅里叶变换之前，我们先来研究一个非常有趣的例子
+现在我们手头有一个周期为 T，宽度为 $2T_1$ 矩形信号的傅里叶级数系数为 $$ a_k = \frac{2}{k \omega_0 T} \sin\left( k \omega_0 T_1 \right) $$当逐步增大周期 T 的值时，会发现 $a_k$ 越来越小，且系数之间的间隔 $\omega_0$ 也越来越小
+我们不妨采用一种新的表示形式，并且 $k \omega_0 \to w$
+$$ T a_k = \frac{2}{\omega} \sin\left(\omega T_1 \right) = X(j \omega) $$当 $\lim_{T \to \infty}$ 时， $\omega$ 就从离散变量便成了连续变量
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-29 11:00:06 +0800 CST'>December 29, 2025</span>&nbsp;·&nbsp;11 min</footer>
+  <a class="entry-link" aria-label="post link to Fourier Transform" href="https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Fourier Series
     </h2>
   </header>
@@ -222,7 +241,7 @@ $$\begin{aligned} E &amp;= \sum_{n=-\infty}^{\infty} |x[n]|^2 \\ P &amp;= \lim_{
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://crazyjassbread.github.io/">CrazyBread&#39; Blog</a></span> · 
+        <span>&copy; 2026 <a href="https://crazyjassbread.github.io/">CrazyBread&#39; Blog</a></span> · 
 
     <span>
         Powered by

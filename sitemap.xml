@@ -2,14 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://crazyjassbread.github.io/categories/</loc>
+    <lastmod>2025-12-29T11:00:06+08:00</lastmod>
+  </url><url>
     <loc>https://crazyjassbread.github.io/</loc>
+    <lastmod>2025-12-29T11:00:06+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/</loc>
     <lastmod>2025-12-29T11:00:06+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/</loc>
     <lastmod>2025-12-29T11:00:06+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/categories/</loc>
-    <lastmod>2025-12-27T16:25:31+08:00</lastmod>
+    <loc>https://crazyjassbread.github.io/categories/signals-and-systems/</loc>
+    <lastmod>2025-12-29T11:00:06+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/tags/data-mining/</loc>
     <lastmod>2025-12-27T16:25:31+08:00</lastmod>
@@ -24,9 +30,6 @@
     <lastmod>2025-12-27T16:25:31+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_series/</loc>
-    <lastmod>2025-12-27T13:28:12+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/categories/signals-and-systems/</loc>
     <lastmod>2025-12-27T13:28:12+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/reinforcement-learning/hrl/</loc>
@@ -49,45 +52,6 @@
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/nju_about/</loc>
     <lastmod>2025-09-06T13:46:12+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/posts/movies/</loc>
-    <lastmod>2025-06-02T14:10:18+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/movies/</loc>
-    <lastmod>2025-06-02T14:10:18+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/categories/record/</loc>
-    <lastmod>2025-06-02T14:10:18+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/plan/</loc>
-    <lastmod>2025-05-25T18:58:48+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/running/</loc>
-    <lastmod>2025-05-25T18:58:48+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/posts/summer-running-plan/</loc>
-    <lastmod>2025-05-25T18:58:48+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/books/</loc>
-    <lastmod>2025-05-22T19:30:44+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/reading/</loc>
-    <lastmod>2025-05-22T19:30:44+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/posts/reading-list/</loc>
-    <lastmod>2025-05-22T19:30:44+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/blog/</loc>
-    <lastmod>2025-05-21T22:47:46+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/posts/hugo/</loc>
-    <lastmod>2025-05-21T22:47:46+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/hugo/</loc>
-    <lastmod>2025-05-21T22:47:46+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/categories/writing/</loc>
-    <lastmod>2025-05-21T22:47:46+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/archives/</loc>
   </url>

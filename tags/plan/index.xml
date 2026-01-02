@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Plan on CrazyBread&#39; Blog</title>
-    <link>https://crazyjassbread.github.io/tags/plan/</link>
+    <link>http://localhost:1313/tags/plan/</link>
     <description>Recent content in Plan on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 25 May 2025 18:58:48 +0800</lastBuildDate>
-    <atom:link href="https://crazyjassbread.github.io/tags/plan/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/plan/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Summer Running Plan</title>
-      <link>https://crazyjassbread.github.io/posts/summer-running-plan/</link>
+      <link>http://localhost:1313/posts/summer-running-plan/</link>
       <pubDate>Sun, 25 May 2025 18:58:48 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/summer-running-plan/</guid>
+      <guid>http://localhost:1313/posts/summer-running-plan/</guid>
       <description>&lt;h1 id=&#34;夏训计划&#34;&gt;夏训计划&lt;/h1&gt;
 &lt;p&gt;这次的计划一共有16周，目标是半马140！&lt;/p&gt;
 &lt;p&gt;下面是博主持有的跑鞋&lt;/p&gt;

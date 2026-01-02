@@ -1,32 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=56188&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Fourier Transform | CrazyBread&#39; Blog</title>
 <meta name="keywords" content="">
 <meta name="description" content="前情回顾： 信号与系统基础  |  LTI系统 |  傅里叶级数
-终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧💪
+终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧 😤
 目录
 
 前言
+连续时间傅里叶变换
+
+收敛性
+常见信号的傅里叶变换
+周期信号的傅里叶变换
+傅里叶变换的性质
+卷积 &amp; 相乘
+线性常系数微分方程
+
+
+离散时间傅里叶变换
+
+收敛性
+周期信号的傅里叶变换
+离散时间傅里叶变换的性质
+卷积 &amp; 相乘
+对偶性
+
+
 
 
 前言
-在上一节中，我们逐步撕开了傅里叶级数的神秘面纱，那么傅里叶变换有是个什么东西呢，在介绍傅里叶变换之前，我们先来研究一个非常有趣的例子">
+在上一节中，我们逐步撕开了傅里叶级数的神秘面纱，那么傅里叶变换有是个什么东西呢，在介绍傅里叶变换之前，我们先来研究一个非常有趣的例子
+现在我们手头有一个周期为 T，宽度为 $2T_1$ 矩形信号的傅里叶级数系数为
+
+$$
+a_k = \frac{2}{k \omega_0 T} \sin\left( k \omega_0 T_1 \right)
+$$当逐步增大周期 T 的值时，会发现 $a_k$ 越来越小，且系数之间的间隔 $\omega_0$ 也越来越小
+我们不妨采用一种新的表示形式，并且 $k \omega_0 \to w$
+$$
+T a_k = \frac{2}{\omega} \sin\left(\omega T_1 \right) = X(j \omega)
+$$当 $\lim_{T \to \infty}$ 时， $\omega$ 就从离散变量便成了连续变量">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:56188/posts/signals-and-systems/fourier_transform/">
+<link rel="canonical" href="https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:56188/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:56188/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:56188/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:56188/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:56188/safari-pinned-tab.svg">
+<link rel="icon" href="https://crazyjassbread.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://crazyjassbread.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://crazyjassbread.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://crazyjassbread.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://crazyjassbread.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:56188/posts/signals-and-systems/fourier_transform/">
+<link rel="alternate" hreflang="en" href="https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/">
 <noscript>
     <style>
         #theme-toggle,
@@ -63,7 +91,111 @@
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/">
+  <meta property="og:site_name" content="CrazyBread&#39; Blog">
+  <meta property="og:title" content="Fourier Transform">
+  <meta property="og:description" content="前情回顾： 信号与系统基础 | LTI系统 | 傅里叶级数
+终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧 😤
+目录
+前言 连续时间傅里叶变换 收敛性 常见信号的傅里叶变换 周期信号的傅里叶变换 傅里叶变换的性质 卷积 &amp; 相乘 线性常系数微分方程 离散时间傅里叶变换 收敛性 周期信号的傅里叶变换 离散时间傅里叶变换的性质 卷积 &amp; 相乘 对偶性 前言 在上一节中，我们逐步撕开了傅里叶级数的神秘面纱，那么傅里叶变换有是个什么东西呢，在介绍傅里叶变换之前，我们先来研究一个非常有趣的例子
+现在我们手头有一个周期为 T，宽度为 $2T_1$ 矩形信号的傅里叶级数系数为 $$ a_k = \frac{2}{k \omega_0 T} \sin\left( k \omega_0 T_1 \right) $$当逐步增大周期 T 的值时，会发现 $a_k$ 越来越小，且系数之间的间隔 $\omega_0$ 也越来越小
+我们不妨采用一种新的表示形式，并且 $k \omega_0 \to w$
+$$ T a_k = \frac{2}{\omega} \sin\left(\omega T_1 \right) = X(j \omega) $$当 $\lim_{T \to \infty}$ 时， $\omega$ 就从离散变量便成了连续变量">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-12-29T11:00:06+08:00">
+    <meta property="article:modified_time" content="2025-12-29T11:00:06+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Fourier Transform">
+<meta name="twitter:description" content="前情回顾： 信号与系统基础  |  LTI系统 |  傅里叶级数
+终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧 😤
+目录
+
+前言
+连续时间傅里叶变换
+
+收敛性
+常见信号的傅里叶变换
+周期信号的傅里叶变换
+傅里叶变换的性质
+卷积 &amp; 相乘
+线性常系数微分方程
+
+
+离散时间傅里叶变换
+
+收敛性
+周期信号的傅里叶变换
+离散时间傅里叶变换的性质
+卷积 &amp; 相乘
+对偶性
+
+
+
+
+前言
+在上一节中，我们逐步撕开了傅里叶级数的神秘面纱，那么傅里叶变换有是个什么东西呢，在介绍傅里叶变换之前，我们先来研究一个非常有趣的例子
+现在我们手头有一个周期为 T，宽度为 $2T_1$ 矩形信号的傅里叶级数系数为
+
+$$
+a_k = \frac{2}{k \omega_0 T} \sin\left( k \omega_0 T_1 \right)
+$$当逐步增大周期 T 的值时，会发现 $a_k$ 越来越小，且系数之间的间隔 $\omega_0$ 也越来越小
+我们不妨采用一种新的表示形式，并且 $k \omega_0 \to w$
+$$
+T a_k = \frac{2}{\omega} \sin\left(\omega T_1 \right) = X(j \omega)
+$$当 $\lim_{T \to \infty}$ 时， $\omega$ 就从离散变量便成了连续变量">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://crazyjassbread.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Fourier Transform",
+      "item": "https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Fourier Transform",
+  "name": "Fourier Transform",
+  "description": "前情回顾： 信号与系统基础 | LTI系统 | 傅里叶级数\n终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧 😤\n目录\n前言 连续时间傅里叶变换 收敛性 常见信号的傅里叶变换 周期信号的傅里叶变换 傅里叶变换的性质 卷积 \u0026amp; 相乘 线性常系数微分方程 离散时间傅里叶变换 收敛性 周期信号的傅里叶变换 离散时间傅里叶变换的性质 卷积 \u0026amp; 相乘 对偶性 前言 在上一节中，我们逐步撕开了傅里叶级数的神秘面纱，那么傅里叶变换有是个什么东西呢，在介绍傅里叶变换之前，我们先来研究一个非常有趣的例子\n现在我们手头有一个周期为 T，宽度为 $2T_1$ 矩形信号的傅里叶级数系数为 $$ a_k = \\frac{2}{k \\omega_0 T} \\sin\\left( k \\omega_0 T_1 \\right) $$当逐步增大周期 T 的值时，会发现 $a_k$ 越来越小，且系数之间的间隔 $\\omega_0$ 也越来越小\n我们不妨采用一种新的表示形式，并且 $k \\omega_0 \\to w$\n$$ T a_k = \\frac{2}{\\omega} \\sin\\left(\\omega T_1 \\right) = X(j \\omega) $$当 $\\lim_{T \\to \\infty}$ 时， $\\omega$ 就从离散变量便成了连续变量\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "前情回顾： 信号与系统基础 | LTI系统 | 傅里叶级数\n终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧 😤\n目录\n前言 连续时间傅里叶变换 收敛性 常见信号的傅里叶变换 周期信号的傅里叶变换 傅里叶变换的性质 卷积 \u0026 相乘 线性常系数微分方程 离散时间傅里叶变换 收敛性 周期信号的傅里叶变换 离散时间傅里叶变换的性质 卷积 \u0026 相乘 对偶性 前言 在上一节中，我们逐步撕开了傅里叶级数的神秘面纱，那么傅里叶变换有是个什么东西呢，在介绍傅里叶变换之前，我们先来研究一个非常有趣的例子\n现在我们手头有一个周期为 T，宽度为 $2T_1$ 矩形信号的傅里叶级数系数为 $$ a_k = \\frac{2}{k \\omega_0 T} \\sin\\left( k \\omega_0 T_1 \\right) $$当逐步增大周期 T 的值时，会发现 $a_k$ 越来越小，且系数之间的间隔 $\\omega_0$ 也越来越小\n我们不妨采用一种新的表示形式，并且 $k \\omega_0 \\to w$\n$$ T a_k = \\frac{2}{\\omega} \\sin\\left(\\omega T_1 \\right) = X(j \\omega) $$当 $\\lim_{T \\to \\infty}$ 时， $\\omega$ 就从离散变量便成了连续变量\n套用之前傅里叶级数的公式，可以得到 $$\\begin{aligned} (1) \\quad x(t) \u0026= \\sum_{k=-\\infty}^{+\\infty} a_k e^{j k \\omega_0 t} \\\\ \u0026=\\sum_{k=-\\infty}^{+\\infty} \\frac{1}{T}X(j k \\omega_0) e^{j k \\omega_0 t} \\\\ \u0026= \\frac{1}{2\\pi} \\sum_{-\\infty}^{+\\infty} X(j k \\omega_0) e^{j k \\omega_0 t} \\omega_0 \\\\ \u0026\\to \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} X(j \\omega) e^{j \\omega t} d\\omega \\\\ (2) \\quad X(j \\omega) \u0026= \\int_{-\\frac{T}{2}}^{+\\frac{T}{2}} x(t) e^{-j \\omega t} dt \\\\ \u0026\\to \\int_{-\\infty}^{+\\infty} x(t) e^{-j \\omega t} dt \\end{aligned}$$在上述推导过程中，不难发现，即使研究的是一个周期信号 $\\tilde{x}(t)$，它的傅里叶级数的系数和它在一个周期内的示例信号 $x(t)$ 的傅里叶变换是密切相关的\n$$ a_k = \\frac{1}{T} X(j k \\omega_0) $$总结 $$\\begin{align} X(j \\omega) \u0026= \\int_{-\\infty}^{+\\infty} x(t) e^{-j \\omega t} dt \\quad \u0026\\text{（傅里叶变换）} \\\\ x(t) \u0026= \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} X(j \\omega) e^{j \\omega t} d\\omega \\quad \u0026\\text{（傅里叶反变换）} \\end{align}$$ 连续时间傅里叶变换 收敛性 能量条件\n这一部分和在傅里叶级数中提到的收敛性条件类似，首先是能量角度 $$ \\int_{-\\infty}^{+\\infty} |x(t)|^2 dt \u003c \\infty $$ 如果信号满足能量有限条件，那么意味着它的傅里叶表示 $\\hat{x}(t)$ 与原信号 $x(t)$ 在能量上是等价的\nDirichlet\n$\\int_{-\\infty}^{+\\infty} |x(t)| dt \u003c \\infty$ 在每一个有限区间上， $x(t)$ 有有限个极值点 在每一个有限区间上， $x(t)$ 有有限个不连续点 如果信号满足 Dirichlet 条件，那么它的傅里叶变换在每一个连续点处收敛于 $x(t)$ 的平均值\n常见信号的傅里叶变换 指数信号 $x(t) = e^{-a t} u(t)$ $$X(j \\omega) =\\int_{-\\infty}^{+\\infty} e^{-a t} u(t) e^{-j \\omega t} dt = \\frac{1}{a + j \\omega}$$双侧指数信号 $x(t) = e^{-a |t|}$ $$X(j \\omega) =\\int_{-\\infty}^{+\\infty} e^{-a |t|} e^{-j \\omega t} dt = \\frac{2 a}{a^2 + \\omega^2}$$冲激信号 $x(t) = \\delta(t)$ $$X(j \\omega) =\\int_{-\\infty}^{+\\infty} \\delta(t) e^{-j \\omega t} dt = 1$$矩形信号 $x(t) = \\begin{cases}1, \u0026 |t| \u003c T_1 \\\\ 0, \u0026 |t| \u003e T_1 \\end{cases}$ $$X(j \\omega) =\\int_{-\\infty}^{+\\infty} x(t) e^{-j \\omega t} dt = 2\\frac{\\sin(\\omega T_1)}{\\omega} = 2 T_1 \\text{sinc}(\\omega T_1)$$而如果利用傅里叶反变换的表达式，也可以反过来推出一些正向不好计算的信号的傅里叶变换\n$$x(t) = \\frac{\\sin wt}{\\pi t}$$对于频率表示为 $X(j \\omega) = \\begin{cases}1, \u0026 |\\omega| \u003c w \\\\ 0, \u0026 |\\omega| \u003e w \\end{cases}$ 的信号\n$$ x(t) = \\frac{1}{2\\pi} \\int_{-w}^{+w} e^{j \\omega t} d\\omega = \\frac{\\sin wt}{\\pi t} $$Tips：从这个信号和矩形信号的表达式中，可以看出傅里叶变换具有对偶性\n基本傅里叶变换对 时域信号 $x(t)$ 频域信号 $X(j \\omega)$ $\\delta(t)$ $1$ $1$ $2 \\pi \\delta(\\omega)$ $u(t)$ $\\frac{1}{j \\omega} + \\pi \\delta(\\omega)$ $e^{j \\omega_0 t}$ $2 \\pi \\delta(\\omega - \\omega_0)$ $e^{-a t} u(t), a \u003e 0$ $\\frac{1}{a + j \\omega}$ $e^{-a \\|t\\|}, a \u003e 0$ $\\frac{2 a}{a^2 + \\omega^2}$ $\\cos(\\omega_0 t)$ $\\pi [\\delta(\\omega - \\omega_0) + \\delta(\\omega + \\omega_0)]$ $\\sin(\\omega_0 t)$ $\\frac{\\pi}{j} [\\delta(\\omega - \\omega_0) - \\delta(\\omega + \\omega_0)]$ 周期矩形信号 $2 \\frac{sin(k \\omega_0 T_1)}{k} \\delta(\\omega - k \\omega_0)$ 周期信号的傅里叶变换 在傅里叶级数的章节中，我们得知一个周期信号可以用傅里叶级数展开为一组离散频率的正弦信号的叠加，从这里可以看出周期信号的傅里叶变换应该是由一串离散的冲激信号组成，冲激大小正比于 $FS$ 系数\n在这里补上傅里叶级数的计算公式 $a_k = \\frac{1}{T} \\int_{-\\frac{T}{2}}^{+\\frac{T}{2}} x(t) e^{-j k \\omega_0 t} dt$\n首先让我举个 🌰 对于一个频率为 $X(j\\omega) = 2 \\pi \\delta(\\omega - \\omega_0)$ 的信号 $x(t)$，它的傅里叶反变换为 $$x(t) = \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} 2 \\pi \\delta(\\omega - \\omega_0) e^{j \\omega t} d\\omega = e^{j \\omega_0 t}$$那么很自然的，对于任意一个连续周期信号 $x(t)$，它的傅里叶级数表示为\n$$\\begin{aligned} x(t) \u0026= \\sum_{k=-\\infty}^{+\\infty} a_k e^{j k \\omega_0 t} \\\\ \u0026= \\frac{1}{2\\pi} \\sum_{k=-\\infty}^{+\\infty} 2 \\pi a_k \\delta(\\omega - k \\omega_0) e^{j k \\omega_0 t} \\end{aligned}$$ 上述表达式意味着 $$ X(j \\omega) = 2 \\pi \\sum_{k=-\\infty}^{+\\infty} a_k \\delta(\\omega - k \\omega_0) $$这个结论告诉我们一个周期信号其实可以看作它对应的单个周期信号在频域上的重复\n如果觉得不是很好理解，那么我们再来举一个 🌰 吧\n一个宽度为 2 A 的矩形脉冲信号 $x(t) = \\begin{cases}1, \u0026 |t| \u003c A \\\\ 0, \u0026 |t| \u003e A \\end{cases}$ 的傅里叶变换为 $$X(j \\omega) = 2 A \\text{sinc}(\\omega A)$$而若是一个周期为 T（或者说频率为 $\\omega_0 = \\frac{2 \\pi}{T}$）的矩形波信号 $\\tilde{x}(t)$，它的傅里叶级数系数为 $$a_k = \\frac{2 A}{k \\omega_0 T} \\sin\\left( k \\omega_0 A \\right)$$ 如果根据上面的结论，那么我们可以求出它的傅里叶变换是 $$\\begin{aligned} \\tilde{X}(j \\omega) \u0026= 2 \\pi \\sum_{k=-\\infty}^{+\\infty} a_k \\delta(\\omega - k \\omega_0) \\\\ \u0026= 2 \\pi \\sum_{k=-\\infty}^{+\\infty} \\frac{2 A}{k \\omega_0 T} \\sin\\left( k \\omega_0 A \\right) \\delta(\\omega - k \\omega_0) \\\\ \u0026= 2 A \\omega_0 \\sum_{k=-\\infty}^{+\\infty} \\text{sinc}(k \\omega_0 A) \\delta(\\omega - k \\omega_0) \\end{aligned}$$ 非常有趣的结果，周期矩形波的傅里叶变换确实是由单个矩形波的傅里叶变换在频域上以 $\\omega_0$ 为间隔重复出现的，而且幅度上和单个矩形信号的傅里叶变换之间只差一个 $\\omega_0$ 的比例系数\n从能量角度也蛮好理解的，如果都是同一个信号，那么周期信号的一个周期内的能量和单个信号的能量是一样的，而周期信号在频域上是离散的冲激采样采样频率就是 $\\omega_0$，每个冲激信号的幅度就必须要乘以 $\\omega_0$，才能保证能量守恒\n连续信号傅里叶变换的性质 线性\n如果 $x_1(t) \\leftrightarrow X_1(j \\omega)$， $x_2(t) \\leftrightarrow X_2(j \\omega)$，那么 $$a x_1(t) + b x_2(t) \\leftrightarrow a X_1(j \\omega) + b X_2(j \\omega)$$时移\n如果 $x(t) \\leftrightarrow X(j \\omega)$，那么 $$x(t - t_0) \\leftrightarrow X(j \\omega) e^{-j \\omega t_0}$$共轭与共轭对称性\n如果 $x(t) \\leftrightarrow X(j \\omega)$，那么 $$x^*(t) \\leftrightarrow X^*(-j \\omega)$$若 $x(t)$ 为实信号，那么 $X(j \\omega)$ 具有共轭对称性 $$X(-j \\omega) = X^*(j \\omega)$$如果更进一步， $x(t)$ 为实偶信号，那么 $X(j \\omega)$ 也为实偶信号\nTips：这个性质还是非常有用的，在分析时，可以通过 $X(j \\omega)$ 的性质来直接判断 $x(t)$ 的性质\n微分与积分\n这一部分最好还是先记住公式，虽然推导过程并不复杂，但是万一考试的时候算错了那就完蛋哩\n如果 $x(t) \\leftrightarrow X(j \\omega)$，那么 $$\\frac{d^n x(t)}{d t^n} \\leftrightarrow (j \\omega)^n X(j \\omega)$$如果 $x(t) \\leftrightarrow X(j \\omega)$，那么 $$\\int_{-\\infty}^{t} x(\\tau) d\\tau \\leftrightarrow \\frac{1}{j \\omega} X(j \\omega) + \\pi X(0) \\delta(\\omega)$$ 对于积分部分，注意这里的 $\\pi X(0) \\delta(\\omega)$ 项是因为积分会引入一个直流分量（暂时先不理会它是如何推导出来的吧） 举一个 🌰 帮助理解积分性质的好玩之处 $$x(t) = \\delta(t) \\leftrightarrow X(j \\omega) = 1$$ 那么根据积分性质 $$\\int_{-\\infty}^{t} \\delta(\\tau) d\\tau = u(t) \\leftrightarrow \\frac{1}{j \\omega} + \\pi \\delta(\\omega)$$ 尺度变换\n如果 $x(t) \\leftrightarrow X(j \\omega)$，那么 $$x(a t) \\leftrightarrow \\frac{1}{|a|} X\\left(j \\frac{\\omega}{a}\\right)$$对偶性\n如果 $x(t) \\leftrightarrow X(j \\omega)$，那么 $$X(t) \\leftrightarrow 2 \\pi x(-\\omega)$$证明方法很简单，在傅里叶反变换时加一个负号就可以推出（t 和 w本质上就是符号呗，互换一下就结束嘞）\n感兴趣的话可以看一看下面这个 🌰 $$x(t) = \\frac{2}{1 + t^2} \\leftrightarrow X(j \\omega) = -2 \\pi e^{-|\\omega|}$$Tips：对偶性的巨大意义在于可以将时域和频域的特性串在一起\n帕塞瓦尔 如果 $x(t) \\leftrightarrow X(j \\omega)$，那么 $$\\int_{-\\infty}^{+\\infty} |x(t)|^2 dt = \\frac{1}{2 \\pi} \\int_{-\\infty}^{+\\infty} |X(j \\omega)|^2 d\\omega$$Proof: $$\\begin{aligned} \\int_{-\\infty}^{+\\infty} |x(t)|^2 dt \u0026= \\int_{-\\infty}^{+\\infty} x(t) x^*(t) dt \\\\ \u0026= \\int_{-\\infty}^{+\\infty} x(t) \\left( \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} X^*(j \\omega) e^{-j \\omega t} d\\omega \\right) dt \\\\ \u0026= \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} X^*(j \\omega) \\left( \\int_{-\\infty}^{+\\infty} x(t) e^{-j \\omega t} dt \\right) d\\omega \\\\ \u0026= \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} |X(j \\omega)|^2 d\\omega \\end{aligned}$$卷积 \u0026 相乘 卷积 在之前介绍 LTI 系统的章节里，我们介绍了卷积的概念，一个信号 $x(t)$ 通过一个系统 $h(t)$ 得到输出信号 $y(t)$ 的过程可以表示为 $$y(t) = x(t) * h(t) = \\int_{-\\infty}^{+\\infty} x(\\tau) h(t - \\tau) d\\tau$$而我们也介绍了，复指数信号 $e^{j \\omega t}$ 是 LTI 系统的一个特征信号 $$ e^{j \\omega t} \\to H(j \\omega) e^{j \\omega t} $$那么输入信号 $x(t)$ 可以表示为一组复指数信号的叠加，输出信号 $y(t)$ 也可以表示为一组复指数信号的叠加\n$$\\begin{aligned} x(t) \u0026= \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} X(j \\omega) e^{j \\omega t} d\\omega \\\\ y(t) \u0026= \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} X(j \\omega) H(j \\omega) e^{j \\omega t}d\\omega \\\\ \u0026= \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} Y(j \\omega) e^{j \\omega t} d\\omega \\end{aligned}$$因此可以得到卷积定理 如果 $x(t) \\leftrightarrow X(j \\omega)$， $h(t) \\leftrightarrow H(j \\omega)$，那么 $$x(t) * h(t) \\leftrightarrow X(j \\omega) \\cdot H(j \\omega)$$ 正常证明也可以 Proof: $$\\begin{aligned} y(t) \u0026= x(t) * h(t) = \\int_{-\\infty}^{+\\infty} x(\\tau) h(t - \\tau) d\\tau \\\\ \u0026= \\int_{-\\infty}^{+\\infty} \\left( \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} X(j \\omega) e^{j \\omega \\tau} d\\omega \\right) h(t - \\tau) d\\tau \\\\ \u0026= \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} X(j \\omega) \\left( \\int_{-\\infty}^{+\\infty} h(t - \\tau) e^{j \\omega \\tau} d\\tau \\right) d\\omega \\\\ \u0026= \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} X(j \\omega) H(j \\omega) e^{j \\omega t} d\\omega \\end{aligned}$$ 有了卷积性质，积分定理可以根据卷积直接得到 $$ y(t) = \\int_{-\\infty}^{t} x(\\tau) d\\tau = x(t) * u(t) $$ 那么根据卷积定理 $H(j \\omega) = \\frac{1}{j \\omega} + \\pi \\delta(\\omega)$ $$y(t) \\leftrightarrow X(j \\omega) \\cdot \\frac{1}{j \\omega} + \\pi X(0) \\delta(\\omega)$$相乘 如果 $x(t) \\leftrightarrow X(j \\omega)$， $h(t) \\leftrightarrow H(j \\omega)$，那么 $$x(t) \\cdot h(t) \\leftrightarrow \\frac{1}{2 \\pi} X(j \\omega) * H(j \\omega)$$Proof:\n$$\\begin{aligned} Y(j \\omega) \u0026= \\int_{-\\infty}^{+\\infty} x(t) h(t) e^{-j \\omega t} dt \\\\ \u0026= \\int_{-\\infty}^{+\\infty} x(t) \\left( \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} H(j \\omega') e^{j \\omega' t} d\\omega' \\right) e^{-j \\omega t} dt \\\\ \u0026= \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} H(j \\omega') \\left( \\int_{-\\infty}^{+\\infty} x(t) e^{-j (\\omega - \\omega') t} dt \\right) d\\omega' \\\\ \u0026= \\frac{1}{2\\pi} \\int_{-\\infty}^{+\\infty} H(j \\omega') X(j (\\omega - \\omega')) d\\omega' \\\\ \u0026= \\frac{1}{2 \\pi} X(j \\omega) * H(j \\omega) \\end{aligned}$$相乘的性质可以用于 调制\n线性常系数微分方程 这一部分相当有意思 😼\n在分析卷积特性时，我们首先是通过 LTI 系统来证明的，对于一个单位响应为 $h(t)$ 的 LTI 系统 $$\\begin{aligned} y(t) \u0026= x(t) * h(t) \\\\ Y(j \\omega) \u0026= X(j \\omega) \\cdot H(j \\omega) \\\\ \\Rightarrow H(j \\omega) \u0026= \\frac{Y(j \\omega)}{X(j \\omega)} \\end{aligned}$$那么如果x(t) 和 y(t) 满足一个线性常系数微分方程 $$\\sum_{n=0}^{N} a_n \\frac{d^n y(t)}{d t^n} = \\sum_{m=0}^{M} b_m \\frac{d^m x(t)}{d t^m}$$ 那么通过傅里叶变换的微分性质，可以得到 $$\\begin{aligned} \\sum_{n=0}^{N} a_n (j \\omega)^n Y(j \\omega) \u0026= \\sum_{m=0}^{M} b_m (j \\omega)^m X(j \\omega) \\\\ \\Rightarrow H(j \\omega) \u0026= \\frac{Y(j \\omega)}{X(j \\omega)} = \\frac{\\sum_{m=0}^{M} b_m (j \\omega)^m}{\\sum_{n=0}^{N} a_n (j \\omega)^n} \\end{aligned}$$举个 🌰 方便理解 $$ \\frac{d y(t)}{d t} + a y(t) = x(t) $$ 通过傅里叶变换，可以得到 $$ (j \\omega + a) Y(j \\omega) = X(j \\omega) \\Rightarrow H(j \\omega) = \\frac{1}{j \\omega + a} $$那么通过傅里叶反变换，可以得到单位响应 $$h(t) = e^{-a t} u(t)$$ 离散时间傅里叶变换 在正式介绍 DTFT 之前，先来回顾一下离散时间傅里叶级数 DTFS\n对于一个周期离散信号 $\\tilde{x}[n]$，它的 DTFS 表示为 $$\\tilde{x}[n] = \\sum_{k=0}^{N-1} a_k e^{j \\frac{2 \\pi}{N} k n}$$ 其中系数 $a_k$ 为 $$a_k = \\frac{1}{N} \\sum_{n=0}^{N-1} \\tilde{x}[n] e^{-j \\frac{2 \\pi}{N} k n}$$如果我们用单周期信号 $x[n]$ 来表示 $\\tilde{x}[n]$ 的一个周期 $$x[n] = \\begin{cases}\\tilde{x}[n], \u0026 0 \\le n \u003c N \\\\ 0, \u0026 \\text{else} \\end{cases}$$ 那么 DTFS 系数 $a_k$ 也可以表示为 $$a_k = \\frac{1}{N} \\sum_{n=-\\infty}^{+\\infty} x[n] e^{-j \\frac{2 \\pi}{N} k n} = \\frac{1}{N} X(e^{j \\frac{2 \\pi}{N} k})$$反过来有 $$ \\tilde{x}[n] = \\sum_{k=0}^{N-1} a_k e^{j \\frac{2 \\pi}{N} k n} = \\frac{1}{2 \\pi} \\sum_{k=0}^{N-1} X(e^{j \\frac{2 \\pi}{N} k}) e^{j \\frac{2 \\pi}{N} k n} \\cdot \\frac{2 \\pi}{N} $$ 当 $N \\to \\infty$ 时， $\\frac{2 \\pi}{N} \\to d\\omega$， $ \\frac{2 \\pi}{N} k \\to \\omega$，那么上式就变为 $$x[n] = \\frac{1}{2 \\pi} \\int_{-\\pi}^{+\\pi} X(e^{j \\omega}) e^{j \\omega n} d\\omega$$嘿！这是啥，这不就是 DTFT 吗，我们可以把上面的内容提炼一下 $$\\begin{align} X(e^{j \\omega}) \u0026= \\sum_{n=-\\infty}^{+\\infty} x[n] e^{-j \\omega n} \\quad \u0026\\text{（DTFT）} \\\\ x[n] \u0026= \\frac{1}{2\\pi} \\int_{-\\pi}^{+\\pi} X(e^{j \\omega}) e^{j \\omega n} d\\omega \\quad \u0026\\text{（DTFT 反变换）} \\end{align}$$收敛性 有一个很有趣的特点那就是离散信号不存在 Gibbs 现象，那么他的收敛条件也简单不少\n能量角度 $$\\sum_{n=-\\infty}^{+\\infty} |x[n]|^2 \u003c \\infty$$绝对可积 $$\\sum_{n=-\\infty}^{+\\infty} |x[n]| \u003c \\infty$$周期信号的傅里叶变换 和前面研究连续时间傅里叶变换类似，周期离散信号也可以先从研究单独的复指数信号入手 对于一个频率为 $\\omega_0$ 的离散复指数信号 $x[n] = e^{j \\omega_0 n}$，它的 DTFT 为 $$\\begin{aligned} X(e^{j \\omega}) \u0026= \\sum_{n=-\\infty}^{+\\infty} e^{j \\omega_0 n} e^{-j \\omega n} \\\\ \u0026= 2 \\pi \\sum_{k=-\\infty}^{+\\infty} \\delta(\\omega - \\omega_0 - 2 \\pi k) \\end{aligned}$$这个表达式相当好理解，因为 $e^{j \\omega}$ 是周期性的，那么对于任意一个频率 $\\omega_0$，它在频域上都会以 $2 \\pi$ 为周期重复出现，所以 DTFT 的结果就是一串以 $2 \\pi$ 为间隔的冲激信号\n那么对于任意一个周期信号 $\\tilde{x}[n]$，它的 DTFS 系数为 $a_k$，那么它的 DTFT 为 $$\\begin{aligned} \\tilde{X}(e^{j \\omega}) \u0026= 2 \\pi \\sum_{k=-\\infty}^{+\\infty} a_k \\delta(\\omega - k \\frac{{2 \\pi}}{N}) \\end{aligned}$$常见的傅里叶变换对 时域信号 $x[n]$ 频域信号 $X(e^{j \\omega})$ 傅里叶级数系数 $\\sum_{k = 0}^{N-1} a_k e^{j k \\frac{2 \\pi}{N} n}$ $2 \\pi \\sum_{k=-\\infty}^{+\\infty} a_k \\delta(\\omega - k \\frac{2 \\pi}{N})$ $a_k$ $e^{j \\omega_0 n}$ $2 \\pi \\sum_{k=-\\infty}^{+\\infty} \\delta(\\omega - \\omega_0 - 2 \\pi k)$ 若 $w_0 = k \\frac{2 \\pi}{N}$ 则为 $1$，否则为 $0$ $cos(\\omega_0 n)$ $\\pi \\sum_{k=-\\infty}^{+\\infty} [\\delta(\\omega - \\omega_0 - 2 \\pi k) + \\delta(\\omega + \\omega_0 - 2 \\pi k)]$ 若 $w_0 = k \\frac{2 \\pi}{N}$ 则为 $\\frac{1}{2}$，否则为 $0$ $sin(\\omega_0 n)$ $\\frac{\\pi}{j} \\sum_{k=-\\infty}^{+\\infty} [\\delta(\\omega - \\omega_0 - 2 \\pi k) - \\delta(\\omega + \\omega_0 - 2 \\pi k)]$ 若 $w_0 = k \\frac{2 \\pi}{N}$ 则为 $\\|\\frac{1}{2j}\\|$ (右侧为正，左侧为负)，否则为 $0$ $x[n] = 1$ $2 \\pi \\sum_{k=-\\infty}^{+\\infty} \\delta(\\omega - 2 \\pi k)$ 若 $k = N \\cdot i$ 则为 $1$，否则为 $0$ $x[n] = \\begin{cases}1, \u0026 \\|n\\| \u003c N_1 \\\\ 0, \u0026 \\|n\\| \u003e N_1 \\end{cases}$ $2\\pi \\sum_{k = -\\infty}^{\\infty}a_k \\delta(\\omega - \\frac{2\\pi k}{N} )$ $a_k = \\frac{sin[(2\\pi k / N) (N_1 + 1/2)]}{N sin[2\\pi k / 2N]}$ k = N 整数倍时 $a_k = \\frac{2 N_1 + 1}{N}$ $\\sum_{k =-\\infty}^{\\infty} \\delta[n-kN]$ $\\frac{2 \\pi}{N} \\sum_{k=-\\infty}^{+\\infty} \\delta(\\omega - k \\frac{2 \\pi}{N})$ $a_k = \\frac{1}{N}$ $a^n u[n], \\|a\\| \u003c 1$ $\\frac{1}{1 - a e^{-j \\omega}}$ $x[n] = \\begin{cases} 1, \u0026 \\|n\\| \u003c N \\\\ 0, \u0026 others \\end{cases}$ $\\frac{sin[\\omega(N_1 + 1/2)]}{sin[\\omega/2]}$ $ \\frac{sin W n}{\\pi n}$ $\\begin{cases} 1, \u0026 \\|\\omega\\| \u003c W \\\\ 0, \u0026 \\pi \\ge \\|\\omega\\| \u003e W \\end{cases}$ $ \\delta[n - n_0]$ $e^{-j \\omega n_0}$ $u[n]$ $\\frac{1}{1 - e^{-j \\omega}} + \\pi \\sum_{k=-\\infty}^{+\\infty} \\delta(\\omega - 2 \\pi k)$ $(n+1) a^n u[n], \\|a\\| \u003c 1$ $\\frac{1}{(1 - a e^{-j \\omega})^2}$ $\\frac{(n + r -1)!}{n!(r-1)!} a^n u[n], \\|a\\| \u003c 1$ $\\frac{1}{(1 - a e^{-j \\omega})^r}$ 离散信号傅里叶变换的性质 离散信号绝大部分特性都可以照搬连续信号的特点，可是在连续信号之外，离散信号多出了一些属于它的特殊的性质\n周期性\n如果 $x[n] \\leftrightarrow X(e^{j \\omega})$， 那么 $$X(e^{j (\\omega + 2 \\pi k)}) = X(e^{j \\omega}), \\quad k = 0, \\pm 1, \\pm 2, \\ldots$$线性性质\n如果 $x_1[n] \\leftrightarrow X_1(e^{j \\omega})$， $x_2[n] \\leftrightarrow X_2(e^{j \\omega})$，那么 $$a x_1[n] + b x_2[n] \\leftrightarrow a X_1(e^{j \\omega}) + b X_2(e^{j \\omega})$$时移、频移\n$$\\begin{aligned} x[n - n_0] \u0026\\leftrightarrow X(e^{j \\omega}) e^{-j \\omega n_0} \\\\ e^{j \\omega_0 n} x[n] \u0026\\leftrightarrow X(e^{j (\\omega - \\omega_0)}) \\end{aligned}$$共轭与共轭对称性 : TODO\n差分与累加\n$$\\begin{aligned} \\Delta^n x[n] \u0026\\leftrightarrow (1 - e^{-j \\omega})^n X(e^{j \\omega}) \\\\ \\sum_{k=-\\infty}^{n} x[k] \u0026\\leftrightarrow \\frac{1}{1 - e^{-j \\omega}} X(e^{j \\omega}) + \\pi X(e^{j 0}) \\sum_{k=-\\infty}^{+\\infty} \\delta(\\omega - 2 \\pi k) \\end{aligned}$$频域微分\n$$\\begin{aligned} n x[n] \u0026\\leftrightarrow j \\frac{d X(e^{j \\omega})}{d \\omega} \\\\ n^k x[n] \u0026\\leftrightarrow j^k \\frac{d^k X(e^{j \\omega})}{d \\omega^k} \\end{aligned}$$时域扩展\n先定义 $$ x_{(k)}[n] = \\begin{cases} x\\left[\\frac{n}{k}\\right], \u0026 n = 0, \\pm k, \\pm 2k, \\ldots \\\\ 0, \u0026 \\text{else} \\end{cases} $$ 如果 $x[n] \\leftrightarrow X(e^{j \\omega})$，那么 $$x_{(k)}[n] \\leftrightarrow X(e^{j k \\omega})$$Proof: $$\\begin{aligned} X_{(k)}(e^{j \\omega}) \u0026= \\sum_{n=-\\infty}^{+\\infty} x_{(k)}[n] e^{-j \\omega n} \\\\ \u0026= \\sum_{m=-\\infty}^{+\\infty} x[m] e^{-j \\omega k m} \\\\ \u0026= X(e^{j k \\omega}) \\end{aligned}$$帕塞瓦尔 如果 $x[n] \\leftrightarrow X(e^{j \\omega})$，那么 $$\\sum_{n=-\\infty}^{+\\infty} |x[n]|^2 = \\frac{1}{2 \\pi} \\int_{-\\pi}^{+\\pi} |X(e^{j \\omega})|^2 d\\omega$$卷积 \u0026 相乘 卷积 $$\\begin{aligned} y[n] \u0026= x[n] * h[n]\\\\ \u0026= \\sum_{m=-\\infty}^{+\\infty} x[m] h[n - m] \\\\ Y(e^{j \\omega}) \u0026= X(e^{j \\omega}) \\cdot H(e^{j \\omega}) \\end{aligned}$$ 证明方法可以参照前一章对于离散傅里叶级数卷积性质的证明\n相乘 $$\\begin{aligned} Y(e^{j \\omega}) \u0026= \\frac{1}{2 \\pi} X(e^{j \\omega}) * H(e^{j \\omega}) \\end{aligned}$$Proof: $$\\begin{aligned} Y(e^{j \\omega}) \u0026= \\sum_{n=-\\infty}^{+\\infty} x[n] h[n] e^{-j \\omega n} \\\\ \u0026= \\sum_{n=-\\infty}^{+\\infty} x[n] \\left( \\frac{1}{2\\pi} \\int_{-\\pi}^{+\\pi} H(e^{j \\omega'}) e^{j \\omega' n} d\\omega' \\right) e^{-j \\omega n} \\\\ \u0026= \\frac{1}{2\\pi} \\int_{-\\pi}^{+\\pi} H(e^{j \\omega'}) \\left( \\sum_{n=-\\infty}^{+\\infty} x[n] e^{-j (\\omega - \\omega') n} \\right) d\\omega' \\\\ \u0026= \\frac{1}{2\\pi} \\int_{-\\pi}^{+\\pi} H(e^{j \\omega'}) X(e^{j (\\omega - \\omega')}) d\\omega' \\\\ \u0026= \\frac{1}{2 \\pi} X(e^{j \\omega}) * H(e^{j \\omega}) \\end{aligned}$$对偶性 DFS 的对偶性 离散信号的对偶性，直观理解就是对于一个周期信号 $x[n]$，它的 DFS 系数$a_k$ 是离散的序列，那么如果我们把 $a_k$ 当作时域信号来计算它的 DFS，会发现结果正好是 $\\frac{1}{N}x[-n]$\n先来看一个信号 $$ f[m] = \\frac{1}{N} \\sum_{n=0}^{N-1} g[r] e^{j \\frac{2 \\pi}{N} m r} $$ 当我们令 $m = k, r = n$ 时，可以得到 $$ f[k] = \\frac{1}{N} \\sum_{n=0}^{N-1} g[n] e^{j \\frac{2 \\pi}{N} k n} = a_k $$ 即 $g[n] \\leftrightarrow f[k]$\n而当我们令 $m = n, r = -k$ 时，可以得到 $$ f[n] = \\frac{1}{N} \\sum_{k=0}^{N-1} g[-k] e^{j \\frac{2 \\pi}{N} n k} $$ 即 $f[n] \\leftrightarrow \\frac{1}{N} g[-k]$\n离散傅里叶变换与连续傅里叶级数的对偶性 $$\\begin{aligned} x[n] \u0026= \\frac{1}{2\\pi} \\int_{-\\pi}^{+\\pi} X(e^{j \\omega}) e^{j \\omega n} d\\omega \\\\ X(e^{j \\omega}) \u0026= \\sum_{n=-\\infty}^{+\\infty} x[n] e^{-j \\omega n} \\\\ x(t) \u0026= \\sum_{k = -\\infty}^{+\\infty} a_k e^{j k \\omega_0 t} \\\\ a_k \u0026= \\frac{1}{T} \\int_{-\\frac{T}{2}}^{+\\frac{T}{2}} x(t) e^{-j k \\omega_0 t} dt \\end{aligned} $$是不是非常神奇，上面的表达式居然是一样的结构，这种对偶性在处理某些信号时可以起到相当大的帮助 🤫\n举个 🌰 如果我们要求下面信号的傅里叶变换 $$x[n] = \\frac{sin(\\pi n / 2)}{\\pi n}$$ 那么根据对偶性，我们需要研究一个周期为 $T = 2\\pi$ 的连续信号 $g(t)$，它的傅里叶级数系数满足 $$a_k = x[k]$$ 在上一章介绍周期矩形信号时，我们知道一个周期为 $2 \\pi$，宽度为 $\\pi$ 的矩形信号 $g(t)$ 的傅里叶级数系数为 $$a_k = \\frac{1}{2 \\pi} \\int_{-\\frac{\\pi}{2}}^{+\\frac{\\pi}{2}} 1 \\cdot e^{-j k t} dt = \\frac{sin(k \\pi / 2)}{k \\pi}$$ 那么根据对偶性，我们可以直接得到 $$X(e^{j \\omega}) = \\begin{cases} 1, \u0026 |\\omega| \u003c \\frac{\\pi}{2} \\\\ 0, \u0026 \\pi \\ge |\\omega| \\ge \\frac{\\pi}{2} \\end{cases}$$ 线性常系数差分方程 这一部分的内容和前面介绍连续信号的部分非常接近\n如果输入信号 $x[n]$ 和输出信号 $y[n]$ 满足一个线性常系数差分方程 $$\\sum_{n=0}^{N} a_n y[n - n] = \\sum_{m=0}^{M} b_m x[n - m]$$ 那么通过傅里叶变换的时移性质，可以得到 $$\\begin{aligned} \\sum_{n=0}^{N} a_n e^{-j \\omega n} Y(e^{j \\omega}) \u0026= \\sum_{m=0}^{M} b_m e^{-j \\omega m} X(e^{j \\omega}) \\\\ \\Rightarrow H(e^{j \\omega}) \u0026= \\frac{Y(e^{j \\omega})}{X(e^{j \\omega})} = \\frac{\\sum_{m=0}^{M} b_m e^{-j \\omega m}}{\\sum_{n=0}^{N} a_n e^{-j \\omega n}} \\end{aligned}$$",
+  "wordCount" : "2247",
+  "inLanguage": "en",
+  "datePublished": "2025-12-29T11:00:06+08:00",
+  "dateModified": "2025-12-29T11:00:06+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CrazyBread' Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://crazyjassbread.github.io/favicon.ico"
+    }
+  }
+}
+</script>
      <script
   id="MathJax-script"
   async
@@ -100,7 +232,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:56188/" accesskey="h" title="CrazyBread&#39; Blog (Alt + H)">CrazyBread&#39; Blog</a>
+            <a href="https://crazyjassbread.github.io/" accesskey="h" title="CrazyBread&#39; Blog (Alt + H)">CrazyBread&#39; Blog</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -126,22 +258,22 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:56188/" title="Home">
+                <a href="https://crazyjassbread.github.io/" title="Home">
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:56188/categories/" title="Categories">
+                <a href="https://crazyjassbread.github.io/categories/" title="Categories">
                     <span>Categories</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:56188/tags/" title="Tags">
+                <a href="https://crazyjassbread.github.io/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:56188/archives/" title="Archives">
+                <a href="https://crazyjassbread.github.io/archives/" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
@@ -152,30 +284,538 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:56188/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:56188/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://crazyjassbread.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://crazyjassbread.github.io/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Fourier Transform
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
     </h1>
-    <div class="post-meta"><span title='2025-12-29 11:00:06 +0800 CST'>December 29, 2025</span>&nbsp;·&nbsp;1 min
+    <div class="post-meta"><span title='2025-12-29 11:00:06 +0800 CST'>December 29, 2025</span>&nbsp;·&nbsp;11 min
 
 </div>
   </header> 
-  <div class="post-content"><p><strong>前情回顾</strong>： <a href="http://localhost:56188/posts/signals-and-systems/signals_and_systems/">信号与系统基础</a>  |  <a href="http://localhost:56188/posts/signals-and-systems/lti_systems/">LTI系统</a> |  <a href="http://localhost:56188/posts/signals-and-systems/fourier_series/">傅里叶级数</a></p>
-<p>终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧💪</p>
+  <div class="post-content"><p><strong>前情回顾</strong>： <a href="https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/">信号与系统基础</a>  |  <a href="https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/">LTI系统</a> |  <a href="https://crazyjassbread.github.io/posts/signals-and-systems/fourier_series/">傅里叶级数</a></p>
+<p>终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧 😤</p>
 <p><strong>目录</strong></p>
 <ul>
 <li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2">连续时间傅里叶变换</a>
+<ul>
+<li><a href="#%E6%94%B6%E6%95%9B%E6%80%A7">收敛性</a></li>
+<li><a href="#%E5%B8%B8%E8%A7%81%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2">常见信号的傅里叶变换</a></li>
+<li><a href="#%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2">周期信号的傅里叶变换</a></li>
+<li><a href="#%E8%BF%9E%E7%BB%AD%E4%BF%A1%E5%8F%B7%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%80%A7%E8%B4%A8">傅里叶变换的性质</a></li>
+<li><a href="#%E5%8D%B7%E7%A7%AF--%E7%9B%B8%E4%B9%98">卷积 &amp; 相乘</a></li>
+<li><a href="#%E7%BA%BF%E6%80%A7%E5%B8%B8%E7%B3%BB%E6%95%B0%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B">线性常系数微分方程</a></li>
+</ul>
+</li>
+<li><a href="#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2">离散时间傅里叶变换</a>
+<ul>
+<li><a href="#%E6%94%B6%E6%95%9B%E6%80%A7-1">收敛性</a></li>
+<li><a href="#%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2-1">周期信号的傅里叶变换</a></li>
+<li><a href="#%E7%A6%BB%E6%95%A3%E4%BF%A1%E5%8F%B7%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%80%A7%E8%B4%A8">离散时间傅里叶变换的性质</a></li>
+<li><a href="#%E5%8D%B7%E7%A7%AF--%E7%9B%B8%E4%B9%98-1">卷积 &amp; 相乘</a></li>
+<li><a href="#%E5%AF%B9%E5%81%B6%E6%80%A7">对偶性</a></li>
+</ul>
+</li>
 </ul>
 <hr>
 <h2 id="前言">前言<a hidden class="anchor" aria-hidden="true" href="#前言">#</a></h2>
 <p>在上一节中，我们逐步撕开了傅里叶级数的神秘面纱，那么傅里叶变换有是个什么东西呢，在介绍傅里叶变换之前，我们先来研究一个非常有趣的例子</p>
-
+<p>现在我们手头有一个周期为 T，宽度为 $2T_1$ 矩形信号的傅里叶级数系数为
+</p>
+$$
+a_k = \frac{2}{k \omega_0 T} \sin\left( k \omega_0 T_1 \right)
+$$<p>当逐步增大周期 T 的值时，会发现 $a_k$ 越来越小，且系数之间的间隔 $\omega_0$ 也越来越小</p>
+<p>我们不妨采用一种新的表示形式，并且 $k \omega_0 \to w$</p>
+$$
+T a_k = \frac{2}{\omega} \sin\left(\omega T_1 \right) = X(j \omega)
+$$<p>当 $\lim_{T \to \infty}$ 时， $\omega$ 就从离散变量便成了连续变量</p>
+<p>套用之前傅里叶级数的公式，可以得到
+</p>
+$$\begin{aligned}
+(1) \quad x(t) &= \sum_{k=-\infty}^{+\infty} a_k e^{j k \omega_0 t} \\
+&=\sum_{k=-\infty}^{+\infty} \frac{1}{T}X(j k \omega_0)  e^{j k \omega_0 t} \\
+&= \frac{1}{2\pi} \sum_{-\infty}^{+\infty} X(j k \omega_0) e^{j k \omega_0 t} \omega_0 \\
+&\to \frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j \omega) e^{j \omega t} d\omega \\
+(2) \quad X(j \omega) &= \int_{-\frac{T}{2}}^{+\frac{T}{2}} x(t) e^{-j \omega t} dt \\
+&\to \int_{-\infty}^{+\infty} x(t) e^{-j \omega t} dt
+\end{aligned}$$<p>在上述推导过程中，不难发现，即使研究的是一个周期信号 $\tilde{x}(t)$，它的傅里叶级数的系数和它在一个周期内的示例信号 $x(t)$ 的傅里叶变换是密切相关的</p>
+$$
+a_k = \frac{1}{T} X(j k \omega_0)
+$$<p><strong>总结</strong>
+</p>
+$$\begin{align}
+X(j \omega) &= \int_{-\infty}^{+\infty} x(t) e^{-j \omega t} dt \quad &\text{（傅里叶变换）} \\
+x(t) &= \frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j \omega) e^{j \omega t} d\omega \quad &\text{（傅里叶反变换）}
+\end{align}$$<hr>
+<h2 id="连续时间傅里叶变换">连续时间傅里叶变换<a hidden class="anchor" aria-hidden="true" href="#连续时间傅里叶变换">#</a></h2>
+<h3 id="收敛性">收敛性<a hidden class="anchor" aria-hidden="true" href="#收敛性">#</a></h3>
+<p><strong>能量条件</strong></p>
+<p>这一部分和在傅里叶级数中提到的收敛性条件类似，首先是能量角度
+</p>
+$$
+\int_{-\infty}^{+\infty} |x(t)|^2 dt < \infty
+$$<p>
+如果信号满足能量有限条件，那么意味着它的傅里叶表示 $\hat{x}(t)$ 与原信号 $x(t)$ 在能量上是等价的</p>
+<p><strong>Dirichlet</strong></p>
+<ul>
+<li>$\int_{-\infty}^{+\infty} |x(t)| dt < \infty$</li>
+<li>在每一个有限区间上， $x(t)$ 有有限个极值点</li>
+<li>在每一个有限区间上， $x(t)$ 有有限个不连续点</li>
+</ul>
+<p>如果信号满足 Dirichlet 条件，那么它的傅里叶变换在每一个连续点处收敛于 $x(t)$ 的平均值</p>
+<h3 id="常见信号的傅里叶变换">常见信号的傅里叶变换<a hidden class="anchor" aria-hidden="true" href="#常见信号的傅里叶变换">#</a></h3>
+<p><strong>指数信号</strong> $x(t) = e^{-a t} u(t)$
+</p>
+$$X(j \omega) =\int_{-\infty}^{+\infty} e^{-a t} u(t) e^{-j \omega t} dt = \frac{1}{a + j \omega}$$<p><strong>双侧指数信号</strong> $x(t) = e^{-a |t|}$
+</p>
+$$X(j \omega) =\int_{-\infty}^{+\infty} e^{-a |t|} e^{-j \omega t} dt = \frac{2 a}{a^2 + \omega^2}$$<p><strong>冲激信号</strong> $x(t) = \delta(t)$
+</p>
+$$X(j \omega) =\int_{-\infty}^{+\infty} \delta(t) e^{-j \omega t} dt = 1$$<p><strong>矩形信号</strong> $x(t) = \begin{cases}1, & |t| < T_1 \\ 0, & |t| > T_1 \end{cases}$
+</p>
+$$X(j \omega) =\int_{-\infty}^{+\infty} x(t) e^{-j \omega t} dt = 2\frac{\sin(\omega T_1)}{\omega} =  2 T_1 \text{sinc}(\omega T_1)$$<p>而如果利用傅里叶反变换的表达式，也可以反过来推出一些正向不好计算的信号的傅里叶变换</p>
+$$x(t) = \frac{\sin wt}{\pi t}$$<p>对于频率表示为 $X(j \omega) = \begin{cases}1, & |\omega| < w \\ 0, & |\omega| > w \end{cases}$ 的信号</p>
+$$
+x(t) = \frac{1}{2\pi} \int_{-w}^{+w} e^{j \omega t} d\omega = \frac{\sin wt}{\pi t}
+$$<p><mark>Tips</mark>：从这个信号和矩形信号的表达式中，可以看出傅里叶变换具有对偶性</p>
+<h4 id="基本傅里叶变换对">基本傅里叶变换对<a hidden class="anchor" aria-hidden="true" href="#基本傅里叶变换对">#</a></h4>
+<table>
+  <thead>
+      <tr>
+          <th>时域信号 $x(t)$</th>
+          <th>频域信号 $X(j \omega)$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$\delta(t)$</td>
+          <td>$1$</td>
+      </tr>
+      <tr>
+          <td>$1$</td>
+          <td>$2 \pi \delta(\omega)$</td>
+      </tr>
+      <tr>
+          <td>$u(t)$</td>
+          <td>$\frac{1}{j \omega} + \pi \delta(\omega)$</td>
+      </tr>
+      <tr>
+          <td>$e^{j \omega_0 t}$</td>
+          <td>$2 \pi \delta(\omega - \omega_0)$</td>
+      </tr>
+      <tr>
+          <td>$e^{-a t} u(t), a > 0$</td>
+          <td>$\frac{1}{a + j \omega}$</td>
+      </tr>
+      <tr>
+          <td>$e^{-a \|t\|}, a > 0$</td>
+          <td>$\frac{2 a}{a^2 + \omega^2}$</td>
+      </tr>
+      <tr>
+          <td>$\cos(\omega_0 t)$</td>
+          <td>$\pi [\delta(\omega - \omega_0) + \delta(\omega + \omega_0)]$</td>
+      </tr>
+      <tr>
+          <td>$\sin(\omega_0 t)$</td>
+          <td>$\frac{\pi}{j} [\delta(\omega - \omega_0) - \delta(\omega + \omega_0)]$</td>
+      </tr>
+      <tr>
+          <td>周期矩形信号</td>
+          <td>$2 \frac{sin(k \omega_0 T_1)}{k} \delta(\omega - k \omega_0)$</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="周期信号的傅里叶变换">周期信号的傅里叶变换<a hidden class="anchor" aria-hidden="true" href="#周期信号的傅里叶变换">#</a></h3>
+<p>在傅里叶级数的章节中，我们得知一个周期信号可以用傅里叶级数展开为一组离散频率的正弦信号的叠加，从这里可以看出周期信号的傅里叶变换应该是由一串离散的冲激信号组成，冲激大小正比于 $FS$ 系数</p>
+<blockquote>
+<p>在这里补上傅里叶级数的计算公式 $a_k = \frac{1}{T} \int_{-\frac{T}{2}}^{+\frac{T}{2}} x(t) e^{-j k \omega_0 t} dt$</p></blockquote>
+<p>首先让我举个 🌰
+对于一个频率为 $X(j\omega) = 2 \pi \delta(\omega - \omega_0)$ 的信号 $x(t)$，它的傅里叶反变换为
+</p>
+$$x(t) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} 2 \pi \delta(\omega - \omega_0) e^{j \omega t} d\omega = e^{j \omega_0 t}$$<p>那么很自然的，对于任意一个连续周期信号 $x(t)$，它的傅里叶级数表示为</p>
+$$\begin{aligned}
+x(t) &= \sum_{k=-\infty}^{+\infty} a_k e^{j k \omega_0 t} \\
+&= \frac{1}{2\pi} \sum_{k=-\infty}^{+\infty} 2 \pi a_k \delta(\omega - k \omega_0) e^{j k \omega_0 t}
+\end{aligned}$$<p>
+上述表达式意味着
+</p>
+$$
+X(j \omega) = 2 \pi \sum_{k=-\infty}^{+\infty} a_k \delta(\omega - k \omega_0)
+$$<p>这个结论告诉我们一个周期信号其实可以看作它对应的单个周期信号在频域上的重复</p>
+<p>如果觉得不是很好理解，那么我们再来举一个 🌰 吧</p>
+<p>一个宽度为 2 A 的矩形脉冲信号 $x(t) = \begin{cases}1, & |t| < A \\ 0, & |t| > A \end{cases}$ 的傅里叶变换为
+</p>
+$$X(j \omega) = 2 A \text{sinc}(\omega A)$$<p>而若是一个周期为 T（或者说频率为 $\omega_0 = \frac{2 \pi}{T}$）的矩形波信号 $\tilde{x}(t)$，它的傅里叶级数系数为
+</p>
+$$a_k = \frac{2 A}{k \omega_0 T} \sin\left( k \omega_0 A \right)$$<p>
+如果根据上面的结论，那么我们可以求出它的傅里叶变换是
+</p>
+$$\begin{aligned}
+\tilde{X}(j \omega) &= 2 \pi \sum_{k=-\infty}^{+\infty} a_k \delta(\omega - k \omega_0) \\
+&= 2 \pi \sum_{k=-\infty}^{+\infty} \frac{2 A}{k \omega_0 T} \sin\left( k \omega_0 A \right) \delta(\omega - k \omega_0) \\
+&= 2 A \omega_0 \sum_{k=-\infty}^{+\infty} \text{sinc}(k \omega_0 A) \delta(\omega - k \omega_0)
+\end{aligned}$$<p>
+非常有趣的结果，周期矩形波的傅里叶变换确实是由单个矩形波的傅里叶变换在频域上以 $\omega_0$ 为间隔重复出现的，而且幅度上和单个矩形信号的傅里叶变换之间只差一个 $\omega_0$ 的比例系数</p>
+<blockquote>
+<p>从能量角度也蛮好理解的，如果都是同一个信号，那么周期信号的一个周期内的能量和单个信号的能量是一样的，而周期信号在频域上是离散的冲激采样采样频率就是 $\omega_0$，每个冲激信号的幅度就必须要乘以 $\omega_0$，才能保证能量守恒</p></blockquote>
+<h3 id="连续信号傅里叶变换的性质">连续信号傅里叶变换的性质<a hidden class="anchor" aria-hidden="true" href="#连续信号傅里叶变换的性质">#</a></h3>
+<p><strong>线性</strong></p>
+<p>如果 $x_1(t) \leftrightarrow X_1(j \omega)$， $x_2(t) \leftrightarrow X_2(j \omega)$，那么
+</p>
+$$a x_1(t) + b x_2(t) \leftrightarrow a X_1(j \omega) + b X_2(j \omega)$$<p><strong>时移</strong></p>
+<p>如果 $x(t) \leftrightarrow X(j \omega)$，那么
+</p>
+$$x(t - t_0) \leftrightarrow X(j \omega) e^{-j \omega t_0}$$<p><strong>共轭与共轭对称性</strong></p>
+<p>如果 $x(t) \leftrightarrow X(j \omega)$，那么
+</p>
+$$x^*(t) \leftrightarrow X^*(-j \omega)$$<p>若 $x(t)$ 为实信号，那么 $X(j \omega)$ 具有共轭对称性
+</p>
+$$X(-j \omega) = X^*(j \omega)$$<p>如果更进一步， $x(t)$ 为实偶信号，那么 $X(j \omega)$ 也为实偶信号</p>
+<p><mark>Tips</mark>：这个性质还是非常有用的，在分析时，可以通过 $X(j \omega)$ 的性质来直接判断 $x(t)$ 的性质</p>
+<p><strong>微分与积分</strong></p>
+<blockquote>
+<p>这一部分最好还是先记住公式，虽然推导过程并不复杂，但是万一考试的时候算错了那就完蛋哩</p></blockquote>
+<p>如果 $x(t) \leftrightarrow X(j \omega)$，那么
+</p>
+$$\frac{d^n x(t)}{d t^n} \leftrightarrow (j \omega)^n X(j \omega)$$<p>如果 $x(t) \leftrightarrow X(j \omega)$，那么
+</p>
+$$\int_{-\infty}^{t} x(\tau) d\tau \leftrightarrow \frac{1}{j \omega} X(j \omega) + \pi X(0) \delta(\omega)$$<blockquote>
+<p>对于积分部分，注意这里的 $\pi X(0) \delta(\omega)$ 项是因为积分会引入一个直流分量（暂时先不理会它是如何推导出来的吧）
+举一个 🌰 帮助理解积分性质的好玩之处
+</p>
+$$x(t) = \delta(t) \leftrightarrow X(j \omega) = 1$$<p>
+那么根据积分性质
+</p>
+$$\int_{-\infty}^{t} \delta(\tau) d\tau = u(t) \leftrightarrow \frac{1}{j \omega} + \pi \delta(\omega)$$</blockquote>
+<p><strong>尺度变换</strong></p>
+<p>如果 $x(t) \leftrightarrow X(j \omega)$，那么
+</p>
+$$x(a t) \leftrightarrow \frac{1}{|a|} X\left(j \frac{\omega}{a}\right)$$<p><strong>对偶性</strong></p>
+<p>如果 $x(t) \leftrightarrow X(j \omega)$，那么
+</p>
+$$X(t) \leftrightarrow 2 \pi x(-\omega)$$<p>证明方法很简单，在傅里叶反变换时加一个负号就可以推出（t 和 w本质上就是符号呗，互换一下就结束嘞）</p>
+<p>感兴趣的话可以看一看下面这个 🌰
+</p>
+$$x(t) = \frac{2}{1 + t^2} \leftrightarrow X(j \omega) = -2 \pi e^{-|\omega|}$$<p><mark>Tips</mark>：对偶性的巨大意义在于可以将时域和频域的特性串在一起</p>
+<p><strong>帕塞瓦尔</strong>
+如果 $x(t) \leftrightarrow X(j \omega)$，那么
+</p>
+$$\int_{-\infty}^{+\infty} |x(t)|^2 dt = \frac{1}{2 \pi} \int_{-\infty}^{+\infty} |X(j \omega)|^2 d\omega$$<p>Proof:
+</p>
+$$\begin{aligned}
+\int_{-\infty}^{+\infty} |x(t)|^2 dt &= \int_{-\infty}^{+\infty} x(t) x^*(t) dt \\
+&= \int_{-\infty}^{+\infty} x(t) \left( \frac{1}{2\pi} \int_{-\infty}^{+\infty} X^*(j \omega) e^{-j \omega t} d\omega \right) dt \\
+&= \frac{1}{2\pi} \int_{-\infty}^{+\infty} X^*(j \omega) \left( \int_{-\infty}^{+\infty} x(t) e^{-j \omega t} dt \right) d\omega \\
+&= \frac{1}{2\pi} \int_{-\infty}^{+\infty} |X(j \omega)|^2 d\omega
+\end{aligned}$$<h3 id="卷积--相乘">卷积 &amp; 相乘<a hidden class="anchor" aria-hidden="true" href="#卷积--相乘">#</a></h3>
+<h4 id="卷积">卷积<a hidden class="anchor" aria-hidden="true" href="#卷积">#</a></h4>
+<p>在之前介绍 LTI 系统的章节里，我们介绍了卷积的概念，一个信号 $x(t)$ 通过一个系统 $h(t)$ 得到输出信号 $y(t)$ 的过程可以表示为
+</p>
+$$y(t) = x(t) * h(t) = \int_{-\infty}^{+\infty} x(\tau) h(t - \tau) d\tau$$<p>而我们也介绍了，复指数信号 $e^{j \omega t}$ 是 LTI 系统的一个特征信号
+</p>
+$$
+e^{j \omega t} \to H(j \omega) e^{j \omega t}
+$$<p>那么输入信号 $x(t)$ 可以表示为一组复指数信号的叠加，输出信号 $y(t)$ 也可以表示为一组复指数信号的叠加</p>
+$$\begin{aligned}
+x(t) &= \frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j \omega) e^{j \omega t} d\omega \\
+y(t) &= \frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j \omega) H(j \omega) e^{j \omega t}d\omega \\
+&= \frac{1}{2\pi} \int_{-\infty}^{+\infty} Y(j \omega) e^{j \omega t} d\omega
+\end{aligned}$$<p>因此可以得到卷积定理
+如果 $x(t) \leftrightarrow X(j \omega)$， $h(t) \leftrightarrow H(j \omega)$，那么
+</p>
+$$x(t) * h(t) \leftrightarrow X(j \omega) \cdot H(j \omega)$$<blockquote>
+<p>正常证明也可以
+Proof:
+</p>
+$$\begin{aligned}
+y(t) &= x(t) * h(t) = \int_{-\infty}^{+\infty} x(\tau) h(t - \tau) d\tau \\
+&= \int_{-\infty}^{+\infty} \left( \frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j \omega) e^{j \omega \tau} d\omega \right) h(t - \tau) d\tau \\
+&= \frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j \omega) \left( \int_{-\infty}^{+\infty} h(t - \tau) e^{j \omega \tau} d\tau \right) d\omega \\
+&= \frac{1}{2\pi} \int_{-\infty}^{+\infty} X(j \omega) H(j \omega) e^{j \omega t} d\omega
+\end{aligned}$$</blockquote>
+<p>有了卷积性质，积分定理可以根据卷积直接得到
+</p>
+$$
+y(t) = \int_{-\infty}^{t} x(\tau) d\tau = x(t) * u(t)
+$$<p>
+那么根据卷积定理 $H(j \omega) = \frac{1}{j \omega} + \pi \delta(\omega)$
+</p>
+$$y(t) \leftrightarrow X(j \omega) \cdot \frac{1}{j \omega} + \pi X(0) \delta(\omega)$$<h4 id="相乘">相乘<a hidden class="anchor" aria-hidden="true" href="#相乘">#</a></h4>
+<p>如果 $x(t) \leftrightarrow X(j \omega)$， $h(t) \leftrightarrow H(j \omega)$，那么
+</p>
+$$x(t) \cdot h(t) \leftrightarrow \frac{1}{2 \pi} X(j \omega) * H(j \omega)$$<p>Proof:<br>
+</p>
+$$\begin{aligned}
+Y(j \omega) &= \int_{-\infty}^{+\infty} x(t) h(t) e^{-j \omega t} dt \\
+&= \int_{-\infty}^{+\infty} x(t) \left( \frac{1}{2\pi} \int_{-\infty}^{+\infty} H(j \omega') e^{j \omega' t} d\omega' \right) e^{-j \omega t} dt \\
+&= \frac{1}{2\pi} \int_{-\infty}^{+\infty} H(j \omega') \left( \int_{-\infty}^{+\infty} x(t) e^{-j (\omega - \omega') t} dt \right) d\omega' \\
+&= \frac{1}{2\pi} \int_{-\infty}^{+\infty} H(j \omega') X(j (\omega - \omega')) d\omega' \\
+&= \frac{1}{2 \pi} X(j \omega) * H(j \omega)
+\end{aligned}$$<p>相乘的性质可以用于 <mark>调制</mark></p>
+<h3 id="线性常系数微分方程">线性常系数微分方程<a hidden class="anchor" aria-hidden="true" href="#线性常系数微分方程">#</a></h3>
+<blockquote>
+<p>这一部分相当有意思 😼</p></blockquote>
+<p>在分析卷积特性时，我们首先是通过 LTI 系统来证明的，对于一个单位响应为 $h(t)$ 的 LTI 系统
+</p>
+$$\begin{aligned}
+y(t) &= x(t) * h(t) \\
+Y(j \omega) &= X(j \omega) \cdot H(j \omega) \\
+\Rightarrow H(j \omega) &= \frac{Y(j \omega)}{X(j \omega)}
+\end{aligned}$$<p>那么如果x(t) 和 y(t) 满足一个线性常系数微分方程
+</p>
+$$\sum_{n=0}^{N} a_n \frac{d^n y(t)}{d t^n} = \sum_{m=0}^{M} b_m \frac{d^m x(t)}{d t^m}$$<p>
+那么通过傅里叶变换的微分性质，可以得到
+</p>
+$$\begin{aligned}
+\sum_{n=0}^{N} a_n (j \omega)^n Y(j \omega) &= \sum_{m=0}^{M} b_m (j \omega)^m X(j \omega) \\
+\Rightarrow H(j \omega) &= \frac{Y(j \omega)}{X(j \omega)} = \frac{\sum_{m=0}^{M} b_m (j \omega)^m}{\sum_{n=0}^{N} a_n (j \omega)^n}
+\end{aligned}$$<p>举个 🌰 方便理解
+</p>
+$$
+\frac{d y(t)}{d t} + a y(t) = x(t)
+$$<p>
+通过傅里叶变换，可以得到
+</p>
+$$
+(j \omega + a) Y(j \omega) = X(j \omega) \Rightarrow H(j \omega) = \frac{1}{j \omega + a}
+$$<p>那么通过傅里叶反变换，可以得到单位响应
+</p>
+$$h(t) = e^{-a t} u(t)$$<hr>
+<h2 id="离散时间傅里叶变换">离散时间傅里叶变换<a hidden class="anchor" aria-hidden="true" href="#离散时间傅里叶变换">#</a></h2>
+<p>在正式介绍 DTFT 之前，先来回顾一下离散时间傅里叶级数 DTFS</p>
+<p>对于一个周期离散信号 $\tilde{x}[n]$，它的 DTFS 表示为
+</p>
+$$\tilde{x}[n] = \sum_{k=0}^{N-1} a_k e^{j \frac{2 \pi}{N} k n}$$<p>
+其中系数 $a_k$ 为
+</p>
+$$a_k = \frac{1}{N} \sum_{n=0}^{N-1} \tilde{x}[n] e^{-j \frac{2 \pi}{N} k n}$$<p>如果我们用单周期信号 $x[n]$ 来表示 $\tilde{x}[n]$ 的一个周期
+</p>
+$$x[n] = \begin{cases}\tilde{x}[n], & 0 \le n < N \\ 0, & \text{else} \end{cases}$$<p>
+那么 DTFS 系数 $a_k$ 也可以表示为
+</p>
+$$a_k = \frac{1}{N} \sum_{n=-\infty}^{+\infty} x[n] e^{-j \frac{2 \pi}{N} k n} = \frac{1}{N} X(e^{j \frac{2 \pi}{N} k})$$<p>反过来有
+</p>
+$$
+\tilde{x}[n] = \sum_{k=0}^{N-1} a_k e^{j \frac{2 \pi}{N} k n} = \frac{1}{2 \pi} \sum_{k=0}^{N-1} X(e^{j \frac{2 \pi}{N} k}) e^{j \frac{2 \pi}{N} k n} \cdot \frac{2 \pi}{N}
+$$<p>
+当 $N \to \infty$ 时， $\frac{2 \pi}{N} \to d\omega$， $ \frac{2 \pi}{N} k \to \omega$，那么上式就变为
+</p>
+$$x[n] = \frac{1}{2 \pi} \int_{-\pi}^{+\pi} X(e^{j \omega}) e^{j \omega n} d\omega$$<p>嘿！这是啥，这不就是 DTFT 吗，我们可以把上面的内容提炼一下
+</p>
+$$\begin{align}
+X(e^{j \omega}) &= \sum_{n=-\infty}^{+\infty} x[n] e^{-j \omega n} \quad &\text{（DTFT）} \\
+x[n] &= \frac{1}{2\pi} \int_{-\pi}^{+\pi} X(e^{j \omega}) e^{j \omega n} d\omega \quad &\text{（DTFT 反变换）}
+\end{align}$$<h3 id="收敛性-1">收敛性<a hidden class="anchor" aria-hidden="true" href="#收敛性-1">#</a></h3>
+<p>有一个很有趣的特点那就是离散信号不存在 Gibbs 现象，那么他的收敛条件也简单不少</p>
+<p><strong>能量角度</strong>
+</p>
+$$\sum_{n=-\infty}^{+\infty} |x[n]|^2 < \infty$$<p><strong>绝对可积</strong>
+</p>
+$$\sum_{n=-\infty}^{+\infty} |x[n]| < \infty$$<h3 id="周期信号的傅里叶变换-1">周期信号的傅里叶变换<a hidden class="anchor" aria-hidden="true" href="#周期信号的傅里叶变换-1">#</a></h3>
+<p>和前面研究连续时间傅里叶变换类似，周期离散信号也可以先从研究单独的复指数信号入手
+对于一个频率为 $\omega_0$ 的离散复指数信号 $x[n] = e^{j \omega_0 n}$，它的 DTFT 为
+</p>
+$$\begin{aligned}
+X(e^{j \omega}) &= \sum_{n=-\infty}^{+\infty} e^{j \omega_0 n} e^{-j \omega n} \\
+&= 2 \pi \sum_{k=-\infty}^{+\infty} \delta(\omega - \omega_0 - 2 \pi k)
+\end{aligned}$$<p>这个表达式相当好理解，因为 $e^{j \omega}$ 是周期性的，那么对于任意一个频率 $\omega_0$，它在频域上都会以 $2 \pi$ 为周期重复出现，所以 DTFT 的结果就是一串以 $2 \pi$ 为间隔的冲激信号</p>
+<p>那么对于任意一个周期信号 $\tilde{x}[n]$，它的 DTFS 系数为 $a_k$，那么它的 DTFT 为
+</p>
+$$\begin{aligned}
+\tilde{X}(e^{j \omega}) &= 2 \pi \sum_{k=-\infty}^{+\infty} a_k \delta(\omega - k \frac{{2 \pi}}{N}) 
+\end{aligned}$$<h3 id="常见的傅里叶变换对">常见的傅里叶变换对<a hidden class="anchor" aria-hidden="true" href="#常见的傅里叶变换对">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>时域信号 $x[n]$</th>
+          <th>频域信号 $X(e^{j \omega})$</th>
+          <th>傅里叶级数系数</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$\sum_{k = 0}^{N-1} a_k e^{j k \frac{2 \pi}{N} n}$</td>
+          <td>$2 \pi \sum_{k=-\infty}^{+\infty} a_k \delta(\omega - k \frac{2 \pi}{N})$</td>
+          <td>$a_k$</td>
+      </tr>
+      <tr>
+          <td>$e^{j \omega_0 n}$</td>
+          <td>$2 \pi \sum_{k=-\infty}^{+\infty} \delta(\omega - \omega_0 - 2 \pi k)$</td>
+          <td>若 $w_0 = k \frac{2 \pi}{N}$ 则为 $1$，否则为 $0$</td>
+      </tr>
+      <tr>
+          <td>$cos(\omega_0 n)$</td>
+          <td>$\pi \sum_{k=-\infty}^{+\infty} [\delta(\omega - \omega_0 - 2 \pi k) + \delta(\omega + \omega_0 - 2 \pi k)]$</td>
+          <td>若 $w_0 = k \frac{2 \pi}{N}$ 则为 $\frac{1}{2}$，否则为 $0$</td>
+      </tr>
+      <tr>
+          <td>$sin(\omega_0 n)$</td>
+          <td>$\frac{\pi}{j} \sum_{k=-\infty}^{+\infty} [\delta(\omega - \omega_0 - 2 \pi k) - \delta(\omega + \omega_0 - 2 \pi k)]$</td>
+          <td>若 $w_0 = k \frac{2 \pi}{N}$ 则为 $\|\frac{1}{2j}\|$ (右侧为正，左侧为负)，否则为 $0$</td>
+      </tr>
+      <tr>
+          <td>$x[n] = 1$</td>
+          <td>$2 \pi \sum_{k=-\infty}^{+\infty} \delta(\omega - 2 \pi k)$</td>
+          <td>若 $k = N \cdot i$ 则为 $1$，否则为 $0$</td>
+      </tr>
+      <tr>
+          <td>$x[n] = \begin{cases}1, & \|n\| < N_1 \\ 0, & \|n\| > N_1 \end{cases}$</td>
+          <td>$2\pi \sum_{k = -\infty}^{\infty}a_k \delta(\omega - \frac{2\pi k}{N} )$</td>
+          <td>$a_k = \frac{sin[(2\pi k / N) (N_1 + 1/2)]}{N sin[2\pi k / 2N]}$ k = N 整数倍时 $a_k = \frac{2 N_1 + 1}{N}$</td>
+      </tr>
+      <tr>
+          <td>$\sum_{k =-\infty}^{\infty} \delta[n-kN]$</td>
+          <td>$\frac{2 \pi}{N} \sum_{k=-\infty}^{+\infty} \delta(\omega - k \frac{2 \pi}{N})$</td>
+          <td>$a_k = \frac{1}{N}$</td>
+      </tr>
+      <tr>
+          <td>$a^n u[n], \|a\| < 1$</td>
+          <td>$\frac{1}{1 - a e^{-j \omega}}$</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$x[n] = \begin{cases} 1, & \|n\| < N \\ 0, & others \end{cases}$</td>
+          <td>$\frac{sin[\omega(N_1 + 1/2)]}{sin[\omega/2]}$</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$ \frac{sin W n}{\pi n}$</td>
+          <td>$\begin{cases} 1, & \|\omega\| < W \\ 0, & \pi \ge \|\omega\| > W \end{cases}$</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$ \delta[n - n_0]$</td>
+          <td>$e^{-j \omega n_0}$</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$u[n]$</td>
+          <td>$\frac{1}{1 - e^{-j \omega}} + \pi \sum_{k=-\infty}^{+\infty} \delta(\omega - 2 \pi k)$</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$(n+1) a^n u[n], \|a\| < 1$</td>
+          <td>$\frac{1}{(1 - a e^{-j \omega})^2}$</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>$\frac{(n + r -1)!}{n!(r-1)!} a^n u[n], \|a\| < 1$</td>
+          <td>$\frac{1}{(1 - a e^{-j \omega})^r}$</td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="离散信号傅里叶变换的性质">离散信号傅里叶变换的性质<a hidden class="anchor" aria-hidden="true" href="#离散信号傅里叶变换的性质">#</a></h3>
+<blockquote>
+<p>离散信号绝大部分特性都可以照搬连续信号的特点，可是在连续信号之外，离散信号多出了一些属于它的特殊的性质</p></blockquote>
+<p><strong>周期性</strong></p>
+<p>如果 $x[n] \leftrightarrow X(e^{j \omega})$，
+那么
+</p>
+$$X(e^{j (\omega + 2 \pi k)}) = X(e^{j \omega}), \quad k = 0, \pm 1, \pm 2, \ldots$$<p><strong>线性性质</strong></p>
+<p>如果 $x_1[n] \leftrightarrow X_1(e^{j \omega})$， $x_2[n] \leftrightarrow X_2(e^{j \omega})$，那么
+</p>
+$$a x_1[n] + b x_2[n] \leftrightarrow a X_1(e^{j \omega}) + b X_2(e^{j \omega})$$<p><strong>时移、频移</strong></p>
+$$\begin{aligned}
+x[n - n_0] &\leftrightarrow X(e^{j \omega}) e^{-j \omega n_0} \\
+e^{j \omega_0 n} x[n] &\leftrightarrow X(e^{j (\omega - \omega_0)})
+\end{aligned}$$<p><strong>共轭与共轭对称性</strong> : TODO</p>
+<p><strong>差分与累加</strong></p>
+$$\begin{aligned}
+\Delta^n x[n] &\leftrightarrow (1 - e^{-j \omega})^n X(e^{j \omega}) \\
+\sum_{k=-\infty}^{n} x[k] &\leftrightarrow \frac{1}{1 - e^{-j \omega}} X(e^{j \omega}) + \pi X(e^{j 0}) \sum_{k=-\infty}^{+\infty} \delta(\omega - 2 \pi k)
+\end{aligned}$$<p><strong>频域微分</strong></p>
+$$\begin{aligned}
+n x[n] &\leftrightarrow j \frac{d X(e^{j \omega})}{d \omega} \\
+n^k x[n] &\leftrightarrow j^k \frac{d^k X(e^{j \omega})}{d \omega^k}
+\end{aligned}$$<p><strong>时域扩展</strong></p>
+<p>先定义
+</p>
+$$
+x_{(k)}[n] = \begin{cases} x\left[\frac{n}{k}\right], & n = 0, \pm k, \pm 2k, \ldots \\ 0, & \text{else} \end{cases}
+$$<p>
+如果 $x[n] \leftrightarrow X(e^{j \omega})$，那么
+</p>
+$$x_{(k)}[n] \leftrightarrow X(e^{j k \omega})$$<p>Proof:
+</p>
+$$\begin{aligned}
+X_{(k)}(e^{j \omega}) &= \sum_{n=-\infty}^{+\infty} x_{(k)}[n] e^{-j \omega n} \\
+&= \sum_{m=-\infty}^{+\infty} x[m] e^{-j \omega k m} \\
+&= X(e^{j k \omega})
+\end{aligned}$$<p><strong>帕塞瓦尔</strong>
+如果 $x[n] \leftrightarrow X(e^{j \omega})$，那么
+</p>
+$$\sum_{n=-\infty}^{+\infty} |x[n]|^2 = \frac{1}{2 \pi} \int_{-\pi}^{+\pi} |X(e^{j \omega})|^2 d\omega$$<h3 id="卷积--相乘-1">卷积 &amp; 相乘<a hidden class="anchor" aria-hidden="true" href="#卷积--相乘-1">#</a></h3>
+<h4 id="卷积-1">卷积<a hidden class="anchor" aria-hidden="true" href="#卷积-1">#</a></h4>
+$$\begin{aligned}
+y[n] &= x[n] * h[n]\\
+&= \sum_{m=-\infty}^{+\infty} x[m] h[n - m] \\
+Y(e^{j \omega}) &= X(e^{j \omega}) \cdot H(e^{j \omega})
+\end{aligned}$$<blockquote>
+<p>证明方法可以参照前一章对于离散傅里叶级数卷积性质的证明</p></blockquote>
+<h4 id="相乘-1">相乘<a hidden class="anchor" aria-hidden="true" href="#相乘-1">#</a></h4>
+$$\begin{aligned}
+Y(e^{j \omega}) &= \frac{1}{2 \pi} X(e^{j \omega}) * H(e^{j \omega})
+\end{aligned}$$<p>Proof:
+</p>
+$$\begin{aligned}
+Y(e^{j \omega}) &= \sum_{n=-\infty}^{+\infty} x[n] h[n] e^{-j \omega n} \\
+&= \sum_{n=-\infty}^{+\infty} x[n] \left( \frac{1}{2\pi} \int_{-\pi}^{+\pi} H(e^{j \omega'}) e^{j \omega' n} d\omega' \right) e^{-j \omega n} \\
+&= \frac{1}{2\pi} \int_{-\pi}^{+\pi} H(e^{j \omega'}) \left( \sum_{n=-\infty}^{+\infty} x[n] e^{-j (\omega - \omega') n} \right) d\omega' \\
+&= \frac{1}{2\pi} \int_{-\pi}^{+\pi} H(e^{j \omega'}) X(e^{j (\omega - \omega')}) d\omega' \\
+&= \frac{1}{2 \pi} X(e^{j \omega}) * H(e^{j \omega})
+\end{aligned}$$<h3 id="对偶性">对偶性<a hidden class="anchor" aria-hidden="true" href="#对偶性">#</a></h3>
+<h4 id="dfs-的对偶性">DFS 的对偶性<a hidden class="anchor" aria-hidden="true" href="#dfs-的对偶性">#</a></h4>
+<p>离散信号的对偶性，直观理解就是对于一个周期信号 $x[n]$，它的 DFS 系数$a_k$ 是离散的序列，那么如果我们把 $a_k$ 当作时域信号来计算它的 DFS，会发现结果正好是 $\frac{1}{N}x[-n]$</p>
+<p>先来看一个信号
+</p>
+$$
+f[m] = \frac{1}{N} \sum_{n=0}^{N-1} g[r] e^{j \frac{2 \pi}{N} m r}
+$$<p>
+当我们令 $m = k, r = n$ 时，可以得到
+</p>
+$$
+f[k] = \frac{1}{N} \sum_{n=0}^{N-1} g[n] e^{j \frac{2 \pi}{N} k n} = a_k
+$$<p>
+即 $g[n] \leftrightarrow f[k]$</p>
+<p>而当我们令 $m = n, r = -k$ 时，可以得到
+</p>
+$$
+f[n] = \frac{1}{N} \sum_{k=0}^{N-1} g[-k] e^{j \frac{2 \pi}{N} n k}
+$$<p>
+即 $f[n] \leftrightarrow \frac{1}{N} g[-k]$</p>
+<h4 id="离散傅里叶变换与连续傅里叶级数的对偶性">离散傅里叶变换与连续傅里叶级数的对偶性<a hidden class="anchor" aria-hidden="true" href="#离散傅里叶变换与连续傅里叶级数的对偶性">#</a></h4>
+$$\begin{aligned}
+x[n] &= \frac{1}{2\pi} \int_{-\pi}^{+\pi} X(e^{j \omega}) e^{j \omega n} d\omega \\
+X(e^{j \omega}) &= \sum_{n=-\infty}^{+\infty} x[n] e^{-j \omega n} \\
+x(t) &= \sum_{k = -\infty}^{+\infty} a_k e^{j k \omega_0 t} \\
+a_k &= \frac{1}{T} \int_{-\frac{T}{2}}^{+\frac{T}{2}} x(t) e^{-j k \omega_0 t} dt
+\end{aligned}
+$$<p>是不是非常神奇，上面的表达式居然是一样的结构，这种对偶性在处理某些信号时可以起到相当大的帮助 🤫</p>
+<blockquote>
+<p>举个 🌰
+如果我们要求下面信号的傅里叶变换
+</p>
+$$x[n] = \frac{sin(\pi n / 2)}{\pi n}$$<p>
+那么根据对偶性，我们需要研究一个周期为 $T = 2\pi$ 的连续信号 $g(t)$，它的傅里叶级数系数满足 </p>
+$$a_k = x[k]$$<p>
+在上一章介绍周期矩形信号时，我们知道一个周期为 $2 \pi$，宽度为 $\pi$ 的矩形信号 $g(t)$ 的傅里叶级数系数为
+</p>
+$$a_k = \frac{1}{2 \pi} \int_{-\frac{\pi}{2}}^{+\frac{\pi}{2}} 1 \cdot e^{-j k t} dt = \frac{sin(k \pi / 2)}{k \pi}$$<p>
+那么根据对偶性，我们可以直接得到
+</p>
+$$X(e^{j \omega}) = \begin{cases} 1, & |\omega| < \frac{\pi}{2} \\ 0, & \pi \ge  |\omega| \ge \frac{\pi}{2} \end{cases}$$</blockquote>
+<h3 id="线性常系数差分方程">线性常系数差分方程<a hidden class="anchor" aria-hidden="true" href="#线性常系数差分方程">#</a></h3>
+<blockquote>
+<p>这一部分的内容和前面介绍连续信号的部分非常接近</p></blockquote>
+<p>如果输入信号 $x[n]$ 和输出信号 $y[n]$ 满足一个线性常系数差分方程
+</p>
+$$\sum_{n=0}^{N} a_n y[n - n] = \sum_{m=0}^{M} b_m x[n - m]$$<p>
+那么通过傅里叶变换的时移性质，可以得到
+</p>
+$$\begin{aligned}
+\sum_{n=0}^{N} a_n e^{-j \omega n} Y(e^{j \omega}) &= \sum_{m=0}^{M} b_m e^{-j \omega m} X(e^{j \omega}) \\
+\Rightarrow H(e^{j \omega}) &= \frac{Y(e^{j \omega})}{X(e^{j \omega})} = \frac{\sum_{m=0}^{M} b_m e^{-j \omega m}}{\sum_{n=0}^{N} a_n e^{-j \omega n}}
+\end{aligned}$$
 
   </div>
 
@@ -186,7 +826,7 @@
 <ul class="share-buttons">
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share Fourier Transform on x"
-            href="https://x.com/intent/tweet/?text=Fourier%20Transform&amp;url=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2ffourier_transform%2f&amp;hashtags=">
+            href="https://x.com/intent/tweet/?text=Fourier%20Transform&amp;url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2ffourier_transform%2f&amp;hashtags=">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
@@ -195,7 +835,7 @@
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share Fourier Transform on linkedin"
-            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2ffourier_transform%2f&amp;title=Fourier%20Transform&amp;summary=Fourier%20Transform&amp;source=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2ffourier_transform%2f">
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2ffourier_transform%2f&amp;title=Fourier%20Transform&amp;summary=Fourier%20Transform&amp;source=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2ffourier_transform%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
@@ -204,7 +844,7 @@
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share Fourier Transform on reddit"
-            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2ffourier_transform%2f&title=Fourier%20Transform">
+            href="https://reddit.com/submit?url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2ffourier_transform%2f&title=Fourier%20Transform">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
@@ -213,7 +853,7 @@
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share Fourier Transform on facebook"
-            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2ffourier_transform%2f">
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2ffourier_transform%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
@@ -222,7 +862,7 @@
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share Fourier Transform on whatsapp"
-            href="https://api.whatsapp.com/send?text=Fourier%20Transform%20-%20http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2ffourier_transform%2f">
+            href="https://api.whatsapp.com/send?text=Fourier%20Transform%20-%20https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2ffourier_transform%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
@@ -231,7 +871,7 @@
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share Fourier Transform on telegram"
-            href="https://telegram.me/share/url?text=Fourier%20Transform&amp;url=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2ffourier_transform%2f">
+            href="https://telegram.me/share/url?text=Fourier%20Transform&amp;url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2ffourier_transform%2f">
             <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
@@ -240,7 +880,7 @@
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share Fourier Transform on ycombinator"
-            href="https://news.ycombinator.com/submitlink?t=Fourier%20Transform&u=http%3a%2f%2flocalhost%3a56188%2fposts%2fsignals-and-systems%2ffourier_transform%2f">
+            href="https://news.ycombinator.com/submitlink?t=Fourier%20Transform&u=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2ffourier_transform%2f">
             <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
                 xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
                 <path
@@ -255,7 +895,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:56188/">CrazyBread&#39; Blog</a></span> · 
+        <span>&copy; 2026 <a href="https://crazyjassbread.github.io/">CrazyBread&#39; Blog</a></span> · 
 
     <span>
         Powered by
