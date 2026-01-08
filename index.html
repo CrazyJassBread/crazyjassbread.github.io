@@ -252,12 +252,34 @@ $$ T a_k = \frac{2}{\omega} \sin\left(\omega T_1 \right) = X(j \omega) $$当 $\l
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Deep Learning Review
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>目录 线性分类器 正则化与优化 神经网络与反向传播 卷积神经网络 复习笔记只记录一些重点内容和需要记住的公式
+01线性分类器 线性分类器：非常重要的概念——低维不可分但是高维可分
+也是由于上面的特质使得线性分类器一般作为深度神经网络的最后一层 😼
+图像分类任务 图像分类任务的困难——语义鸿沟（semantic gap）：人眼看到的图像和机器处理的输入数据之间存在巨大的差异
+挑战：视角差异、形变、光照变化、类内差异、杂乱的背景、类间混淆、遮挡、环境干扰
+KNN 记住所有数据和标签，将测试图像预测为与其最相似的训练图像的标签
+对于 1 近邻的情况，存在的问题是无法处理离群点 而多近邻的情况，会出现空白区域问题 不可以直接使用像素之间的距离作为度量标准，不具备鲁棒性！
+线性分类器 SVM 的损失函数可以表示为 $$ L = \frac{1}{N} \sum_{i=1}^{N} \sum_{j \neq y_i} \max(0, s_j - s_{y_i} &#43; \Delta) \quad (\text{PPT中 } \Delta = 1) $$ $Q_1$: 损失函数的最大值可以逼近正无穷，最小值为0
+$Q_2$: 如果将 Loss 中的 sum 换成 mean，那么新损失函数的值会等缩小，从而减小梯度
+$Q_3$: 如果将每一个样本的损失函数替换成 $$ L_i = \sum_{j \neq y_i} \max(0, s_j - s_{y_i} &#43; \Delta)^2 $$ 那么新损失函数会对错误分类的样本有更大的惩罚力度
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-28 12:54:12 +0800 CST'>December 28, 2025</span>&nbsp;·&nbsp;6 min</footer>
+  <a class="entry-link" aria-label="post link to Deep Learning Review" href="https://crazyjassbread.github.io/posts/final-exam-review/deep-learning/review/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Data Mining Review
     </h2>
   </header>
   <div class="entry-content">
     <p>Data Mining 课程复习笔记 笔记目录
-认识数据 数据预处理 朴素贝叶斯分类器 决策树分类 基于规则的分类 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）
+认识数据 数据预处理 朴素贝叶斯分类器 决策树分类 基于规则的分类 回归算法 支持向量机 SVM 模型的评价 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）
 这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩
 认识数据 这一节非常无趣且都是死记硬背的知识点，主要由以下几部分组成：
 基本概念 | 数据统计的方法 | 相似性度量 ｜ 复习小巧思
@@ -270,10 +292,9 @@ part one 数据的基本概念
 差异系数 $CV = \frac{\sigma}{mean(x)}$
 四分位极差 (range)
 $IQR = Q_3 - Q_1$
-$\max = Q_3 &#43; 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-12-27 16:25:31 +0800 CST'>December 27, 2025</span>&nbsp;·&nbsp;3 min</footer>
+  <footer class="entry-footer"><span title='2025-12-27 16:25:31 +0800 CST'>December 27, 2025</span>&nbsp;·&nbsp;7 min</footer>
   <a class="entry-link" aria-label="post link to Data Mining Review" href="https://crazyjassbread.github.io/posts/final-exam-review/data-mining/review/"></a>
 </article>
 

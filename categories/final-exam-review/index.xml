@@ -6,8 +6,54 @@
     <description>Recent content in Final Exam Review on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Dec 2025 16:25:31 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Dec 2025 12:54:12 +0800</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/categories/final-exam-review/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deep Learning Review</title>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/deep-learning/review/</link>
+      <pubDate>Sun, 28 Dec 2025 12:54:12 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/deep-learning/review/</guid>
+      <description>&lt;h2 id=&#34;目录&#34;&gt;目录&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#01%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8&#34;&gt;线性分类器&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#02%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96&#34;&gt;正则化与优化&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#03%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD&#34;&gt;神经网络与反向传播&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#04%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&#34;&gt;卷积神经网络&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;复习笔记只记录一些重点内容和需要记住的公式&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;01线性分类器&#34;&gt;01线性分类器&lt;/h2&gt;
+&lt;p&gt;&lt;mark&gt;线性分类器&lt;/mark&gt;：非常重要的概念——低维不可分但是高维可分&lt;/p&gt;
+&lt;p&gt;也是由于上面的特质使得线性分类器一般作为深度神经网络的最后一层 😼&lt;/p&gt;
+&lt;h3 id=&#34;图像分类任务&#34;&gt;图像分类任务&lt;/h3&gt;
+&lt;p&gt;图像分类任务的困难——&lt;strong&gt;语义鸿沟（semantic gap）&lt;/strong&gt;：人眼看到的图像和机器处理的输入数据之间存在巨大的差异&lt;/p&gt;
+&lt;p&gt;挑战：视角差异、形变、光照变化、类内差异、杂乱的背景、类间混淆、遮挡、环境干扰&lt;/p&gt;
+&lt;h3 id=&#34;knn&#34;&gt;KNN&lt;/h3&gt;
+&lt;p&gt;记住所有数据和标签，将测试图像预测为与其最相似的训练图像的标签&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于 1 近邻的情况，存在的问题是无法处理&lt;strong&gt;离群点&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;而多近邻的情况，会出现&lt;strong&gt;空白区域&lt;/strong&gt;问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不可以直接使用像素之间的距离作为度量标准，不具备鲁棒性！&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;线性分类器&#34;&gt;线性分类器&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;SVM&lt;/strong&gt; 的损失函数可以表示为
+&lt;/p&gt;
+$$
+L = \frac{1}{N} \sum_{i=1}^{N} \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + \Delta) \quad (\text{PPT中 } \Delta = 1)
+$$&lt;blockquote&gt;
+&lt;p&gt;$Q_1$: 损失函数的最大值可以逼近正无穷，最小值为0&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$Q_2$: 如果将 Loss 中的 &lt;strong&gt;sum&lt;/strong&gt; 换成 &lt;strong&gt;mean&lt;/strong&gt;，那么新损失函数的值会等缩小，从而减小梯度&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$Q_3$: 如果将每一个样本的损失函数替换成
+&lt;/p&gt;
+$$
+L_i = \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + \Delta)^2
+$$&lt;p&gt;
+那么新损失函数会对错误分类的样本有更大的惩罚力度&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Data Mining Review</title>
       <link>https://crazyjassbread.github.io/posts/final-exam-review/data-mining/review/</link>
@@ -21,6 +67,9 @@
 &lt;li&gt;&lt;a href=&#34;#%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8&#34;&gt;朴素贝叶斯分类器&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#%E5%86%B3%E7%AD%96%E6%A0%91%E5%88%86%E7%B1%BB&#34;&gt;决策树分类&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#%E5%9F%BA%E4%BA%8E%E8%A7%84%E5%88%99%E7%9A%84%E5%88%86%E7%B1%BB&#34;&gt;基于规则的分类&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95&#34;&gt;回归算法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-svm&#34;&gt;支持向量机 SVM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AF%84%E4%BB%B7&#34;&gt;模型的评价&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）&lt;/p&gt;
 &lt;p&gt;这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩&lt;/p&gt;
@@ -44,8 +93,7 @@
 &lt;p&gt;&lt;strong&gt;标准差&lt;/strong&gt; $\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2}$&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;差异系数&lt;/strong&gt; $CV = \frac{\sigma}{mean(x)}$&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;四分位极差 (range)&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;$IQR = Q_3 - Q_1$&lt;/p&gt;
-&lt;p&gt;$\max = Q_3 + 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$&lt;/p&gt;</description>
+&lt;p&gt;$IQR = Q_3 - Q_1$&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -15,6 +15,9 @@
 朴素贝叶斯分类器
 决策树分类
 基于规则的分类
+回归算法
+支持向量机 SVM
+模型的评价
 
 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）
 这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩
@@ -38,8 +41,7 @@ part two - 数据统计的基本方法
 标准差 $\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2}$
 差异系数 $CV = \frac{\sigma}{mean(x)}$
 四分位极差 (range)
-$IQR = Q_3 - Q_1$
-$\max = Q_3 &#43; 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$">
+$IQR = Q_3 - Q_1$">
 <meta name="author" content="">
 <link rel="canonical" href="https://crazyjassbread.github.io/posts/final-exam-review/data-mining/review/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
@@ -91,7 +93,7 @@ $\max = Q_3 &#43; 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$">
   <meta property="og:site_name" content="CrazyBread&#39; Blog">
   <meta property="og:title" content="Data Mining Review">
   <meta property="og:description" content="Data Mining 课程复习笔记 笔记目录
-认识数据 数据预处理 朴素贝叶斯分类器 决策树分类 基于规则的分类 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）
+认识数据 数据预处理 朴素贝叶斯分类器 决策树分类 基于规则的分类 回归算法 支持向量机 SVM 模型的评价 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）
 这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩
 认识数据 这一节非常无趣且都是死记硬背的知识点，主要由以下几部分组成：
 基本概念 | 数据统计的方法 | 相似性度量 ｜ 复习小巧思
@@ -103,8 +105,7 @@ part one 数据的基本概念
 标称属性：感觉这里指的是对数据的命名，比如 fanqi 养的六只猫需要六个不同的名字来区分 二元属性：只有两种取值的标称属性 序数属性：比如大中小，但是不知道大究竟是多少（定性分析） 数值属性：分成区间标度（我身高 180cm 比他高 2 cm）和比率标度（我跑步10km/h 比他快一倍） part two - 数据统计的基本方法 标准差 $\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2}$
 差异系数 $CV = \frac{\sigma}{mean(x)}$
 四分位极差 (range)
-$IQR = Q_3 - Q_1$
-$\max = Q_3 &#43; 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$">
+$IQR = Q_3 - Q_1$">
   <meta property="og:locale" content="en-us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -121,6 +122,9 @@ $\max = Q_3 &#43; 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$">
 朴素贝叶斯分类器
 决策树分类
 基于规则的分类
+回归算法
+支持向量机 SVM
+模型的评价
 
 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）
 这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩
@@ -144,8 +148,7 @@ part two - 数据统计的基本方法
 标准差 $\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2}$
 差异系数 $CV = \frac{\sigma}{mean(x)}$
 四分位极差 (range)
-$IQR = Q_3 - Q_1$
-$\max = Q_3 &#43; 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$">
+$IQR = Q_3 - Q_1$">
 
 
 <script type="application/ld+json">
@@ -174,12 +177,12 @@ $\max = Q_3 &#43; 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$">
   "@type": "BlogPosting",
   "headline": "Data Mining Review",
   "name": "Data Mining Review",
-  "description": "Data Mining 课程复习笔记 笔记目录\n认识数据 数据预处理 朴素贝叶斯分类器 决策树分类 基于规则的分类 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）\n这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩\n认识数据 这一节非常无趣且都是死记硬背的知识点，主要由以下几部分组成：\n基本概念 | 数据统计的方法 | 相似性度量 ｜ 复习小巧思\npart one 数据的基本概念\n一句话总结： 数据（总体） \u0026gt; 数据对象（比如一张统计表） \u0026gt; 数据元素（表中的列） \u0026gt; 数据项（每列的具体值）\n数据属性\n阅读参考书目，感觉这里的数据属性指的是机器学习中数据的特征（比如Titanic数据集中的Age、Sex等）\n比较搞人的是这里对数据属性也进行了分类，分为四种\n标称属性：感觉这里指的是对数据的命名，比如 fanqi 养的六只猫需要六个不同的名字来区分 二元属性：只有两种取值的标称属性 序数属性：比如大中小，但是不知道大究竟是多少（定性分析） 数值属性：分成区间标度（我身高 180cm 比他高 2 cm）和比率标度（我跑步10km/h 比他快一倍） part two - 数据统计的基本方法 标准差 $\\sigma = \\sqrt{\\frac{1}{n} \\sum_{i=1}^n (x_i - \\overline{x})^2}$\n差异系数 $CV = \\frac{\\sigma}{mean(x)}$\n四分位极差 (range)\n$IQR = Q_3 - Q_1$\n$\\max = Q_3 + 1.5 IQR$ 而 $\\min = Q_1 - 1.5 IQR$\n",
+  "description": "Data Mining 课程复习笔记 笔记目录\n认识数据 数据预处理 朴素贝叶斯分类器 决策树分类 基于规则的分类 回归算法 支持向量机 SVM 模型的评价 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）\n这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩\n认识数据 这一节非常无趣且都是死记硬背的知识点，主要由以下几部分组成：\n基本概念 | 数据统计的方法 | 相似性度量 ｜ 复习小巧思\npart one 数据的基本概念\n一句话总结： 数据（总体） \u0026gt; 数据对象（比如一张统计表） \u0026gt; 数据元素（表中的列） \u0026gt; 数据项（每列的具体值）\n数据属性\n阅读参考书目，感觉这里的数据属性指的是机器学习中数据的特征（比如Titanic数据集中的Age、Sex等）\n比较搞人的是这里对数据属性也进行了分类，分为四种\n标称属性：感觉这里指的是对数据的命名，比如 fanqi 养的六只猫需要六个不同的名字来区分 二元属性：只有两种取值的标称属性 序数属性：比如大中小，但是不知道大究竟是多少（定性分析） 数值属性：分成区间标度（我身高 180cm 比他高 2 cm）和比率标度（我跑步10km/h 比他快一倍） part two - 数据统计的基本方法 标准差 $\\sigma = \\sqrt{\\frac{1}{n} \\sum_{i=1}^n (x_i - \\overline{x})^2}$\n差异系数 $CV = \\frac{\\sigma}{mean(x)}$\n四分位极差 (range)\n$IQR = Q_3 - Q_1$\n",
   "keywords": [
     "Data Mining"
   ],
-  "articleBody": "Data Mining 课程复习笔记 笔记目录\n认识数据 数据预处理 朴素贝叶斯分类器 决策树分类 基于规则的分类 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）\n这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩\n认识数据 这一节非常无趣且都是死记硬背的知识点，主要由以下几部分组成：\n基本概念 | 数据统计的方法 | 相似性度量 ｜ 复习小巧思\npart one 数据的基本概念\n一句话总结： 数据（总体） \u003e 数据对象（比如一张统计表） \u003e 数据元素（表中的列） \u003e 数据项（每列的具体值）\n数据属性\n阅读参考书目，感觉这里的数据属性指的是机器学习中数据的特征（比如Titanic数据集中的Age、Sex等）\n比较搞人的是这里对数据属性也进行了分类，分为四种\n标称属性：感觉这里指的是对数据的命名，比如 fanqi 养的六只猫需要六个不同的名字来区分 二元属性：只有两种取值的标称属性 序数属性：比如大中小，但是不知道大究竟是多少（定性分析） 数值属性：分成区间标度（我身高 180cm 比他高 2 cm）和比率标度（我跑步10km/h 比他快一倍） part two - 数据统计的基本方法 标准差 $\\sigma = \\sqrt{\\frac{1}{n} \\sum_{i=1}^n (x_i - \\overline{x})^2}$\n差异系数 $CV = \\frac{\\sigma}{mean(x)}$\n四分位极差 (range)\n$IQR = Q_3 - Q_1$\n$\\max = Q_3 + 1.5 IQR$ 而 $\\min = Q_1 - 1.5 IQR$\n偏度系数 $SK = \\frac{(mean - median)}{\\sigma}$\n峰度系数 $K = \\frac{1}{n} \\sum_{i=1}^n \\left( \\frac{x_i - mean}{\\sigma} \\right)^4$ （正太分布的峰度系数为3）\npart three - 数据相似性度量 标称属性的近邻性度量： $$ d(i,j) = \\frac{p - m}{p} $$ 其中 p 为属性总数，m 为两个对象在属性上取值相同的个数\n二元属性的计算则可以画表来表示，令q r s t 分别表示如下四种情况的个数：\nObject j = 1 Object j = 0 Object i = 1 q r Object i = 0 s t 常用的距离计算方式： $d(i,j) = \\frac{r + s}{q + r + s + t}$\n而倘若我们只关心两个对象同时为1的情况，则变为 $d(i,j) = \\frac{r + s}{q + r + s}$ （理解起来也比较简单，比如疾病检测我们只关心阳性😼）\n补充：Jaccard系数： $sim(i,j) = \\frac{q}{q + r + s}$\n序数属性的近邻性计算（说成人话就是数据的各种距离度量）\n(1) 闵可夫斯基距离 $$ d(i,j) = \\left( \\sum_{k=1}^{n} |x_{ik} - x_{jk}|^p \\right)^{\\frac{1}{p}} $$根据 p 的不同取值，可以得到不同的距离计算方式\n当 $p = 1$ 时，为曼哈顿距离 当 $p = 2$ 时，为欧氏距离 当 $p \\to \\infty$ 时，为切比雪夫距离 对于距离度量，他们都满足三种性质：非负性、对称性、三角不等式\n(2) 余弦相似性 $$ sim(i,j) = \\frac{\\sum_{k=1}^{n} x_{ik} \\cdot x_{jk}}{\\sqrt{\\sum_{k=1}^{n} x_{ik}^2} \\cdot \\sqrt{\\sum_{k=1}^{n} x_{jk}^2}} = \\frac{x_i \\cdot x_j}{||x_i|| \\cdot ||x_j||} $$小结 💡 这一部分需要记住：数据的四种类型、四分位极差和那个神奇的 min、max 计算方式，还有一些新引入的概念如偏度、峰度系数\n数据预处理 这一节主要包含以下四个部分：\n数据清洗 | 数据集成 | 数据规约 | 数据转换\n进行数据预处理，主要目的是提升数据的质量，书中给了数据质量的衡量标准：准确性、完整性、一致性、合时性、可信性、可理解性等\n数据清洗 缺失值处理方法：忽略元组、手动填写缺失值、自动填写（各种方法都可以）\n噪声数据：离群点分析（这里就涉及到上一节里算出来的 max 和 min 了）、回归方法\n数据不一致：开动我们的小脑瓜\n数据集成 应该是为了缓解数据冗余，数据集成做的事情是将多个数据源进行合并\n（然后书本就突然开始介绍相关性分析了，我读了好几遍也没看出它是用什么逻辑进行串联的，Maybe 相关性分析有助于我们确定数据集成的方式吧）\n相关性分析\n离散变量：chi-square 统计量： $$\\chi^2 = \\sum_{i=1}^{r} \\sum_{j=1}^{c} \\frac{(o_{ij} - e_{ij})^2}{e_{ij}}$$Tip : expected 的计算可以采用变量独立性假设来计算联合概率分布（书本的计算表达式便是这样得来的）\n连续变量：皮尔逊相关系数 $$r_{A,B} = \\frac{\\sum_{i=1}^{n} (a_i - \\overline{A})(b_i - \\overline{B})}{（n-1） \\sigma_A \\sigma_B}$$根据 r 的取值划分成三级：$|r| \u003c 0.4$ 为低度线性相关，$0.4 \\leq |r| \\leq 0.7$ 为显著性相关，$|r| \u003e 0.7$ 为高度线性相关\n补充：相关系数矩阵的计算 $$ R = \\begin{bmatrix} 1 \u0026 r_{1,2} \u0026 \\cdots \u0026 r_{1,n} \\\\ r_{2,1} \u0026 1 \u0026 \\cdots \u0026 r_{2,n} \\\\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\\\ r_{n,1} \u0026 r_{n,2} \u0026 \\cdots \u0026 1 \\end{bmatrix} $$ 其中 $$r_{i,j} = \\frac{\\sum_{k=1}^{n} (x_{k,i} - \\overline{x_i})(x_{k,j} - \\overline{x_j})}{n \\cdot \\sigma_i \\sigma_j}$$协方差分析 $$cov(A,B) = \\frac{\\sum_{i=1}^{n} (a_i - \\overline{A})(b_i - \\overline{B})}{n}$$Tip : 协方差为 0 不一定代表两个变量是独立的（除非加上如服从正态分布等假设条件）\n数据规约（人话版：如何节省存储空间） 思路一：数据降维（主成分分析PCA大法）\n思路二：降数据（抽样法）\n抽样法：简单随机抽样（SRS，又分成有放回与无放回）、分层抽样等 思路三：数据压缩\n数据转换 数据转换就两种类型，一类规范化，另一类就是离散化\n规范化\n最小-最大规范化 $$v' = \\frac{v - min_A}{max_A - min_A} (new\\_{max_A} - new_{min_A}) + new_{min_A}$$ Z-Score 规范化 $$v' = \\frac{v - \\overline{A}}{\\sigma_A}$$ 小数定标规范化 $$v' = \\frac{v}{10^j}$$ 其中 j 是使用该方法后，$|v'| \u003c 1$ 的最小整数 离散化\n等宽法： 将数据划分成宽度相等的区间（工资划分为低（0-3）、中（3-6）、高（6-9）） 等频法： 将数据划分成频率相等的区间（每个区间包含相同的数据点） 聚类：k-means等 朴素贝叶斯分类器 这部分内容构成方式为: 基本概念 | 例题 ｜ 总结\n基本概念 这一部分的核心就两点，第一点是贝叶斯定理 $$ P(A|B) = \\frac{P(B|A) P(A)}{P(B)} $$我们的目标是在给定数据分布 D 的条件下，找出最有可能的假设 h，即 $$ h_{MAP} = \\arg\\max_{h \\in H} \\frac{P(D|h) P(h)}{P(D)} = \\arg\\max_{h \\in H} P(D|h) P(h) $$第二个比较重要的就是 独立性假设 $$ h_{MAP} = \\max_{h \\in H} \\Pi_{i=1}^{n} P(d_i | h) P(h) $$例题 这篇文章举的例子就是一个不错的例题 😼\n带你理解朴素贝叶斯分类算法 - 忆臻的文章 - 知乎\n除此之外，参考书籍上还由 电脑购买、垃圾邮件 判断的例题\n总结 贝叶斯分类器的特点：（这里是直接照搬的书籍）\n属性可以离散也可以连续 数学基础坚实，分类效率稳定 对缺失和噪声数据不太敏感 属性如果不相关，分类效果很好 决策树分类 这一章介绍了四类决策树算法\nHunt 算法 这种算法不需要考虑划分节点的信息属性，只需要递归的添加划分节点，直到所有叶节点都是单一类别为止\n这牵扯到两个问题\n怎样为不同类型的属性指定测试条件 怎样选择最佳划分 下面三种算法就是为了解决第二个问题二提出的\nID3 算法 ID3 算法使用信息增益作为划分属性的选择标准 $$\\begin{aligned} Entropy(D) \u0026= - \\sum_{i=1}^{m} p_i \\log_2(p_i) \\\\ Entropy_A(D) \u0026= \\sum_{j=1}^{v} \\frac{|D_j|}{|D|} \\times Entropy(D_j) \\\\ Gain(A) \u0026= Entropy(D) - Entropy_A(D) \\end{aligned}$$C4.5 算法 C4.5 算法使用信息增益率作为划分属性的选择标准 $$\\begin{aligned} SplitInfo_A(D) \u0026= - \\sum_{j=1}^{v} \\frac{|D_j|}{|D|} \\log_2 \\left( \\frac{|D_j|}{|D|} \\right) \\\\ GainRatio(A) \u0026= \\frac{Gain(A)}{SplitInfo_A(D)} \\end{aligned}$$CART 算法 CART 算法使用基尼指数作为划分属性的选择标准 $$\\begin{aligned} Gini(D) \u0026= 1 - \\sum_{i=1}^{m} p_i^2 \\\\ Gini_A(D) \u0026= \\sum_{j=1}^{v} \\frac{|D_j|}{|D|} \\times Gini(D_j) \\\\ \\Delta Gini(A) \u0026= Gini(D) - Gini_A(D) \\end{aligned}$$ 决策树算法防止过拟合可以通过预剪枝和后剪枝两种方式实现\n基于规则的分类 $$ (Condition) \\to (Class) $$ 在介绍如何制定划分规则之前，先对规则的评估方法进行介绍\n规则的评估\n覆盖率 准确率 根据这两种规则的指标，我们可以制定出规则的优先级\n选择规则排序时，第一种方案是按照规则的质量进行排序，第二种方案是按照规则所属的类别进行排序\n构造规则集的一个最基础的方法是顺序覆盖 + 删除实例\n为什么删除实例：避免规则重复 为什么删除正实例：防止高估后面规则的准确率，确保下一个规则不同 为什么删除负实例：防止过拟合错误数据集，防止低估下一个规则的准确率\n很奇怪的一点，书本上举的例子，对于企鹅这反例的删除位置很古怪，目前还没看明白 Learn One Rule 算法 该算法主要由以下步骤组成\n规则增长：方案一是从一般到特殊，方案二是从特殊到一般\n规则评估：准确率、似然比、Laplace、FOIL\n似然比： $$R = 2 \\sum_{i = 1}^{k} f_i \\log \\left( \\frac{f_i}{e_i} \\right)$$FOIL： $$FOIL = f \\left( \\log_2 \\left( \\frac{f}{f + n} \\right) - \\log_2 \\left( \\frac{F}{F + N} \\right) \\right)$$Laplace： $$Laplace = \\frac{f + 1}{n + k}$$停止条件\n规则剪枝\n💡 这里简单介绍一下 lazy learning 与 eager learning 两种分类方法\n",
-  "wordCount" : "605",
+  "articleBody": "Data Mining 课程复习笔记 笔记目录\n认识数据 数据预处理 朴素贝叶斯分类器 决策树分类 基于规则的分类 回归算法 支持向量机 SVM 模型的评价 这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）\n这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩\n认识数据 这一节非常无趣且都是死记硬背的知识点，主要由以下几部分组成：\n基本概念 | 数据统计的方法 | 相似性度量 ｜ 复习小巧思\npart one 数据的基本概念\n一句话总结： 数据（总体） \u003e 数据对象（比如一张统计表） \u003e 数据元素（表中的列） \u003e 数据项（每列的具体值）\n数据属性\n阅读参考书目，感觉这里的数据属性指的是机器学习中数据的特征（比如Titanic数据集中的Age、Sex等）\n比较搞人的是这里对数据属性也进行了分类，分为四种\n标称属性：感觉这里指的是对数据的命名，比如 fanqi 养的六只猫需要六个不同的名字来区分 二元属性：只有两种取值的标称属性 序数属性：比如大中小，但是不知道大究竟是多少（定性分析） 数值属性：分成区间标度（我身高 180cm 比他高 2 cm）和比率标度（我跑步10km/h 比他快一倍） part two - 数据统计的基本方法 标准差 $\\sigma = \\sqrt{\\frac{1}{n} \\sum_{i=1}^n (x_i - \\overline{x})^2}$\n差异系数 $CV = \\frac{\\sigma}{mean(x)}$\n四分位极差 (range)\n$IQR = Q_3 - Q_1$\n$\\max = Q_3 + 1.5 IQR$ 而 $\\min = Q_1 - 1.5 IQR$\n偏度系数 $SK = \\frac{(mean - median)}{\\sigma}$\n峰度系数 $K = \\frac{1}{n} \\sum_{i=1}^n \\left( \\frac{x_i - mean}{\\sigma} \\right)^4$ （正太分布的峰度系数为3）\npart three - 数据相似性度量 标称属性的近邻性度量： $$ d(i,j) = \\frac{p - m}{p} $$ 其中 p 为属性总数，m 为两个对象在属性上取值相同的个数\n二元属性的计算则可以画表来表示，令q r s t 分别表示如下四种情况的个数：\nObject j = 1 Object j = 0 Object i = 1 q r Object i = 0 s t 常用的距离计算方式： $d(i,j) = \\frac{r + s}{q + r + s + t}$\n而倘若我们只关心两个对象同时为1的情况，则变为 $d(i,j) = \\frac{r + s}{q + r + s}$ （理解起来也比较简单，比如疾病检测我们只关心阳性😼）\n补充：Jaccard系数： $sim(i,j) = \\frac{q}{q + r + s}$\n序数属性的近邻性计算（说成人话就是数据的各种距离度量）\n(1) 闵可夫斯基距离 $$ d(i,j) = \\left( \\sum_{k=1}^{n} |x_{ik} - x_{jk}|^p \\right)^{\\frac{1}{p}} $$根据 p 的不同取值，可以得到不同的距离计算方式\n当 $p = 1$ 时，为曼哈顿距离 当 $p = 2$ 时，为欧氏距离 当 $p \\to \\infty$ 时，为切比雪夫距离 对于距离度量，他们都满足三种性质：非负性、对称性、三角不等式\n(2) 余弦相似性 $$ sim(i,j) = \\frac{\\sum_{k=1}^{n} x_{ik} \\cdot x_{jk}}{\\sqrt{\\sum_{k=1}^{n} x_{ik}^2} \\cdot \\sqrt{\\sum_{k=1}^{n} x_{jk}^2}} = \\frac{x_i \\cdot x_j}{||x_i|| \\cdot ||x_j||} $$小结 💡 这一部分需要记住：数据的四种类型、四分位极差和那个神奇的 min、max 计算方式，还有一些新引入的概念如偏度、峰度系数\n数据预处理 这一节主要包含以下四个部分：\n数据清洗 | 数据集成 | 数据规约 | 数据转换\n进行数据预处理，主要目的是提升数据的质量，书中给了数据质量的衡量标准：准确性、完整性、一致性、合时性、可信性、可理解性等\n数据清洗 缺失值处理方法：忽略元组、手动填写缺失值、自动填写（各种方法都可以）\n噪声数据：离群点分析（这里就涉及到上一节里算出来的 max 和 min 了）、回归方法\n数据不一致：开动我们的小脑瓜\n数据集成 应该是为了缓解数据冗余，数据集成做的事情是将多个数据源进行合并\n（然后书本就突然开始介绍相关性分析了，我读了好几遍也没看出它是用什么逻辑进行串联的，Maybe 相关性分析有助于我们确定数据集成的方式吧）\n相关性分析\n离散变量：chi-square 统计量： $$\\chi^2 = \\sum_{i=1}^{r} \\sum_{j=1}^{c} \\frac{(o_{ij} - e_{ij})^2}{e_{ij}}$$ Tip : 上述表达式中，o 为观测值，e 为期望值 expected 的计算可以采用变量独立性假设来计算联合概率分布 $e^{ij} = \\frac{(row_i) \\times (column_j)}{total}$\n连续变量：皮尔逊相关系数 $$r_{A,B} = \\frac{\\sum_{i=1}^{n} (a_i - \\overline{A})(b_i - \\overline{B})}{（n-1） \\sigma_A \\sigma_B}$$根据 r 的取值划分成三级：$|r| \u003c 0.4$ 为低度线性相关，$0.4 \\leq |r| \\leq 0.7$ 为显著性相关，$|r| \u003e 0.7$ 为高度线性相关\n补充：相关系数矩阵的计算 $$ R = \\begin{bmatrix} 1 \u0026 r_{1,2} \u0026 \\cdots \u0026 r_{1,n} \\\\ r_{2,1} \u0026 1 \u0026 \\cdots \u0026 r_{2,n} \\\\ \\vdots \u0026 \\vdots \u0026 \\ddots \u0026 \\vdots \\\\ r_{n,1} \u0026 r_{n,2} \u0026 \\cdots \u0026 1 \\end{bmatrix} $$ 其中 $$r_{i,j} = \\frac{\\sum_{k=1}^{n} (x_{k,i} - \\overline{x_i})(x_{k,j} - \\overline{x_j})}{n \\cdot \\sigma_i \\sigma_j}$$协方差分析 $$cov(A,B) = \\frac{\\sum_{i=1}^{n} (a_i - \\overline{A})(b_i - \\overline{B})}{n}$$Tip : 协方差为 0 不一定代表两个变量是独立的（除非加上如服从正态分布等假设条件）\n数据规约（人话版：如何节省存储空间） 思路一：数据降维（主成分分析PCA大法）\n思路二：降数据（抽样法）\n抽样法：简单随机抽样（SRS，又分成有放回与无放回）、分层抽样等 思路三：数据压缩\n数据转换 数据转换就两种类型，一类规范化，另一类就是离散化\n规范化\n最小-最大规范化 $$v' = \\frac{v - min_A}{max_A - min_A} (new\\_{max_A} - new_{min_A}) + new_{min_A}$$ Z-Score 规范化 $$v' = \\frac{v - \\overline{A}}{\\sigma_A}$$ 小数定标规范化 $$v' = \\frac{v}{10^j}$$ 其中 j 是使用该方法后，$|v'| \u003c 1$ 的最小整数 离散化\n等宽法： 将数据划分成宽度相等的区间（工资划分为低（0-3）、中（3-6）、高（6-9）） 等频法： 将数据划分成频率相等的区间（每个区间包含相同的数据点） 聚类：k-means等 朴素贝叶斯分类器 这部分内容构成方式为: 基本概念 | 例题 ｜ 总结\n基本概念 这一部分的核心就两点，第一点是贝叶斯定理 $$ P(A|B) = \\frac{P(B|A) P(A)}{P(B)} $$我们的目标是在给定数据分布 D 的条件下，找出最有可能的假设 h，即 $$ h_{MAP} = \\arg\\max_{h \\in H} \\frac{P(D|h) P(h)}{P(D)} = \\arg\\max_{h \\in H} P(D|h) P(h) $$第二个比较重要的就是 独立性假设 $$ h_{MAP} = \\max_{h \\in H} \\Pi_{i=1}^{n} P(d_i | h) P(h) $$例题 这篇文章举的例子就是一个不错的例题 😼\n带你理解朴素贝叶斯分类算法 - 忆臻的文章 - 知乎\n除此之外，参考书籍上还由 电脑购买、垃圾邮件 判断的例题\n总结 贝叶斯分类器的特点：（这里是直接照搬的书籍）\n属性可以离散也可以连续 数学基础坚实，分类效率稳定 对缺失和噪声数据不太敏感 属性如果不相关，分类效果很好 决策树分类 这一章介绍了四类决策树算法\nHunt 算法 这种算法不需要考虑划分节点的信息属性，只需要递归的添加划分节点，直到所有叶节点都是单一类别为止\n这牵扯到两个问题\n怎样为不同类型的属性指定测试条件 怎样选择最佳划分 下面三种算法就是为了解决第二个问题二提出的\nID3 算法 ID3 算法使用信息增益作为划分属性的选择标准 $$\\begin{aligned} Entropy(D) \u0026= - \\sum_{i=1}^{m} p_i \\log_2(p_i) \\\\ Entropy_A(D) \u0026= \\sum_{j=1}^{v} \\frac{|D_j|}{|D|} \\times Entropy(D_j) \\\\ Gain(A) \u0026= Entropy(D) - Entropy_A(D) \\end{aligned}$$C4.5 算法 C4.5 算法使用信息增益率作为划分属性的选择标准 $$\\begin{aligned} SplitInfo_A(D) \u0026= - \\sum_{j=1}^{v} \\frac{|D_j|}{|D|} \\log_2 \\left( \\frac{|D_j|}{|D|} \\right) \\\\ GainRatio(A) \u0026= \\frac{Gain(A)}{SplitInfo_A(D)} \\end{aligned}$$CART 算法 CART 算法使用基尼指数作为划分属性的选择标准 $$\\begin{aligned} Gini(D) \u0026= 1 - \\sum_{i=1}^{m} p_i^2 \\\\ Gini_A(D) \u0026= \\sum_{j=1}^{v} \\frac{|D_j|}{|D|} \\times Gini(D_j) \\\\ \\Delta Gini(A) \u0026= Gini(D) - Gini_A(D) \\end{aligned}$$ 决策树算法防止过拟合可以通过预剪枝和后剪枝两种方式实现\n基于规则的分类 $$ (Condition) \\to (Class) $$ 在介绍如何制定划分规则之前，先对规则的评估方法进行介绍\n规则的评估\n覆盖率 准确率 根据这两种规则的指标，我们可以制定出规则的优先级\n选择规则排序时，第一种方案是按照规则的质量进行排序，第二种方案是按照规则所属的类别进行排序\n构造规则集的一个最基础的方法是顺序覆盖 + 删除实例\n为什么删除实例：避免规则重复 为什么删除正实例：防止高估后面规则的准确率，确保下一个规则不同 为什么删除负实例：防止过拟合错误数据集，防止低估下一个规则的准确率\n很奇怪的一点，书本上举的例子，对于企鹅这反例的删除位置很古怪，目前还没看明白 Learn One Rule 算法 该算法主要由以下步骤组成\n规则增长：方案一是从一般到特殊，方案二是从特殊到一般\n规则评估：准确率、似然比、Laplace、FOIL\n似然比： $$R = 2 \\sum_{i = 1}^{k} f_i \\log \\left( \\frac{f_i}{e_i} \\right)$$FOIL： $$FOIL = f \\left( \\log_2 \\left( \\frac{f}{f + n} \\right) - \\log_2 \\left( \\frac{F}{F + N} \\right) \\right)$$Laplace： $$Laplace = \\frac{f + 1}{n + k}$$停止条件\n规则剪枝\n💡 这里简单介绍一下 lazy learning 与 eager learning 两种分类方法\n回归算法 本章内容 主要包含以下几部分：\n线性回归 | 最小二乘法 | 梯度下降算法 | 逻辑回归 | 决策树回归\n回归问题是什么，简单来说就是对两个变量之间的关系进行建模\n线性回归 在该问题背景下，我们假设两个变量之间满足最简单的关系——线性关系 $$ y = ax + b $$ 那么分析的目标就是找出“最优”的 a 和 b 值\n最小二乘法 嘿！现在的问题就变成了如何定义这个优了，当然可以使用点到直线的距离衡量，但是更常用的方法是最小二乘法 $$ E(a,b) = \\sum_{i=1}^{n} (y_i - (a x_i + b))^2 $$ 如果我们令$\\overline{x} = \\frac{1}{n} \\sum_{i=1}^n x_i$ 和 $\\overline{y} = \\frac{1}{n} \\sum_{i=1}^n y_i$，那么最优的 a 和 b 可以通过以下公式计算得到： $$ a = \\frac{\\sum_{i=1}^{n} (x_i - \\overline{x})(y_i - \\overline{y})}{\\sum_{i=1}^{n} (x_i - \\overline{x})^2} = \\frac{\\sum_{i=1}^{n} x_i y_i - n \\overline{x} \\overline{y}}{\\sum_{i=1}^{n} x_i^2 -n \\overline{x}^2} $$ $$ b = \\overline{y} - a \\overline{x} $$梯度下降算法 之前求解最优 a 和 b 的方法是通过解析解的方式求解的，除此之外，还可以使用数值解法——梯度下降法\n一些注意事项\n学习率 $\\eta$ 的选择不能太大也不能太小（老生常谈了） 收敛到的结果未必是全局最优值 逻辑回归 逻辑回归个人感觉放在这里怪里怪气，它算是一种分类算法吧（相信书本这么安排肯定有它的道理 🤨）\n逻辑回归函数 $$ f(x) = \\frac{1}{1 + e^{-(a x + b)}} $$简单推导可以得出 $$\\begin{aligned} \u0026p_i = \\frac{exp(a x_i + b)}{1 + exp(a x_i + b)} \\\\ \u00261 - p_i = \\frac{1}{1 + exp(a x_i + b)} \\\\ \u0026\\log \\left( \\frac{p_i}{1 - p_i} \\right) = a x_i + b \\end{aligned}$$优势比 OR（Odds Ratio） $$OR = \\frac{(p_1)(1 - p_1)}{(p_0)(1 - p_0)}$$ 其中 $p_1$ 和 $p_0$ 为在第 j 个特征分别取值为 $c_1$ 和 $c_0$ 时属于正类的概率\n对 OR 取对数 $$\\log(OR) = \\log \\left( \\frac{p_1}{1 - p_1} \\right) - \\log \\left( \\frac{p_0}{1 - p_0} \\right) = \\beta_j (c_1 - c_0)$$那么 OR 可以表示为 $$OR = e^{\\beta_j (c_1 - c_0)}$$如果我们令 $c_1 - c_0 = 1$，那么\n$$ OR = e^{\\beta_j} = \\begin{cases} \u003e 1 \u0026 \\beta_j \u003e 0 \\\\ = 1 \u0026 \\beta_j = 0 \\\\ \u003c 1 \u0026 \\beta_j \u003c 0 \\end{cases} $$ 三种情况分别对应 危险因子、无作用、保护因子\n参数估计 对于一个实际发生的样本 $i$，它的概率可以表示为 $$P(y_i | x_i) = p_i^{y_i} (1 - p_i)^{1 - y_i}$$那么似然函数可以表示为 $$ L = \\prod_{i=1}^{n} p_i^{y_i} (1 - p_i)^{1 - y_i} $$对似然函数取对数，得到对数似然函数 $$\\begin{aligned} \\log L \u0026= \\sum_{i=1}^{n} \\left( y_i \\log(p_i) + (1 - y_i) \\log(1 - p_i) \\right) \\\\ \u0026= \\sum_{i=1}^{n} \\left( y_i \\log \\frac{p_i}{1 - p_i} - \\log(1 - p_i) \\right) \\\\ \u0026= \\sum_{i=1}^{n} \\left( y_i (a x_i + b) - \\log(1 + e^{a x_i + b}) \\right) \\end{aligned}$$当 $\\log L$ 取到最大值时，逻辑回归的参数估计也就完成了\n逻辑回归正则化 这一部分和正常的机器学习正则化方法类似，主要是为了防止过拟合\nL1 正则化（Lasso 回归）：偏好稀疏编码 L2 正则化（Ridge 回归）：偏向于整体更小 决策树回归 决策树回归的思想比较简单，就是每次将数据所在的空间一分为二，下面的内容也集中在如何选择最优划分节点上了 划分节点的选择很简单，遍历所有的可能划分点，选择使得划分后的均方误差（MSE）最小的点\n很有意思的是，在完成上面一次划分后，可以使用残差 $$r_i = y_i - \\hat{y_i}$$ 来继续进行划分，从而得到更好的拟合效果\n支持向量机 SVM SVM 问题的损失函数叫做 Hinge Loss $\\to$ $\\max(0, 1 - y_i(w^Tx_i + b))$\n问题推导：SVM 的目标很简单，就是希望在两个类别之间找到一个最优的划分超平面，先假设数据是线性可分的，而且一个类别为 +1，另一个类别为 -1，那么划分超平面可以表示为 $$\\begin{aligned} \u0026w \\cdot x + b \\\\ \u0026w \\cdot x + b \u003c= -1 \\quad for \\quad y_i = -1 \\\\ \u0026w \\cdot x + b \u003e= 1 \\quad for \\quad y_i = +1 \\end{aligned}$$结合之前学习过的凸优化知识，可以将 SVM 转化为如下所示的优化问题 $$\\begin{aligned} \u0026\\min \\quad \\frac{1}{2} ||w||^2 \\\\ \u0026s.t. \\quad y_i (w \\cdot x_i + b) \u003e= 1, \\quad i = 1, 2, \\ldots, n \\end{aligned}$$求解该优化问题可以使用拉格朗日对偶方法，构造拉格朗日函数 $$L(w, b, \\alpha) = \\frac{1}{2} ||w||^2 - \\sum_{i=1}^{n} \\alpha_i [y_i (w \\cdot x_i + b) - 1]$$那么求解该优化问题就变成了求解下面的优化问题 $$\\begin{aligned} \u0026\\min_{w,b} \\max_{\\alpha \u003e= 0} \\left( \\frac{1}{2} ||w||^2 - \\sum_{i=1}^{n} \\alpha_i [y_i (w \\cdot x_i + b) - 1] \\right) \\\\ = \u0026 \\max_{\\alpha \u003e= 0} \\min_{w,b} \\left( \\frac{1}{2} ||w||^2 - \\sum_{i=1}^{n} \\alpha_i [y_i (w \\cdot x_i + b) - 1] \\right) \\end{aligned}$$ 上述交换成立的前提是满足 KKT 条件 $$\\begin{aligned} \u0026a_i \\ge 0 \\\\ \u0026y_i (w \\cdot x_i + b) - 1 \\ge 0 \\\\ \u0026\\alpha_i [y_i (w \\cdot x_i + b) - 1] = 0, \\quad i = 1, 2, \\ldots, n \\end{aligned}$$ 通过对拉格朗日函数分别对 w 和 b 求偏导，并令其为 0，可以得到 $$\\begin{aligned} \u0026w = \\sum_{i=1}^{n} \\alpha_i y_i x_i \\\\ \u0026\\sum_{i=1}^{n} \\alpha_i y_i = 0 \\end{aligned}$$最终模型可以表示为 $$f(x) = \\text{sign} \\left( \\sum_{i=1}^{n} \\alpha_i y_i x_i^T \\cdot x + b \\right)$$KKT 条件保证了只有支持向量对应的 $\\alpha_i$ 不为 0，因此最终模型只与支持向量有关\n当然，SVM 还有软间隔和核函数的内容，不过这里就不展开介绍了 😶\n需要知道 Kernel 可以处理非线性可分问题，将数据映射到高维空间\n常见核函数\n高斯 RBF 核函数 $$K(x_i, x_j) = \\exp \\left( - \\frac{||x_i - x_j||^2}{2 \\sigma^2} \\right)$$ 齐次多项式核函数 $$K(x_i, x_j) = (x_i \\cdot x_j)^d$$ 非齐次多项式核函数 $$K(x_i, x_j) = (x_i \\cdot x_j + 1)^d$$ sigmoid 核函数 $$K(x_i, x_j) = \\tanh(k x_i \\cdot x_j + \\theta)$$ 模型的评价 这一节的核心内容应该就是 ROC 曲线了，需要知道 FP FN TP TN 的计算、Precision 和 Recall 以及 F1-score 是什么\n过拟合 \u0026 欠拟合 过拟合 欠拟合 低偏差 高偏差 高方差 低方差 关联规则挖掘 内容主要包含以下几部分：\n基本概念 | Apriori算法 | FP-Growth算法\n基本概念 在前面讲述过了规则的定义，那就可以开始学习关联规则挖掘了，如果我们提出假设 $A \\to B$，那么我们需要评估这个假设的质量，常用的评估指标有以下三种： 支持度 (Support)\nAB在一起出现的频率 $$Support(A \\to B) = P(A \\cup B) = \\frac{count(A \\cup B)}{N}$$置信度 (Confidence)\nB 在 A 发生的条件下发生的概率 $$Confidence(A \\to B) = P(B|A) = \\frac{count(A \\cup B)}{count(A)}$$ 提升度 (Lift)\n衡量规则 $A \\to B$ 对 B 发生的影响程度 $$Lift(A \\to B) = \\frac{P(B|A)}{P(B)} = \\frac{Confidence(A \\to B)}{P(B)}$$",
+  "wordCount" : "1286",
   "inLanguage": "en",
   "datePublished": "2025-12-27T16:25:31+08:00",
   "dateModified": "2025-12-27T16:25:31+08:00",
@@ -289,7 +292,7 @@ $\max = Q_3 &#43; 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$">
     <h1 class="post-title entry-hint-parent">
       Data Mining Review
     </h1>
-    <div class="post-meta"><span title='2025-12-27 16:25:31 +0800 CST'>December 27, 2025</span>&nbsp;·&nbsp;3 min
+    <div class="post-meta"><span title='2025-12-27 16:25:31 +0800 CST'>December 27, 2025</span>&nbsp;·&nbsp;7 min
 
 </div>
   </header> 
@@ -301,6 +304,9 @@ $\max = Q_3 &#43; 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$">
 <li><a href="#%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8">朴素贝叶斯分类器</a></li>
 <li><a href="#%E5%86%B3%E7%AD%96%E6%A0%91%E5%88%86%E7%B1%BB">决策树分类</a></li>
 <li><a href="#%E5%9F%BA%E4%BA%8E%E8%A7%84%E5%88%99%E7%9A%84%E5%88%86%E7%B1%BB">基于规则的分类</a></li>
+<li><a href="#%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95">回归算法</a></li>
+<li><a href="#%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-svm">支持向量机 SVM</a></li>
+<li><a href="#%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AF%84%E4%BB%B7">模型的评价</a></li>
 </ul>
 <p>这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）</p>
 <p>这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩</p>
@@ -393,7 +399,10 @@ $$<h3 id="小结">小结<a hidden class="anchor" aria-hidden="true" href="#小�
 <p><strong>相关性分析</strong></p>
 <p>离散变量：chi-square 统计量：
 </p>
-$$\chi^2 = \sum_{i=1}^{r} \sum_{j=1}^{c} \frac{(o_{ij} - e_{ij})^2}{e_{ij}}$$<p><mark>Tip</mark> : expected 的计算可以采用变量独立性假设来计算联合概率分布（书本的计算表达式便是这样得来的）</p>
+$$\chi^2 = \sum_{i=1}^{r} \sum_{j=1}^{c} \frac{(o_{ij} - e_{ij})^2}{e_{ij}}$$<blockquote>
+</blockquote>
+<p><mark>Tip</mark> : 上述表达式中，o 为观测值，e 为期望值
+expected 的计算可以采用变量独立性假设来计算联合概率分布 $e^{ij} = \frac{(row_i) \times (column_j)}{total}$</p>
 <p>连续变量：皮尔逊相关系数
 </p>
 $$r_{A,B} = \frac{\sum_{i=1}^{n} (a_i - \overline{A})(b_i - \overline{B})}{（n-1） \sigma_A \sigma_B}$$<p>根据 r 的取值划分成三级：$|r| < 0.4$ 为低度线性相关，$0.4 \leq |r| \leq 0.7$ 为显著性相关，$|r| > 0.7$ 为高度线性相关</p>
@@ -527,7 +536,179 @@ $$Laplace = \frac{f + 1}{n + k}$$<p><strong>停止条件</strong></p>
 <p><strong>规则剪枝</strong></p>
 <blockquote>
 <p>💡 这里简单介绍一下 lazy learning 与 eager learning 两种分类方法</p></blockquote>
-
+<h2 id="回归算法">回归算法<a hidden class="anchor" aria-hidden="true" href="#回归算法">#</a></h2>
+<p>本章内容
+主要包含以下几部分：</p>
+<p><a href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92">线性回归</a> | <a href="#%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95">最小二乘法</a> | <a href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95">梯度下降算法</a> | <a href="#%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92">逻辑回归</a> | <a href="#%E5%86%B3%E7%AD%96%E6%A0%91%E5%9B%9E%E5%BD%92">决策树回归</a></p>
+<p>回归问题是什么，简单来说就是对两个变量之间的关系进行建模</p>
+<h3 id="线性回归">线性回归<a hidden class="anchor" aria-hidden="true" href="#线性回归">#</a></h3>
+<p>在该问题背景下，我们假设两个变量之间满足最简单的关系——线性关系
+</p>
+$$
+y = ax + b
+$$<p>
+那么分析的目标就是找出“最优”的 a 和 b 值</p>
+<h3 id="最小二乘法">最小二乘法<a hidden class="anchor" aria-hidden="true" href="#最小二乘法">#</a></h3>
+<p>嘿！现在的问题就变成了如何定义这个优了，当然可以使用点到直线的距离衡量，但是更常用的方法是<strong>最小二乘法</strong>
+</p>
+$$
+E(a,b) = \sum_{i=1}^{n} (y_i - (a x_i + b))^2
+$$<p>
+如果我们令$\overline{x} = \frac{1}{n} \sum_{i=1}^n x_i$ 和 $\overline{y} = \frac{1}{n} \sum_{i=1}^n y_i$，那么最优的 a 和 b 可以通过以下公式计算得到：
+</p>
+$$
+a = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{\sum_{i=1}^{n} (x_i - \overline{x})^2} = \frac{\sum_{i=1}^{n} x_i y_i - n \overline{x} \overline{y}}{\sum_{i=1}^{n} x_i^2 -n \overline{x}^2}
+$$<p>
+</p>
+$$
+b = \overline{y} - a \overline{x}
+$$<h3 id="梯度下降算法">梯度下降算法<a hidden class="anchor" aria-hidden="true" href="#梯度下降算法">#</a></h3>
+<p>之前求解最优 a 和 b 的方法是通过解析解的方式求解的，除此之外，还可以使用数值解法——梯度下降法</p>
+<p>一些注意事项</p>
+<ul>
+<li>学习率 $\eta$ 的选择不能太大也不能太小（老生常谈了）</li>
+<li>收敛到的结果未必是全局最优值</li>
+</ul>
+<h3 id="逻辑回归">逻辑回归<a hidden class="anchor" aria-hidden="true" href="#逻辑回归">#</a></h3>
+<p>逻辑回归个人感觉放在这里怪里怪气，它算是一种分类算法吧（相信书本这么安排肯定有它的道理 🤨）</p>
+<p>逻辑回归函数
+</p>
+$$
+f(x) = \frac{1}{1 + e^{-(a x + b)}}
+$$<p>简单推导可以得出
+</p>
+$$\begin{aligned}
+&p_i = \frac{exp(a x_i + b)}{1 + exp(a x_i + b)} \\
+&1 - p_i = \frac{1}{1 + exp(a x_i + b)} \\
+&\log \left( \frac{p_i}{1 - p_i} \right) = a x_i + b
+\end{aligned}$$<p><strong>优势比 OR（Odds Ratio）</strong>
+</p>
+$$OR = \frac{(p_1)(1 - p_1)}{(p_0)(1 - p_0)}$$<p>
+其中 $p_1$ 和 $p_0$ 为在第 j 个特征分别取值为 $c_1$ 和 $c_0$ 时属于正类的概率</p>
+<p>对 OR 取对数
+</p>
+$$\log(OR) = \log \left( \frac{p_1}{1 - p_1} \right) - \log \left( \frac{p_0}{1 - p_0} \right) = \beta_j (c_1 - c_0)$$<p>那么 OR 可以表示为
+</p>
+$$OR = e^{\beta_j (c_1 - c_0)}$$<p>如果我们令 $c_1 - c_0 = 1$，那么</p>
+$$
+OR = e^{\beta_j} = \begin{cases} > 1 & \beta_j > 0 \\ = 1 & \beta_j = 0 \\ < 1 & \beta_j < 0 \end{cases}
+$$<p>
+三种情况分别对应 危险因子、无作用、保护因子</p>
+<h4 id="参数估计">参数估计<a hidden class="anchor" aria-hidden="true" href="#参数估计">#</a></h4>
+<p>对于一个实际发生的样本 $i$，它的概率可以表示为
+</p>
+$$P(y_i | x_i) = p_i^{y_i} (1 - p_i)^{1 - y_i}$$<p>那么似然函数可以表示为
+</p>
+$$
+L = \prod_{i=1}^{n} p_i^{y_i} (1 - p_i)^{1 - y_i}
+$$<p>对似然函数取对数，得到对数似然函数
+</p>
+$$\begin{aligned}
+\log L &= \sum_{i=1}^{n} \left( y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right) \\
+&= \sum_{i=1}^{n} \left( y_i \log \frac{p_i}{1 - p_i} - \log(1 - p_i) \right) \\
+&= \sum_{i=1}^{n} \left( y_i (a x_i + b) - \log(1 + e^{a x_i + b}) \right)
+\end{aligned}$$<p>当 $\log L$ 取到最大值时，逻辑回归的参数估计也就完成了</p>
+<h4 id="逻辑回归正则化">逻辑回归正则化<a hidden class="anchor" aria-hidden="true" href="#逻辑回归正则化">#</a></h4>
+<p>这一部分和正常的机器学习正则化方法类似，主要是为了防止过拟合</p>
+<ul>
+<li>L1 正则化（Lasso 回归）：偏好稀疏编码</li>
+<li>L2 正则化（Ridge 回归）：偏向于整体更小</li>
+</ul>
+<h3 id="决策树回归">决策树回归<a hidden class="anchor" aria-hidden="true" href="#决策树回归">#</a></h3>
+<p>决策树回归的思想比较简单，就是每次将数据所在的空间一分为二，下面的内容也集中在如何选择最优划分节点上了
+划分节点的选择很简单，遍历所有的可能划分点，选择使得划分后的均方误差（MSE）最小的点</p>
+<p>很有意思的是，在完成上面一次划分后，可以使用残差 </p>
+$$r_i = y_i - \hat{y_i}$$<p> 来继续进行划分，从而得到更好的拟合效果</p>
+<hr>
+<h2 id="支持向量机-svm">支持向量机 SVM<a hidden class="anchor" aria-hidden="true" href="#支持向量机-svm">#</a></h2>
+<blockquote>
+<p>SVM 问题的损失函数叫做 <mark>Hinge</mark> Loss $\to$ $\max(0, 1 - y_i(w^Tx_i + b))$</p></blockquote>
+<p><strong>问题推导</strong>：SVM 的目标很简单，就是希望在两个类别之间找到一个最优的划分超平面，先假设数据是线性可分的，而且一个类别为 +1，另一个类别为 -1，那么划分超平面可以表示为
+</p>
+$$\begin{aligned}
+&w \cdot x + b \\
+&w \cdot x + b <= -1 \quad for \quad y_i = -1 \\
+&w \cdot x + b >= 1 \quad for \quad y_i = +1
+\end{aligned}$$<p>结合之前学习过的凸优化知识，可以将 SVM 转化为如下所示的优化问题
+</p>
+$$\begin{aligned}
+&\min \quad \frac{1}{2} ||w||^2 \\
+&s.t. \quad y_i (w \cdot x_i + b) >= 1, \quad i = 1, 2, \ldots, n
+\end{aligned}$$<p>求解该优化问题可以使用拉格朗日对偶方法，构造拉格朗日函数
+</p>
+$$L(w, b, \alpha) = \frac{1}{2} ||w||^2 - \sum_{i=1}^{n} \alpha_i [y_i (w \cdot x_i + b) - 1]$$<p>那么求解该优化问题就变成了求解下面的优化问题
+</p>
+$$\begin{aligned}
+&\min_{w,b} \max_{\alpha >= 0} \left( \frac{1}{2} ||w||^2 - \sum_{i=1}^{n} \alpha_i [y_i (w \cdot x_i + b) - 1] \right) \\
+= & \max_{\alpha >= 0} \min_{w,b} \left( \frac{1}{2} ||w||^2 - \sum_{i=1}^{n} \alpha_i [y_i (w \cdot x_i + b) - 1] \right) 
+\end{aligned}$$<blockquote>
+<p>上述交换成立的前提是满足 KKT 条件
+</p>
+$$\begin{aligned}
+&a_i \ge 0 \\
+&y_i (w \cdot x_i + b) - 1 \ge 0 \\
+&\alpha_i [y_i (w \cdot x_i + b) - 1] = 0, \quad i = 1, 2, \ldots, n
+\end{aligned}$$</blockquote>
+<p>通过对拉格朗日函数分别对 w 和 b 求偏导，并令其为 0，可以得到
+</p>
+$$\begin{aligned}
+&w = \sum_{i=1}^{n} \alpha_i y_i x_i \\
+&\sum_{i=1}^{n} \alpha_i y_i = 0
+\end{aligned}$$<p>最终模型可以表示为
+</p>
+$$f(x) = \text{sign} \left( \sum_{i=1}^{n} \alpha_i y_i x_i^T \cdot x + b \right)$$<p>KKT 条件保证了只有支持向量对应的 $\alpha_i$ 不为 0，因此最终模型只与支持向量有关</p>
+<p>当然，SVM 还有软间隔和核函数的内容，不过这里就不展开介绍了 😶</p>
+<p>需要知道 Kernel 可以处理非线性可分问题，将数据映射到高维空间</p>
+<blockquote>
+<p>常见核函数</p></blockquote>
+<ul>
+<li>高斯 RBF 核函数
+$$K(x_i, x_j) = \exp \left( - \frac{||x_i - x_j||^2}{2 \sigma^2} \right)$$</li>
+<li>齐次多项式核函数
+$$K(x_i, x_j) = (x_i \cdot x_j)^d$$</li>
+<li>非齐次多项式核函数
+$$K(x_i, x_j) = (x_i \cdot x_j + 1)^d$$</li>
+<li>sigmoid 核函数
+$$K(x_i, x_j) = \tanh(k x_i \cdot x_j + \theta)$$</li>
+</ul>
+<hr>
+<h2 id="模型的评价">模型的评价<a hidden class="anchor" aria-hidden="true" href="#模型的评价">#</a></h2>
+<p>这一节的核心内容应该就是 ROC 曲线了，需要知道 FP FN TP TN 的计算、Precision 和 Recall 以及 F1-score 是什么</p>
+<h3 id="过拟合--欠拟合">过拟合 &amp; 欠拟合<a hidden class="anchor" aria-hidden="true" href="#过拟合--欠拟合">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>过拟合</th>
+          <th>欠拟合</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>低偏差</td>
+          <td>高偏差</td>
+      </tr>
+      <tr>
+          <td>高方差</td>
+          <td>低方差</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="关联规则挖掘">关联规则挖掘<a hidden class="anchor" aria-hidden="true" href="#关联规则挖掘">#</a></h2>
+<p>内容主要包含以下几部分：</p>
+<p><a href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">基本概念</a> | <a href="#apriori%E7%AE%97%E6%B3%95">Apriori算法</a> | <a href="#fp-growth%E7%AE%97%E6%B3%95">FP-Growth算法</a></p>
+<h3 id="基本概念-1">基本概念<a hidden class="anchor" aria-hidden="true" href="#基本概念-1">#</a></h3>
+<p>在前面讲述过了规则的定义，那就可以开始学习关联规则挖掘了，如果我们提出假设 $A \to B$，那么我们需要评估这个假设的质量，常用的评估指标有以下三种：
+<strong>支持度 (Support)</strong></p>
+<p>AB在一起出现的频率
+</p>
+$$Support(A \to B) = P(A \cup B) = \frac{count(A \cup B)}{N}$$<p><strong>置信度 (Confidence)</strong></p>
+<p>B 在 A 发生的条件下发生的概率
+</p>
+$$Confidence(A \to B) = P(B|A) = \frac{count(A \cup B)}{count(A)}$$<p>
+<strong>提升度 (Lift)</strong></p>
+<p>衡量规则 $A \to B$ 对 B 发生的影响程度
+</p>
+$$Lift(A \to B) = \frac{P(B|A)}{P(B)} = \frac{Confidence(A \to B)}{P(B)}$$
 
   </div>
 

@@ -21,6 +21,9 @@
 &lt;li&gt;&lt;a href=&#34;#%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8&#34;&gt;朴素贝叶斯分类器&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#%E5%86%B3%E7%AD%96%E6%A0%91%E5%88%86%E7%B1%BB&#34;&gt;决策树分类&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#%E5%9F%BA%E4%BA%8E%E8%A7%84%E5%88%99%E7%9A%84%E5%88%86%E7%B1%BB&#34;&gt;基于规则的分类&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95&#34;&gt;回归算法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-svm&#34;&gt;支持向量机 SVM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AF%84%E4%BB%B7&#34;&gt;模型的评价&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）&lt;/p&gt;
 &lt;p&gt;这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩&lt;/p&gt;
@@ -44,8 +47,7 @@
 &lt;p&gt;&lt;strong&gt;标准差&lt;/strong&gt; $\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2}$&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;差异系数&lt;/strong&gt; $CV = \frac{\sigma}{mean(x)}$&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;四分位极差 (range)&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;$IQR = Q_3 - Q_1$&lt;/p&gt;
-&lt;p&gt;$\max = Q_3 + 1.5 IQR$ 而 $\min = Q_1 - 1.5 IQR$&lt;/p&gt;</description>
+&lt;p&gt;$IQR = Q_3 - Q_1$&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

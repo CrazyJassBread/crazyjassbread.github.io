@@ -2,44 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Deep Learning on CrazyBread&#39; Blog</title>
-    <link>http://localhost:1313/tags/deep-learning/</link>
+    <link>https://crazyjassbread.github.io/tags/deep-learning/</link>
     <description>Recent content in Deep Learning on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 28 Dec 2025 12:54:12 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://crazyjassbread.github.io/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Deep Learning Review</title>
-      <link>http://localhost:1313/posts/final-exam-review/deep-learning/review/</link>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/deep-learning/review/</link>
       <pubDate>Sun, 28 Dec 2025 12:54:12 +0800</pubDate>
-      <guid>http://localhost:1313/posts/final-exam-review/deep-learning/review/</guid>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/deep-learning/review/</guid>
       <description>&lt;h2 id=&#34;目录&#34;&gt;目录&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#01%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8&#34;&gt;线性分类器&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#02%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8E%E4%BC%98%E5%8C%96&#34;&gt;正则化与优化&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#03%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD&#34;&gt;神经网络与反向传播&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#04%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&#34;&gt;卷积神经网络&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;复习笔记只记录一些重点内容和需要记住的公式&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;01线性分类器&#34;&gt;01线性分类器&lt;/h2&gt;
-&lt;p&gt;图像分类任务的困难——&lt;strong&gt;语义鸿沟（semantic gap）&lt;/strong&gt;：低级别的像素值与高级别的语义概念之间存在巨大的差距&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;线性分类器&lt;/mark&gt;：非常重要的概念——低维不可分但是高维可分&lt;/p&gt;
+&lt;p&gt;也是由于上面的特质使得线性分类器一般作为深度神经网络的最后一层 😼&lt;/p&gt;
+&lt;h3 id=&#34;图像分类任务&#34;&gt;图像分类任务&lt;/h3&gt;
+&lt;p&gt;图像分类任务的困难——&lt;strong&gt;语义鸿沟（semantic gap）&lt;/strong&gt;：人眼看到的图像和机器处理的输入数据之间存在巨大的差异&lt;/p&gt;
 &lt;p&gt;挑战：视角差异、形变、光照变化、类内差异、杂乱的背景、类间混淆、遮挡、环境干扰&lt;/p&gt;
+&lt;h3 id=&#34;knn&#34;&gt;KNN&lt;/h3&gt;
+&lt;p&gt;记住所有数据和标签，将测试图像预测为与其最相似的训练图像的标签&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于 1 近邻的情况，存在的问题是无法处理&lt;strong&gt;离群点&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;而多近邻的情况，会出现&lt;strong&gt;空白区域&lt;/strong&gt;问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不可以直接使用像素之间的距离作为度量标准，不具备鲁棒性！&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;线性分类器&#34;&gt;线性分类器&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;SVM&lt;/strong&gt; 的损失函数可以表示为
 &lt;/p&gt;
 $$
 L = \frac{1}{N} \sum_{i=1}^{N} \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + \Delta) \quad (\text{PPT中 } \Delta = 1)
-$$&lt;p&gt;$Q_1$: 损失函数的最大值可以逼近正无穷，最小值为0&lt;/p&gt;
-&lt;p&gt;$Q_2$: 如果将 Loss 中的 &lt;strong&gt;sum&lt;/strong&gt; 换成 &lt;strong&gt;mean&lt;/strong&gt;，那么新损失函数的值会等缩小，从而减小梯度&lt;/p&gt;
+$$&lt;blockquote&gt;
+&lt;p&gt;$Q_1$: 损失函数的最大值可以逼近正无穷，最小值为0&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$Q_2$: 如果将 Loss 中的 &lt;strong&gt;sum&lt;/strong&gt; 换成 &lt;strong&gt;mean&lt;/strong&gt;，那么新损失函数的值会等缩小，从而减小梯度&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
 &lt;p&gt;$Q_3$: 如果将每一个样本的损失函数替换成
 &lt;/p&gt;
 $$
 L_i = \sum_{j \neq y_i} \max(0, s_j - s_{y_i} + \Delta)^2
-$$&lt;p&gt;那么新损失函数会对错误分类的样本有更大的惩罚力度&lt;/p&gt;
-&lt;p&gt;$Q_4$: 当训练开始是，如果 w 的值非常小，那么所有样本的分类分数都接近0，从而每个样本的损失值都接近 $(C-1) \times \Delta$ （$C$ 为类别数）&lt;/p&gt;
-&lt;p&gt;$Q_5$: 当我们对所有类别都求和（包含正确类别）时，损失函数的值会增大，且比原损失函数大 $\Delta$&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;softmax&lt;/strong&gt; 的损失函数可以表示为
-&lt;/p&gt;</description>
+$$&lt;p&gt;
+那么新损失函数会对错误分类的样本有更大的惩罚力度&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
