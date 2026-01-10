@@ -22,6 +22,9 @@
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;复习笔记只记录一些重点内容和需要记住的公式&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E8%80%83%E8%AF%95%E5%9B%9E%E5%BF%86&#34;&gt;考试回忆&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;01线性分类器&#34;&gt;01线性分类器&lt;/h2&gt;
 &lt;p&gt;&lt;mark&gt;线性分类器&lt;/mark&gt;：非常重要的概念——低维不可分但是高维可分&lt;/p&gt;

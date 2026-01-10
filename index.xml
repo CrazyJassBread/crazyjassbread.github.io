@@ -65,6 +65,9 @@ $$&lt;p&gt;当 $\lim_{T \to \infty}$ 时， $\omega$ 就从离散变量便成了
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;复习笔记只记录一些重点内容和需要记住的公式&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E8%80%83%E8%AF%95%E5%9B%9E%E5%BF%86&#34;&gt;考试回忆&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;01线性分类器&#34;&gt;01线性分类器&lt;/h2&gt;
 &lt;p&gt;&lt;mark&gt;线性分类器&lt;/mark&gt;：非常重要的概念——低维不可分但是高维可分&lt;/p&gt;
@@ -116,10 +119,15 @@ $$&lt;p&gt;
 &lt;/ul&gt;
 &lt;p&gt;这里只记载一些重要的知识点 or 需要死记硬背的定义（sad）&lt;/p&gt;
 &lt;p&gt;这篇笔记中夹杂了许多个人学习时的吐槽，希望可以缓解诸位的背书负担 🎩&lt;/p&gt;
+&lt;p&gt;附录：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E9%94%99%E9%A2%98%E5%A4%A7%E8%B5%8F%E4%BC%9A&#34;&gt;错题大赏会&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E8%80%83%E8%AF%95%E5%9B%9E%E5%BF%86%E5%BD%95&#34;&gt;考试回忆录&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;认识数据&#34;&gt;认识数据&lt;/h2&gt;
 &lt;p&gt;这一节非常无趣且都是死记硬背的知识点，主要由以下几部分组成：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;#part-one&#34;&gt;基本概念&lt;/a&gt; | &lt;a href=&#34;#part-two---%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95&#34;&gt;数据统计的方法&lt;/a&gt; | &lt;a href=&#34;#part-three---%E6%95%B0%E6%8D%AE%E7%9B%B8%E4%BC%BC%E6%80%A7%E5%BA%A6%E9%87%8F&#34;&gt;相似性度量&lt;/a&gt; ｜ &lt;a href=&#34;#%E5%B0%8F%E7%BB%93&#34;&gt;复习小巧思&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#part-one&#34;&gt;基本概念&lt;/a&gt; | &lt;a href=&#34;#part-two---%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95&#34;&gt;数据统计的方法&lt;/a&gt; | &lt;a href=&#34;#part-three---%E6%95%B0%E6%8D%AE%E7%9B%B8%E4%BC%BC%E6%80%A7%E5%BA%A6%E9%87%8F&#34;&gt;相似性度量&lt;/a&gt; ｜&lt;a href=&#34;#part-four---%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96&#34;&gt;数据可视化&lt;/a&gt;｜ &lt;a href=&#34;#%E5%B0%8F%E7%BB%93&#34;&gt;复习小巧思&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;part-one&#34;&gt;part one&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;数据的基本概念&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;一句话总结： 数据（总体） &amp;gt; 数据对象（比如一张统计表） &amp;gt; 数据元素（表中的列） &amp;gt; 数据项（每列的具体值）&lt;/p&gt;
@@ -132,11 +140,12 @@ $$&lt;p&gt;
 &lt;li&gt;序数属性：比如大中小，但是不知道大究竟是多少（定性分析）&lt;/li&gt;
 &lt;li&gt;数值属性：分成区间标度（我身高 180cm 比他高 2 cm）和比率标度（我跑步10km/h 比他快一倍）&lt;/li&gt;
 &lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;‼️
+定性属性：标称 &amp;amp; 序数
+定量属性：区间 &amp;amp; 比率&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;part-two---数据统计的基本方法&#34;&gt;part two - 数据统计的基本方法&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;标准差&lt;/strong&gt; $\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2}$&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;差异系数&lt;/strong&gt; $CV = \frac{\sigma}{mean(x)}$&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;四分位极差 (range)&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;$IQR = Q_3 - Q_1$&lt;/p&gt;</description>
+&lt;p&gt;&lt;strong&gt;标准差&lt;/strong&gt; $\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2}$&lt;/p&gt;</description>
     </item>
     <item>
       <title>Fourier Series</title>
