@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Math Model on CrazyBread&#39; Blog</title>
+    <link>http://localhost:1313/tags/math-model/</link>
+    <description>Recent content in Math Model on CrazyBread&#39; Blog</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 10 Jan 2026 19:10:40 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/math-model/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Review</title>
+      <link>http://localhost:1313/posts/final-exam-review/math-model/review/</link>
+      <pubDate>Sat, 10 Jan 2026 19:10:40 +0800</pubDate>
+      <guid>http://localhost:1313/posts/final-exam-review/math-model/review/</guid>
+      <description>&lt;h1 id=&#34;数学建模期末复习&#34;&gt;数学建模期末复习&lt;/h1&gt;
+&lt;h2 id=&#34;重要的知识点&#34;&gt;重要的知识点&lt;/h2&gt;
+&lt;p&gt;矩阵条件数如何判断&lt;/p&gt;
+&lt;p&gt;MOE 模型结构图&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-mermaid&#34; data-lang=&#34;mermaid&#34;&gt;graph LR
+    %% 定义节点样式
+    classDef active fill:#32CD32,stroke:#006400,stroke-width:2px,color:#fff;
+    classDef inactive fill:#f9f9f9,stroke:#ddd,stroke-dasharray: 5 5,color:#ccc;
+    classDef router fill:#4169E1,stroke:#00008B,color:#fff,stroke-width:2px;
+
+    Input((输入 Token)) --&amp;gt; Router{Gating Network&amp;lt;br/&amp;gt;路由选择器}
+
+    subgraph Experts [专家层 Expert Layer]
+        E1[Expert 1]:::inactive
+        E2[Expert 2]:::inactive
+        E3[Expert 3]:::active
+        E4[Expert 4]:::inactive
+        E5[Expert 5]:::inactive
+        E6[Expert 6]:::inactive
+        E7[Expert 7]:::active
+        E8[Expert 8]:::inactive
+    end
+
+    %% 路由指向激活的专家
+    Router -- 权重 w1 --&amp;gt; E3
+    Router -- 权重 w2 --&amp;gt; E7
+
+    %% 专家输出汇合
+    E3 --&amp;gt; Combine[求和/加权聚合]
+    E7 --&amp;gt; Combine
+
+    Combine --&amp;gt; Output((输出向量))
+
+    %% 标注
+    Router:::router
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>
