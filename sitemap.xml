@@ -2,17 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://crazyjassbread.github.io/posts/well-rounded/26-reading-list/</loc>
-    <lastmod>2026-01-13T14:31:58+08:00</lastmod>
-  </url><url>
     <loc>https://crazyjassbread.github.io/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/categories/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/papers/sample-paper/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/demo/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/paper/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/categories/papers/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/papers/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/project/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/categories/projects/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/projects/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/projects/sample-project/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/</loc>
+    <lastmod>2026-04-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/well-rounded/26-reading-list/</loc>
     <lastmod>2026-01-13T14:31:58+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/</loc>
     <lastmod>2026-01-13T14:31:58+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/categories/</loc>
-    <lastmod>2025-12-29T11:00:06+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/</loc>
     <lastmod>2025-12-29T11:00:06+08:00</lastmod>
@@ -27,9 +57,6 @@
     <lastmod>2025-12-28T12:54:12+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/categories/final-exam-review/</loc>
-    <lastmod>2025-12-28T12:54:12+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/</loc>
     <lastmod>2025-12-28T12:54:12+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/tags/data-mining/</loc>
