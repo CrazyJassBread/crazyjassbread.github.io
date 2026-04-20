@@ -6,22 +6,29 @@
     <description>Recent content in About Me on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 17 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Tetris Environment(Gym-Compatible)</title>
+      <link>https://crazyjassbread.github.io/projects/tetirs/</link>
+      <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://crazyjassbread.github.io/projects/tetirs/</guid>
+      <description>This project provides a custom Tetris environment for reinforcement learning using the Gymnasium API. It includes a Tetris game implementation and an environment wrapper that allows for easy integration with RL algorithms.</description>
+    </item>
+    <item>
       <title>Controllable Accent Normalization via Discrete Diffusion</title>
-      <link>https://crazyjassbread.github.io/papers/sample-paper/</link>
+      <link>https://crazyjassbread.github.io/papers/dlm-an/</link>
       <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://crazyjassbread.github.io/papers/sample-paper/</guid>
+      <guid>https://crazyjassbread.github.io/papers/dlm-an/</guid>
       <description>&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;
 &lt;p&gt;Existing accent normalization methods do not typically offer control over accent strength, yet many applications-such as language learning and dubbing-require tunable accent retention. We propose DLM-AN, a controllable accent normalization system built on masked discrete diffusion over self-supervised speech tokens. A Common Token Predictor identifies source tokens that likely encode native pronunciation; these tokens are selectively reused to initialize the reverse diffusion process. This provides a simple yet effective mechanism for controlling accent strength: reusing more tokens preserves more of the original accent. DLM-AN further incorporates a flow-matching Duration Ratio Predictor that automatically adjusts the total duration to better match the native rhythm. Experiments on multi-accent English data show that DLM-AN achieves the lowest word error rate among all compared systems while delivering competitive accent reduction and smooth, interpretable accent strength control.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Sample Project</title>
-      <link>https://crazyjassbread.github.io/projects/sample-project/</link>
+      <title>Nesy Link: An environment for reinforcement learning</title>
+      <link>https://crazyjassbread.github.io/projects/nesy_link/</link>
       <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://crazyjassbread.github.io/projects/sample-project/</guid>
-      <description>A minimal sample project entry</description>
+      <guid>https://crazyjassbread.github.io/projects/nesy_link/</guid>
+      <description>The Nesy Link Project is an environment based on the GB game: The Legend of Zelda: Link&amp;rsquo;s Awakening. It is designed for reinforcement learning research, providing a complex and dynamic environment for testing and developing RL algorithms.</description>
     </item>
     <item>
       <title>26 Reading List</title>

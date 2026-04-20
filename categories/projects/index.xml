@@ -6,14 +6,21 @@
     <description>Recent content in Projects on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 17 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/categories/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Sample Project</title>
-      <link>https://crazyjassbread.github.io/projects/sample-project/</link>
+      <title>Tetris Environment(Gym-Compatible)</title>
+      <link>https://crazyjassbread.github.io/projects/tetirs/</link>
+      <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://crazyjassbread.github.io/projects/tetirs/</guid>
+      <description>This project provides a custom Tetris environment for reinforcement learning using the Gymnasium API. It includes a Tetris game implementation and an environment wrapper that allows for easy integration with RL algorithms.</description>
+    </item>
+    <item>
+      <title>Nesy Link: An environment for reinforcement learning</title>
+      <link>https://crazyjassbread.github.io/projects/nesy_link/</link>
       <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://crazyjassbread.github.io/projects/sample-project/</guid>
-      <description>A minimal sample project entry</description>
+      <guid>https://crazyjassbread.github.io/projects/nesy_link/</guid>
+      <description>The Nesy Link Project is an environment based on the GB game: The Legend of Zelda: Link&amp;rsquo;s Awakening. It is designed for reinforcement learning research, providing a complex and dynamic environment for testing and developing RL algorithms.</description>
     </item>
   </channel>
 </rss>

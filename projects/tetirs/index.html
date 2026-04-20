@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Tetris Environment(Gym-Compatible) | CrazyBread&#39; Blog</title>
+<meta name="keywords" content="project">
+<meta name="description" content="This project provides a custom Tetris environment for reinforcement learning using the Gymnasium API. It includes a Tetris game implementation and an environment wrapper that allows for easy integration with RL algorithms.">
+<meta name="author" content="">
+<link rel="canonical" href="https://crazyjassbread.github.io/projects/tetirs/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://crazyjassbread.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://crazyjassbread.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://crazyjassbread.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://crazyjassbread.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://crazyjassbread.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://crazyjassbread.github.io/projects/tetirs/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://crazyjassbread.github.io/projects/tetirs/">
+  <meta property="og:site_name" content="CrazyBread&#39; Blog">
+  <meta property="og:title" content="Tetris Environment(Gym-Compatible)">
+  <meta property="og:description" content="This project provides a custom Tetris environment for reinforcement learning using the Gymnasium API. It includes a Tetris game implementation and an environment wrapper that allows for easy integration with RL algorithms.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="projects">
+    <meta property="article:published_time" content="2026-04-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-04-20T00:00:00+00:00">
+    <meta property="article:tag" content="Project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tetris Environment(Gym-Compatible)">
+<meta name="twitter:description" content="This project provides a custom Tetris environment for reinforcement learning using the Gymnasium API. It includes a Tetris game implementation and an environment wrapper that allows for easy integration with RL algorithms.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Projects",
+      "item": "https://crazyjassbread.github.io/projects/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Tetris Environment(Gym-Compatible)",
+      "item": "https://crazyjassbread.github.io/projects/tetirs/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Tetris Environment(Gym-Compatible)",
+  "name": "Tetris Environment(Gym-Compatible)",
+  "description": "This project provides a custom Tetris environment for reinforcement learning using the Gymnasium API. It includes a Tetris game implementation and an environment wrapper that allows for easy integration with RL algorithms.",
+  "keywords": [
+    "project"
+  ],
+  "articleBody": "Overview This repository provides a custom Tetris environment for reinforcement learning using the Gymnasium API.\nCore implementation: env/tetris.py\nFeatures Gymnasium-compatible environment class (Tetris) with reset, step, render, and close. Two difficulty levels: easy: left, right, drop, idle. hard: left, right, drop, idle, rotate. Natural gravity: each step advances the piece downward automatically. Reward shaping: line clear rewards: 1/4/9/16 for clearing 1/2/3/4 lines, small survival reward per step, negative reward on game over. Observation modes: board: 2D binary board, dict: board plus current piece metadata, features: handcrafted 4D feature vector. Time and score tracking in info for RL logging: score, elapsed_time_seconds, lines_cleared_total, etc. Two render backends: ascii (terminal), pygame (windowed graphics). Project Structure . ├─ env/ │ ├─ tetris.py │ └─ __init__.py ├─ rl_method/ │ └─ dqn_agent.py ├─ utils/ │ ├─ human_play.py │ ├─ random_env_test.py │ └─ __init__.py ├─ run_utils.sh ├─ play.bat ├─ requirements.txt └─ README.md Requirements Python 3.10+ Dependencies in requirements.txt Installation Windows (PowerShell) python -m venv .venv .\\.venv\\Scripts\\Activate.ps1 pip install -r requirements.txt Linux / macOS / WSL python3 -m venv .venv source .venv/bin/activate pip install -r requirements.txt Quick Start 1. Run random smoke test python -m utils.random_env_test Or via bash helper:\nbash run_utils.sh test 2. Play manually (ASCII) python -m utils.human_play --render-backend ascii --difficulty hard 3. Play manually (Pygame window) python -m utils.human_play --render-backend pygame --difficulty hard Windows shortcut:\nplay.bat Controls (Human Play) A / Left Arrow: move left D / Right Arrow: move right S / Down Arrow: drop current piece immediately W / Up Arrow (hard mode): rotate Space (hard mode): drop current piece immediately Q / Esc: quit Environment API Notes reset() returns (observation, info). step(action) returns (observation, reward, terminated, truncated, info). Important info fields include:\nscore elapsed_time_seconds step_count lines_cleared lines_cleared_total difficulty Example: Use in Python from env.tetris import Tetris env = Tetris( difficulty=\"hard\", observation_mode=\"board\", render_backend=\"pygame\", render_mode=\"human\", ) obs, info = env.reset(seed=42) done, truncated = False, False while not done and not truncated: action = env.action_space.sample() obs, reward, done, truncated, info = env.step(action) env.close() Notes The environment prefers gymnasium, with a fallback import for legacy gym. For headless training, use render_mode=None and render_backend=\"ascii\". For visual debugging, use render_backend=\"pygame\". ",
+  "wordCount" : "352",
+  "inLanguage": "en",
+  "datePublished": "2026-04-20T00:00:00Z",
+  "dateModified": "2026-04-20T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://crazyjassbread.github.io/projects/tetirs/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CrazyBread' Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://crazyjassbread.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+     <script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net.cn/npm/mathjax@3/es5/tex-chtml.js"
+></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [
+        ["\\[", "\\]"],
+        ["$$", "$$"],
+      ], 
+      inlineMath: [
+        ["\\(", "\\)"],
+        ["$", "$"]  
+      ],
+    },
+  }
+</script> 
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://crazyjassbread.github.io/" accesskey="h" title="CrazyBread&#39; Blog (Alt + H)">CrazyBread&#39; Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://crazyjassbread.github.io/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://crazyjassbread.github.io/papers/" title="Papers">
+                    <span>Papers</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://crazyjassbread.github.io/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://crazyjassbread.github.io/posts/" title="Notes">
+                    <span>Notes</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://crazyjassbread.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://crazyjassbread.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"><article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">Tetris Environment(Gym-Compatible)</h1><div class="post-meta">2026-04-20</div></header>
+
+  <div class="post-content">
+    <h2>Project Info</h2>
+    <ul><li><strong>Status:</strong> ongoing</li><li><strong>Tech:</strong> Python</li><li><strong>Repo:</strong> <a href="https://github.com/CrazyJassBread/Tetirs-Environment" target="_blank" rel="noopener">https://github.com/CrazyJassBread/Tetirs-Environment</a></li>
+    </ul>
+
+    <h2 id="overview">Overview</h2>
+<p>This repository provides a custom Tetris environment for reinforcement learning using the Gymnasium API.</p>
+<p>Core implementation: <a href="env/tetris.py">env/tetris.py</a></p>
+<h3 id="features">Features</h3>
+<ul>
+<li>Gymnasium-compatible environment class (<code>Tetris</code>) with <code>reset</code>, <code>step</code>, <code>render</code>, and <code>close</code>.</li>
+<li>Two difficulty levels:
+<ul>
+<li><code>easy</code>: left, right, drop, idle.</li>
+<li><code>hard</code>: left, right, drop, idle, rotate.</li>
+</ul>
+</li>
+<li>Natural gravity: each <code>step</code> advances the piece downward automatically.</li>
+<li>Reward shaping:
+<ul>
+<li>line clear rewards: <code>1/4/9/16</code> for clearing <code>1/2/3/4</code> lines,</li>
+<li>small survival reward per step,</li>
+<li>negative reward on game over.</li>
+</ul>
+</li>
+<li>Observation modes:
+<ul>
+<li><code>board</code>: 2D binary board,</li>
+<li><code>dict</code>: board plus current piece metadata,</li>
+<li><code>features</code>: handcrafted 4D feature vector.</li>
+</ul>
+</li>
+<li>Time and score tracking in <code>info</code> for RL logging:
+<ul>
+<li><code>score</code>,</li>
+<li><code>elapsed_time_seconds</code>,</li>
+<li><code>lines_cleared_total</code>, etc.</li>
+</ul>
+</li>
+<li>Two render backends:
+<ul>
+<li><code>ascii</code> (terminal),</li>
+<li><code>pygame</code> (windowed graphics).</li>
+</ul>
+</li>
+</ul>
+<h3 id="project-structure">Project Structure</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>├─ env/
+</span></span><span style="display:flex;"><span>│  ├─ tetris.py
+</span></span><span style="display:flex;"><span>│  └─ __init__.py
+</span></span><span style="display:flex;"><span>├─ rl_method/
+</span></span><span style="display:flex;"><span>│  └─ dqn_agent.py
+</span></span><span style="display:flex;"><span>├─ utils/
+</span></span><span style="display:flex;"><span>│  ├─ human_play.py
+</span></span><span style="display:flex;"><span>│  ├─ random_env_test.py
+</span></span><span style="display:flex;"><span>│  └─ __init__.py
+</span></span><span style="display:flex;"><span>├─ run_utils.sh
+</span></span><span style="display:flex;"><span>├─ play.bat
+</span></span><span style="display:flex;"><span>├─ requirements.txt
+</span></span><span style="display:flex;"><span>└─ README.md
+</span></span></code></pre></div><h3 id="requirements">Requirements</h3>
+<ul>
+<li>Python 3.10+</li>
+<li>Dependencies in <a href="requirements.txt">requirements.txt</a></li>
+</ul>
+<h3 id="installation">Installation</h3>
+<h4 id="windows-powershell">Windows (PowerShell)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -m venv .venv
+</span></span><span style="display:flex;"><span>.<span style="color:#ae81ff">\.</span>venv<span style="color:#ae81ff">\S</span>cripts<span style="color:#ae81ff">\A</span>ctivate.ps1
+</span></span><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span></code></pre></div><h4 id="linux--macos--wsl">Linux / macOS / WSL</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m venv .venv
+</span></span><span style="display:flex;"><span>source .venv/bin/activate
+</span></span><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span></code></pre></div><h3 id="quick-start">Quick Start</h3>
+<h4 id="1-run-random-smoke-test">1. Run random smoke test</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -m utils.random_env_test
+</span></span></code></pre></div><p>Or via bash helper:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bash run_utils.sh test
+</span></span></code></pre></div><h4 id="2-play-manually-ascii">2. Play manually (ASCII)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -m utils.human_play --render-backend ascii --difficulty hard
+</span></span></code></pre></div><h4 id="3-play-manually-pygame-window">3. Play manually (Pygame window)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -m utils.human_play --render-backend pygame --difficulty hard
+</span></span></code></pre></div><p>Windows shortcut:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>play.bat
+</span></span></code></pre></div><h3 id="controls-human-play">Controls (Human Play)</h3>
+<ul>
+<li><code>A</code> / <code>Left Arrow</code>: move left</li>
+<li><code>D</code> / <code>Right Arrow</code>: move right</li>
+<li><code>S</code> / <code>Down Arrow</code>: drop current piece immediately</li>
+<li><code>W</code> / <code>Up Arrow</code> (hard mode): rotate</li>
+<li><code>Space</code> (hard mode): drop current piece immediately</li>
+<li><code>Q</code> / <code>Esc</code>: quit</li>
+</ul>
+<h3 id="environment-api-notes">Environment API Notes</h3>
+<ul>
+<li><code>reset()</code> returns <code>(observation, info)</code>.</li>
+<li><code>step(action)</code> returns <code>(observation, reward, terminated, truncated, info)</code>.</li>
+</ul>
+<p>Important <code>info</code> fields include:</p>
+<ul>
+<li><code>score</code></li>
+<li><code>elapsed_time_seconds</code></li>
+<li><code>step_count</code></li>
+<li><code>lines_cleared</code></li>
+<li><code>lines_cleared_total</code></li>
+<li><code>difficulty</code></li>
+</ul>
+<h3 id="example-use-in-python">Example: Use in Python</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> env.tetris <span style="color:#f92672">import</span> Tetris
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>env <span style="color:#f92672">=</span> Tetris(
+</span></span><span style="display:flex;"><span>		difficulty<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hard&#34;</span>,
+</span></span><span style="display:flex;"><span>		observation_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;board&#34;</span>,
+</span></span><span style="display:flex;"><span>		render_backend<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pygame&#34;</span>,
+</span></span><span style="display:flex;"><span>		render_mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;human&#34;</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>obs, info <span style="color:#f92672">=</span> env<span style="color:#f92672">.</span>reset(seed<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>done, truncated <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>, <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> done <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> truncated:
+</span></span><span style="display:flex;"><span>		action <span style="color:#f92672">=</span> env<span style="color:#f92672">.</span>action_space<span style="color:#f92672">.</span>sample()
+</span></span><span style="display:flex;"><span>		obs, reward, done, truncated, info <span style="color:#f92672">=</span> env<span style="color:#f92672">.</span>step(action)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>env<span style="color:#f92672">.</span>close()
+</span></span></code></pre></div><h3 id="notes">Notes</h3>
+<ul>
+<li>The environment prefers <code>gymnasium</code>, with a fallback import for legacy <code>gym</code>.</li>
+<li>For headless training, use <code>render_mode=None</code> and <code>render_backend=&quot;ascii&quot;</code>.</li>
+<li>For visual debugging, use <code>render_backend=&quot;pygame&quot;</code>.</li>
+</ul>
+
+  </div>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://crazyjassbread.github.io/">CrazyBread&#39; Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
