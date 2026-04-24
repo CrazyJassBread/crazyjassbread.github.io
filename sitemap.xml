@@ -2,99 +2,93 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://crazyjassbread.github.io/</loc>
     <lastmod>2026-04-24T14:08:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://crazyjassbread.github.io/posts/</loc>
     <lastmod>2026-04-24T14:08:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/reinforcement-learning/hrl/director/</loc>
-    <lastmod>2026-04-24T14:08:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/hrl/</loc>
-    <lastmod>2026-04-24T14:08:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2026-04-24T14:08:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/reinforcement-learning/</loc>
-    <lastmod>2026-04-24T14:08:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/rl/</loc>
-    <lastmod>2026-04-24T14:08:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2026-04-24T14:08:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/project/</loc>
+    <loc>https://crazyjassbread.github.io/categories/</loc>
     <lastmod>2026-04-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/projects/</loc>
+    <loc>https://crazyjassbread.github.io/tags/project/</loc>
     <lastmod>2026-04-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/</loc>
+    <loc>https://crazyjassbread.github.io/categories/projects/</loc>
     <lastmod>2026-04-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/tetirs/</loc>
+    <loc>https://crazyjassbread.github.io/projects/</loc>
     <lastmod>2026-04-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/papers/dlm-an/</loc>
+    <loc>https://crazyjassbread.github.io/tags/</loc>
+    <lastmod>2026-04-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/projects/tetirs/</loc>
+    <lastmod>2026-04-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/papers/dlm-an/</loc>
     <lastmod>2026-04-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/nesy_link/</loc>
+    <loc>https://crazyjassbread.github.io/projects/nesy_link/</loc>
     <lastmod>2026-04-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/paper/</loc>
+    <loc>https://crazyjassbread.github.io/tags/paper/</loc>
     <lastmod>2026-04-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/papers/</loc>
+    <loc>https://crazyjassbread.github.io/categories/papers/</loc>
     <lastmod>2026-04-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/papers/</loc>
+    <loc>https://crazyjassbread.github.io/papers/</loc>
     <lastmod>2026-04-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/well-rounded/26-reading-list/</loc>
+    <loc>https://crazyjassbread.github.io/posts/well-rounded/26-reading-list/</loc>
     <lastmod>2026-01-13T14:31:58+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/signals-and-systems/fourier_transform/</loc>
+    <loc>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/</loc>
     <lastmod>2025-12-29T11:00:06+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/signals-and-systems/</loc>
+    <loc>https://crazyjassbread.github.io/categories/signals-and-systems/</loc>
     <lastmod>2025-12-29T11:00:06+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/deep-learning/</loc>
+    <loc>https://crazyjassbread.github.io/tags/deep-learning/</loc>
     <lastmod>2025-12-28T12:54:12+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/final-exam-review/deep-learning/review/</loc>
+    <loc>https://crazyjassbread.github.io/posts/final-exam-review/deep-learning/review/</loc>
     <lastmod>2025-12-28T12:54:12+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/final-exam-review/</loc>
+    <loc>https://crazyjassbread.github.io/categories/final-exam-review/</loc>
     <lastmod>2025-12-28T12:54:12+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/data-mining/</loc>
+    <loc>https://crazyjassbread.github.io/tags/data-mining/</loc>
     <lastmod>2025-12-27T16:25:31+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/final-exam-review/data-mining/review/</loc>
+    <loc>https://crazyjassbread.github.io/posts/final-exam-review/data-mining/review/</loc>
     <lastmod>2025-12-27T16:25:31+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/signals-and-systems/fourier_series/</loc>
+    <loc>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_series/</loc>
     <lastmod>2025-12-27T13:28:12+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/reinforcement-learning/hrl/hrl/</loc>
+    <loc>https://crazyjassbread.github.io/posts/reinforcement-learning/hrl/hrl/</loc>
     <lastmod>2025-12-25T16:49:43+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/signals-and-systems/review_class/</loc>
-    <lastmod>2025-12-25T10:07:40+08:00</lastmod>
+    <loc>https://crazyjassbread.github.io/tags/hrl/</loc>
+    <lastmod>2025-12-25T16:49:43+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/signals-and-systems/lti_systems/</loc>
+    <loc>https://crazyjassbread.github.io/categories/reinforcement-learning/</loc>
+    <lastmod>2025-12-25T16:49:43+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/rl/</loc>
+    <lastmod>2025-12-25T16:49:43+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/</loc>
     <lastmod>2025-12-23T15:09:31+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/signals-and-systems/signals_and_systems/</loc>
+    <loc>https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/</loc>
     <lastmod>2025-12-23T12:11:47+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/nju_about/</loc>
+    <loc>https://crazyjassbread.github.io/posts/nju_about/</loc>
     <lastmod>2025-09-06T13:46:12+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/archives/</loc>
+    <loc>https://crazyjassbread.github.io/archives/</loc>
   </url>
 </urlset>

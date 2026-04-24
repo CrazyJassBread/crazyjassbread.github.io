@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Papers on CrazyBread&#39; Blog</title>
-    <link>http://localhost:1313/papers/</link>
+    <link>https://crazyjassbread.github.io/papers/</link>
     <description>Recent content in Papers on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 17 Apr 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/papers/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://crazyjassbread.github.io/papers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Controllable Accent Normalization via Discrete Diffusion</title>
-      <link>http://localhost:1313/papers/dlm-an/</link>
+      <link>https://crazyjassbread.github.io/papers/dlm-an/</link>
       <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/papers/dlm-an/</guid>
+      <guid>https://crazyjassbread.github.io/papers/dlm-an/</guid>
       <description>&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;
 &lt;p&gt;Existing accent normalization methods do not typically offer control over accent strength, yet many applications-such as language learning and dubbing-require tunable accent retention. We propose DLM-AN, a controllable accent normalization system built on masked discrete diffusion over self-supervised speech tokens. A Common Token Predictor identifies source tokens that likely encode native pronunciation; these tokens are selectively reused to initialize the reverse diffusion process. This provides a simple yet effective mechanism for controlling accent strength: reusing more tokens preserves more of the original accent. DLM-AN further incorporates a flow-matching Duration Ratio Predictor that automatically adjusts the total duration to better match the native rhythm. Experiments on multi-accent English data show that DLM-AN achieves the lowest word error rate among all compared systems while delivering competitive accent reduction and smooth, interpretable accent strength control.&lt;/p&gt;</description>
     </item>

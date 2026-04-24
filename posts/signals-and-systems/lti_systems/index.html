@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>LTI Systems | CrazyBread&#39; Blog</title>
 <meta name="keywords" content="">
 <meta name="description" content="Linear Time-Invariant Systems (LTI Systems)
@@ -32,16 +32,16 @@ y[n] = \sum_{k=-\infty}^{\infty} x[k] h[n-k] = x[n] * h[n]
 $$Tips:
 其实我们可以将表达式 $\sum_{k=-\infty}^{\infty} x[k] h[n-k]$ 当作关于 k 的函数，则$y_k[n] = x[k] h[n-k]$ ，即所有 $y_k[n]$ 的叠加即为系统的输出信号 $y[n]$">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/signals-and-systems/lti_systems/">
+<link rel="canonical" href="https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://crazyjassbread.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://crazyjassbread.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://crazyjassbread.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://crazyjassbread.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://crazyjassbread.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/signals-and-systems/lti_systems/">
+<link rel="alternate" hreflang="en" href="https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/">
 <noscript>
     <style>
         #theme-toggle,
@@ -78,7 +78,102 @@ $$Tips:
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/">
+  <meta property="og:site_name" content="CrazyBread&#39; Blog">
+  <meta property="og:title" content="LTI Systems">
+  <meta property="og:description" content="Linear Time-Invariant Systems (LTI Systems) 这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性
+前置知识回顾：信号与系统基础
+目录：
+线性时不变系统的定义 线性时不变系统的性质 线性时不变系统的定义 这一部分会介绍离散LTI系统和连续LTI系统
+不过在开始之前需要研究一下单位脉冲函数的特性🦉
+离散LTI系统 在上一篇笔记中，有一个很重要的公式 $x[n] \delta[n - n_0] = x[n_0]$ （脉冲信号的筛选特性）
+由此我们可以用脉冲信号来表示任意的离散信号：
+$$x[n] = \sum_{k=-\infty}^{\infty} x[k] \delta[n-k]$$假设系统对单位脉冲信号的响应信号为 $h[n]$, 那么不妨定义 $h_k[n]$ 为系统对 $\delta[n-k]$ 的响应信号。
+利用系统的线性特性，我们可以将任意离散信号的响应表示为 $$ y[n] = \sum_{k=-\infty}^{\infty} x[k] h_k[n] $$再利用系统的时不变性，我们可以得到 $h_k[n] = h[n-k]$， 从而得到
+$$ y[n] = \sum_{k=-\infty}^{\infty} x[k] h[n-k] = x[n] * h[n] $$Tips:
+其实我们可以将表达式 $\sum_{k=-\infty}^{\infty} x[k] h[n-k]$ 当作关于 k 的函数，则$y_k[n] = x[k] h[n-k]$ ，即所有 $y_k[n]$ 的叠加即为系统的输出信号 $y[n]$">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-12-23T15:09:31+08:00">
+    <meta property="article:modified_time" content="2025-12-23T15:09:31+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LTI Systems">
+<meta name="twitter:description" content="Linear Time-Invariant Systems (LTI Systems)
+这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性
+前置知识回顾：信号与系统基础
+目录：
+
+线性时不变系统的定义
+线性时不变系统的性质
+
+线性时不变系统的定义
+这一部分会介绍离散LTI系统和连续LTI系统
+不过在开始之前需要研究一下单位脉冲函数的特性🦉
+离散LTI系统
+在上一篇笔记中，有一个很重要的公式 $x[n] \delta[n - n_0] = x[n_0]$ （脉冲信号的筛选特性）
+由此我们可以用脉冲信号来表示任意的离散信号：
+$$x[n] = \sum_{k=-\infty}^{\infty} x[k] \delta[n-k]$$假设系统对单位脉冲信号的响应信号为 $h[n]$, 那么不妨定义 $h_k[n]$ 为系统对 $\delta[n-k]$ 的响应信号。
+利用系统的线性特性，我们可以将任意离散信号的响应表示为
+
+$$
+y[n] = \sum_{k=-\infty}^{\infty} x[k] h_k[n]
+$$再利用系统的时不变性，我们可以得到 $h_k[n] = h[n-k]$， 从而得到
+$$
+y[n] = \sum_{k=-\infty}^{\infty} x[k] h[n-k] = x[n] * h[n]
+$$Tips:
+其实我们可以将表达式 $\sum_{k=-\infty}^{\infty} x[k] h[n-k]$ 当作关于 k 的函数，则$y_k[n] = x[k] h[n-k]$ ，即所有 $y_k[n]$ 的叠加即为系统的输出信号 $y[n]$">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://crazyjassbread.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "LTI Systems",
+      "item": "https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LTI Systems",
+  "name": "LTI Systems",
+  "description": "Linear Time-Invariant Systems (LTI Systems) 这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性\n前置知识回顾：信号与系统基础\n目录：\n线性时不变系统的定义 线性时不变系统的性质 线性时不变系统的定义 这一部分会介绍离散LTI系统和连续LTI系统\n不过在开始之前需要研究一下单位脉冲函数的特性🦉\n离散LTI系统 在上一篇笔记中，有一个很重要的公式 $x[n] \\delta[n - n_0] = x[n_0]$ （脉冲信号的筛选特性）\n由此我们可以用脉冲信号来表示任意的离散信号：\n$$x[n] = \\sum_{k=-\\infty}^{\\infty} x[k] \\delta[n-k]$$假设系统对单位脉冲信号的响应信号为 $h[n]$, 那么不妨定义 $h_k[n]$ 为系统对 $\\delta[n-k]$ 的响应信号。\n利用系统的线性特性，我们可以将任意离散信号的响应表示为 $$ y[n] = \\sum_{k=-\\infty}^{\\infty} x[k] h_k[n] $$再利用系统的时不变性，我们可以得到 $h_k[n] = h[n-k]$， 从而得到\n$$ y[n] = \\sum_{k=-\\infty}^{\\infty} x[k] h[n-k] = x[n] * h[n] $$Tips:\n其实我们可以将表达式 $\\sum_{k=-\\infty}^{\\infty} x[k] h[n-k]$ 当作关于 k 的函数，则$y_k[n] = x[k] h[n-k]$ ，即所有 $y_k[n]$ 的叠加即为系统的输出信号 $y[n]$\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Linear Time-Invariant Systems (LTI Systems) 这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性\n前置知识回顾：信号与系统基础\n目录：\n线性时不变系统的定义 线性时不变系统的性质 线性时不变系统的定义 这一部分会介绍离散LTI系统和连续LTI系统\n不过在开始之前需要研究一下单位脉冲函数的特性🦉\n离散LTI系统 在上一篇笔记中，有一个很重要的公式 $x[n] \\delta[n - n_0] = x[n_0]$ （脉冲信号的筛选特性）\n由此我们可以用脉冲信号来表示任意的离散信号：\n$$x[n] = \\sum_{k=-\\infty}^{\\infty} x[k] \\delta[n-k]$$假设系统对单位脉冲信号的响应信号为 $h[n]$, 那么不妨定义 $h_k[n]$ 为系统对 $\\delta[n-k]$ 的响应信号。\n利用系统的线性特性，我们可以将任意离散信号的响应表示为 $$ y[n] = \\sum_{k=-\\infty}^{\\infty} x[k] h_k[n] $$再利用系统的时不变性，我们可以得到 $h_k[n] = h[n-k]$， 从而得到\n$$ y[n] = \\sum_{k=-\\infty}^{\\infty} x[k] h[n-k] = x[n] * h[n] $$Tips:\n其实我们可以将表达式 $\\sum_{k=-\\infty}^{\\infty} x[k] h[n-k]$ 当作关于 k 的函数，则$y_k[n] = x[k] h[n-k]$ ，即所有 $y_k[n]$ 的叠加即为系统的输出信号 $y[n]$\n这个想法对于后续傅里叶变换的理解也会起到相当大的帮助😼\n而且当我们看作关于k的函数后，$h[n - k] $就可以看作将原始的 $h[n]$ 信号水平翻转后向右平移n个单位，这对于做卷积计算题目也有很大帮助\n连续LTI系统 首先我们先做一个很有意思的操作\n$$ \\delta_{\\Delta}(t) = \\begin{cases} \\frac{1}{\\Delta}, \u0026 0 \\leq t \\leq \\Delta \\\\ 0, \u0026 \\text{others} \\end{cases} $$我们可以用上述函数，用仿照离散信号的方式，近似模拟一个连续信号 $x(t)$\n$$ \\hat{x}(t) = \\sum_{k=-\\infty}^{\\infty} x(k\\Delta) \\delta_{\\Delta}(t - k\\Delta) \\cdot\\Delta $$当 $\\Delta \\to 0$ 时，$\\hat{x}(t) \\to x(t)$\n$$ \\lim_{\\Delta \\to 0} \\hat{x}(t) = \\lim_{\\Delta \\to 0} \\sum_{k=-\\infty}^{\\infty} x(k\\Delta) \\delta_{\\Delta}(t - k\\Delta) \\cdot\\Delta = \\int_{-\\infty}^{\\infty} x(\\tau) \\delta(t - \\tau) d\\tau $$有了上述知识的铺垫，我们就可以用与离散 LTI 相同的方法研究连续 LTI 了\n线性特性: $$\\begin{aligned} \\hat{y}(t) = \\sum_{k=-\\infty}^{\\infty} x(k\\Delta) \\hat{h}_k(t) \\cdot \\Delta \\\\ \\lim_{\\Delta \\to 0} \\hat{y}(t) = \\int_{-\\infty}^{\\infty} x(\\tau) h_{\\tau}(t) d\\tau \\end{aligned}$$时不变特性: $h_{\\tau}(t) = h(t - \\tau)$\n$$ y(t) = \\int_{-\\infty}^{\\infty} x(\\tau) h(t - \\tau) d\\tau = x(t) * h(t) $$Tips:\n对于连续LTI系统，我们也可以将其看作是关于 $\\tau$ 的函数 $y_{\\tau}(t) = x(\\tau) h(t - \\tau)$，然后对所有 $y_{\\tau}(t)$ 进行积分，得到系统的输出信号 $y(t)$\n具体的操作流程和离散LTI流程是一样的😼\n线性时不变系统的性质 非常重要的一个特性：LTI系统的特性可以由单位脉冲信号的响应来完全描述\n举个🌰:\n考虑一个离散LTI系统，其单位脉冲响应为 $$h[n] = \\begin{cases} 1, \u0026 n=0,1 \\\\ 0, \u0026 \\text{others} \\end{cases}$$若该系统为LTI系统，那么我们可以得到$y[n] = x[n] + x[n-1]$\n而若不限制LTI，则很多系统也可以满足这个响应函数，如 $y[n] = (x[n]+x[n-1])^2$ 或者 $y[n] = \\max(x[n], x[n-1])$\n下面我们就可以逐步分析LTI系统满足的一些重要性质了\n交换律 对于任意的离散LTI系统，有 $$x[n] * h[n] = h[n] * x[n]$$Proof:\n$$\\begin{aligned} x[n] * h[n] \u0026= \\sum_{k=-\\infty}^{\\infty} x[k] h[n-k] \\\\ \u0026= \\sum_{m=-\\infty}^{\\infty} h[m] x[n-m] \\quad\\text{这里} m = n-k \\\\ \u0026= h[n] * x[n] \\end{aligned}$$类似的，连续的LTI系统也满足交换律 $$x(t) * h(t) = h(t) * x(t)$$Proof: $$\\begin{aligned} x(t) * h(t) \u0026= \\int_{-\\infty}^{\\infty} x(\\tau) h(t - \\tau) d\\tau \\\\ \u0026= \\int_{-\\infty}^{\\infty} h(\\lambda) x(t - \\lambda) d\\lambda \\quad\\text{这里} \\lambda = t - \\tau \\\\ \u0026= h(t) * x(t) \\end{aligned}$$分配律 对于任意的离散 LTI 系统，有\n$$x[n] * (h_1[n] + h_2[n]) = x[n] * h_1[n] + x[n] * h_2[n]$$Proof: $$\\begin{aligned} x[n] * (h_1[n] + h_2[n]) \u0026= \\sum_{k=-\\infty}^{\\infty} x[k] (h_1[n-k] + h_2[n-k]) \\\\ \u0026= \\sum_{k=-\\infty}^{\\infty} x[k] h_1[n-k] + \\sum_{k=-\\infty}^{\\infty} x[k] h_2[n-k] \\\\ \u0026= x[n] * h_1[n] + x[n] * h_2[n] \\end{aligned}$$类似的，连续的LTI系统也满足分配律 $$x(t) * (h_1(t) + h_2(t)) = x(t) * h_1(t) + x(t) * h_2(t)$$分配律很好的解释了LTI系统的并联，可以将多个LTI系统的并联等价成一个新的LTI系统\n结合率 对于任意的离散LTI系统，有 $$(x[n] * h_1[n]) * h_2[n] = x[n] * (h_1[n] * h_2[n])$$ Proof: $$\\begin{aligned} (x[n] * h_1[n]) * h_2[n] \u0026=\\left(\\sum_{k =- \\infty}^{\\infty} x[k] h_1[n - k] \\right) * h_2[n] \\\\ \u0026= w[n] * h_2[n] \\\\ \u0026= \\sum_{k} x[k] \\sum_{m} h_1[n - m - k] h_2[m] \\\\ \u0026= \\sum_{m} h_2[m] \\sum_{k} h_1[n - k - m] x[k] \\\\ \u0026= \\sum_{m} h_2[m] \\sum_{k} h_1[n - k - m] x[k]\\\\ \u0026= \\left(\\sum_{m} h_2[m] h_1[n - m]\\right) x[n] \\\\ \u0026= x[n] * (h_1[n] * h_2[n]) \\end{aligned}$$这种特性使得LTI系统的级联可以交换次序，而非线性or时变系统则一般不具有这个性质\n无记忆性 \u0026 有记忆性 对于离散LTI系统，若其为无记忆系统，那么必然会有如下所示的形式 $$ h[n] = K \\delta[n] \\quad \\text{其中} K = h[0] $$对于连续LTI系统也是如此，可以得到 $$\\begin{aligned} \u0026y(t) = K x(t) \\\\ \u0026h(t) = K \\delta(t) \\end{aligned}$$补：如果我们取 K = 1 即可得到单位脉冲函数的筛选性质\n可逆性 设系统 $S$ 的单位脉冲响应为 $h[n]$，其逆系统 $S^{-1}$ 的单位脉冲响应为 $h^{-1}[n]$，则有 $$h[n] * h^{-1}[n] = \\delta[n]$$一个非常有用的性质，若一个 LTI 系统是可逆的，那么其逆系统也是 LTI 系统\nTODO：证明等想出来了会补上💦\n因果性 一个线性时不变系统若是因果系统，那么当 $n \u003c 0$ 时，必然有 $h[n] = 0$ ，这一点非常符合我们的直观理解——因果线性时不变系统在激冲之前不会有任何响应\nLTI系统的因果性等效于初始松弛条件\nTips:\n非常有意思，虽然因果性本身是描述系统的属性，但是我们也可以借此引入因果信号的定义，即当 $n \u003c 0$ 时，$x[n] = 0$ 的信号称为因果信号\n那么 LTI 系统的因果性就等价于：冲激响应是一个因果信号\n稳定性 先从离散 LTI 说起，如果输入信号有界，即意味着 $x[n] \\leq B$，那么系统的响应信号可以表示为 $$\\begin{aligned} |y[n]| \u0026= \\left|\\sum_{k=-\\infty}^{\\infty} x[k] h[n-k]\\right| \\\\ \u0026\\leq \\sum_{k=-\\infty}^{\\infty} |x[k]| |h[n-k]| \\\\ \u0026\\leq B \\sum_{k=-\\infty}^{\\infty} |h[n-k]| \\\\ \u0026= B \\sum_{m=-\\infty}^{\\infty} |h[m]| \\end{aligned}$$从上面我们可以看出，若 $\\sum_{m=-\\infty}^{\\infty} |h[m]| \u003c \\infty$，那么系统的输出信号也是有界的，即系统是稳定的\n用差不多的方式可以得出连续 LTI 系统的稳定条件，即 $\\int_{-\\infty}^{\\infty} |h(t)| dt \u003c \\infty$ 时，系统是稳定的\n前面的性质全是使用单位脉冲信号的响应来描述的 LTI 系统，而除了脉冲信号，我们也可以使用阶跃信号来描述 LTI 系统\n从前面的笔记中我们可以知道，一个 LTI 系统的响应可以用卷积来表示，而阶跃信号的响应就可以表示为\n$$ s[n] = u[n] * h[n] = \\sum_{k=-\\infty}^{n} h[k] $$那么我们也可以用阶跃信号的响应反推出激冲信号的响应 $h[n] = s[n] - s[n-1]$\n同样，换成连续 LTI 系统，也可以推出 $$\\begin{aligned} s(t) \u0026= u(t) * h(t) = \\int_{-\\infty}^{t} h(\\tau) d\\tau \\\\ h(t) \u0026= \\frac{d}{dt} s(t) \\end{aligned}$$",
+  "wordCount" : "590",
+  "inLanguage": "en",
+  "datePublished": "2025-12-23T15:09:31+08:00",
+  "dateModified": "2025-12-23T15:09:31+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CrazyBread' Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://crazyjassbread.github.io/favicon.ico"
+    }
+  }
+}
+</script>
      <script
   id="MathJax-script"
   async
@@ -115,7 +210,7 @@ $$Tips:
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="CrazyBread&#39; Blog (Alt + H)">CrazyBread&#39; Blog</a>
+            <a href="https://crazyjassbread.github.io/" accesskey="h" title="CrazyBread&#39; Blog (Alt + H)">CrazyBread&#39; Blog</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -141,27 +236,27 @@ $$Tips:
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/" title="Home">
+                <a href="https://crazyjassbread.github.io/" title="Home">
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/papers/" title="Papers">
+                <a href="https://crazyjassbread.github.io/papers/" title="Papers">
                     <span>Papers</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/projects/" title="Projects">
+                <a href="https://crazyjassbread.github.io/projects/" title="Projects">
                     <span>Projects</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/posts/" title="Notes">
+                <a href="https://crazyjassbread.github.io/posts/" title="Notes">
                     <span>Notes</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="Archives">
+                <a href="https://crazyjassbread.github.io/archives/" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
@@ -172,7 +267,7 @@ $$Tips:
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://crazyjassbread.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://crazyjassbread.github.io/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       LTI Systems
     </h1>
@@ -182,7 +277,7 @@ $$Tips:
   </header> 
   <div class="post-content"><h2 id="linear-time-invariant-systems-lti-systems">Linear Time-Invariant Systems (LTI Systems)<a hidden class="anchor" aria-hidden="true" href="#linear-time-invariant-systems-lti-systems">#</a></h2>
 <p>这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性</p>
-<p><a href="http://localhost:1313/posts/signals-and-systems/signals_and_systems/">前置知识回顾：信号与系统基础</a></p>
+<p><a href="https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/">前置知识回顾：信号与系统基础</a></p>
 <p>目录：</p>
 <ul>
 <li><a href="#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9A%E4%B9%89">线性时不变系统的定义</a></li>
@@ -338,7 +433,7 @@ h(t) &= \frac{d}{dt} s(t)
 <ul class="share-buttons">
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share LTI Systems on x"
-            href="https://x.com/intent/tweet/?text=LTI%20Systems&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fsignals-and-systems%2flti_systems%2f&amp;hashtags=">
+            href="https://x.com/intent/tweet/?text=LTI%20Systems&amp;url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2flti_systems%2f&amp;hashtags=">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
@@ -347,7 +442,7 @@ h(t) &= \frac{d}{dt} s(t)
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share LTI Systems on linkedin"
-            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fsignals-and-systems%2flti_systems%2f&amp;title=LTI%20Systems&amp;summary=LTI%20Systems&amp;source=http%3a%2f%2flocalhost%3a1313%2fposts%2fsignals-and-systems%2flti_systems%2f">
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2flti_systems%2f&amp;title=LTI%20Systems&amp;summary=LTI%20Systems&amp;source=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2flti_systems%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
@@ -356,7 +451,7 @@ h(t) &= \frac{d}{dt} s(t)
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share LTI Systems on reddit"
-            href="https://reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fsignals-and-systems%2flti_systems%2f&title=LTI%20Systems">
+            href="https://reddit.com/submit?url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2flti_systems%2f&title=LTI%20Systems">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
@@ -365,7 +460,7 @@ h(t) &= \frac{d}{dt} s(t)
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share LTI Systems on facebook"
-            href="https://facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fsignals-and-systems%2flti_systems%2f">
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2flti_systems%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
@@ -374,7 +469,7 @@ h(t) &= \frac{d}{dt} s(t)
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share LTI Systems on whatsapp"
-            href="https://api.whatsapp.com/send?text=LTI%20Systems%20-%20http%3a%2f%2flocalhost%3a1313%2fposts%2fsignals-and-systems%2flti_systems%2f">
+            href="https://api.whatsapp.com/send?text=LTI%20Systems%20-%20https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2flti_systems%2f">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
@@ -383,7 +478,7 @@ h(t) &= \frac{d}{dt} s(t)
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share LTI Systems on telegram"
-            href="https://telegram.me/share/url?text=LTI%20Systems&amp;url=http%3a%2f%2flocalhost%3a1313%2fposts%2fsignals-and-systems%2flti_systems%2f">
+            href="https://telegram.me/share/url?text=LTI%20Systems&amp;url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2flti_systems%2f">
             <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
@@ -392,7 +487,7 @@ h(t) &= \frac{d}{dt} s(t)
     </li>
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share LTI Systems on ycombinator"
-            href="https://news.ycombinator.com/submitlink?t=LTI%20Systems&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fsignals-and-systems%2flti_systems%2f">
+            href="https://news.ycombinator.com/submitlink?t=LTI%20Systems&u=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2fsignals-and-systems%2flti_systems%2f">
             <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
                 xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
                 <path
@@ -407,7 +502,7 @@ h(t) &= \frac{d}{dt} s(t)
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="http://localhost:1313/">CrazyBread&#39; Blog</a></span> · 
+        <span>&copy; 2026 <a href="https://crazyjassbread.github.io/">CrazyBread&#39; Blog</a></span> · 
 
     <span>
         Powered by

@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Projects on CrazyBread&#39; Blog</title>
-    <link>http://localhost:1313/categories/projects/</link>
+    <link>https://crazyjassbread.github.io/categories/projects/</link>
     <description>Recent content in Projects on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 20 Apr 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/projects/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://crazyjassbread.github.io/categories/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tetris Environment(Gym-Compatible)</title>
-      <link>http://localhost:1313/projects/tetirs/</link>
+      <link>https://crazyjassbread.github.io/projects/tetirs/</link>
       <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/tetirs/</guid>
+      <guid>https://crazyjassbread.github.io/projects/tetirs/</guid>
       <description>This project provides a custom Tetris environment for reinforcement learning using the Gymnasium API. It includes a Tetris game implementation and an environment wrapper that allows for easy integration with RL algorithms.</description>
     </item>
     <item>
       <title>Nesy Link: An environment for reinforcement learning</title>
-      <link>http://localhost:1313/projects/nesy_link/</link>
+      <link>https://crazyjassbread.github.io/projects/nesy_link/</link>
       <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/nesy_link/</guid>
+      <guid>https://crazyjassbread.github.io/projects/nesy_link/</guid>
       <description>The Nesy Link Project is an environment based on the GB game: The Legend of Zelda: Link&amp;rsquo;s Awakening. It is designed for reinforcement learning research, providing a complex and dynamic environment for testing and developing RL algorithms.</description>
     </item>
   </channel>

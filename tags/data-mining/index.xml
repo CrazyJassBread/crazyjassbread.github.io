@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Data Mining on CrazyBread&#39; Blog</title>
-    <link>http://localhost:1313/tags/data-mining/</link>
+    <link>https://crazyjassbread.github.io/tags/data-mining/</link>
     <description>Recent content in Data Mining on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 27 Dec 2025 16:25:31 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/data-mining/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://crazyjassbread.github.io/tags/data-mining/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Data Mining Review</title>
-      <link>http://localhost:1313/posts/final-exam-review/data-mining/review/</link>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/data-mining/review/</link>
       <pubDate>Sat, 27 Dec 2025 16:25:31 +0800</pubDate>
-      <guid>http://localhost:1313/posts/final-exam-review/data-mining/review/</guid>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/data-mining/review/</guid>
       <description>&lt;h1 id=&#34;data-mining-课程复习笔记&#34;&gt;Data Mining 课程复习笔记&lt;/h1&gt;
 &lt;p&gt;笔记目录&lt;/p&gt;
 &lt;ul&gt;

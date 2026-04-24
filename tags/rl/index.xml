@@ -2,24 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>RL on CrazyBread&#39; Blog</title>
-    <link>http://localhost:1313/tags/rl/</link>
+    <link>https://crazyjassbread.github.io/tags/rl/</link>
     <description>Recent content in RL on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 24 Apr 2026 14:08:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/rl/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Deep Hierarchical Planning from Pixels</title>
-      <link>http://localhost:1313/posts/reinforcement-learning/hrl/director/</link>
-      <pubDate>Fri, 24 Apr 2026 14:08:00 +0800</pubDate>
-      <guid>http://localhost:1313/posts/reinforcement-learning/hrl/director/</guid>
-      <description>&lt;h2&gt;&lt;/h2&gt;</description>
-    </item>
+    <lastBuildDate>Thu, 25 Dec 2025 16:49:43 +0800</lastBuildDate>
+    <atom:link href="https://crazyjassbread.github.io/tags/rl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hierarchical Reinforcement Learning</title>
-      <link>http://localhost:1313/posts/reinforcement-learning/hrl/hrl/</link>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/hrl/hrl/</link>
       <pubDate>Thu, 25 Dec 2025 16:49:43 +0800</pubDate>
-      <guid>http://localhost:1313/posts/reinforcement-learning/hrl/hrl/</guid>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/hrl/hrl/</guid>
       <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;目录&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
