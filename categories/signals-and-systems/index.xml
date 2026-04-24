@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Signals and Systems on CrazyBread&#39; Blog</title>
-    <link>https://crazyjassbread.github.io/categories/signals-and-systems/</link>
+    <link>http://localhost:1313/categories/signals-and-systems/</link>
     <description>Recent content in Signals and Systems on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 29 Dec 2025 11:00:06 +0800</lastBuildDate>
-    <atom:link href="https://crazyjassbread.github.io/categories/signals-and-systems/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/signals-and-systems/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fourier Transform</title>
-      <link>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/</link>
+      <link>http://localhost:1313/posts/signals-and-systems/fourier_transform/</link>
       <pubDate>Mon, 29 Dec 2025 11:00:06 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;前情回顾&lt;/strong&gt;： &lt;a href=&#34;https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/&#34;&gt;信号与系统基础&lt;/a&gt;  |  &lt;a href=&#34;https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/&#34;&gt;LTI系统&lt;/a&gt; |  &lt;a href=&#34;https://crazyjassbread.github.io/posts/signals-and-systems/fourier_series/&#34;&gt;傅里叶级数&lt;/a&gt;&lt;/p&gt;
+      <guid>http://localhost:1313/posts/signals-and-systems/fourier_transform/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;前情回顾&lt;/strong&gt;： &lt;a href=&#34;http://localhost:1313/posts/signals-and-systems/signals_and_systems/&#34;&gt;信号与系统基础&lt;/a&gt;  |  &lt;a href=&#34;http://localhost:1313/posts/signals-and-systems/lti_systems/&#34;&gt;LTI系统&lt;/a&gt; |  &lt;a href=&#34;http://localhost:1313/posts/signals-and-systems/fourier_series/&#34;&gt;傅里叶级数&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧 😤&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;目录&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -53,11 +53,11 @@ $$&lt;p&gt;当 $\lim_{T \to \infty}$ 时， $\omega$ 就从离散变量便成了
     </item>
     <item>
       <title>Fourier Series</title>
-      <link>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_series/</link>
+      <link>http://localhost:1313/posts/signals-and-systems/fourier_series/</link>
       <pubDate>Sat, 27 Dec 2025 13:28:12 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_series/</guid>
+      <guid>http://localhost:1313/posts/signals-and-systems/fourier_series/</guid>
       <description>&lt;p&gt;终于到了傅里叶级数的章节了！信号处理打怪修炼已经到了关键的一步，冲破这关我们就能打遍天下无敌手了😼&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;前情回顾&lt;/strong&gt;： &lt;a href=&#34;https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/&#34;&gt;信号与系统基础&lt;/a&gt;  |  &lt;a href=&#34;https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/&#34;&gt;LTI系统&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;前情回顾&lt;/strong&gt;： &lt;a href=&#34;http://localhost:1313/posts/signals-and-systems/signals_and_systems/&#34;&gt;信号与系统基础&lt;/a&gt;  |  &lt;a href=&#34;http://localhost:1313/posts/signals-and-systems/lti_systems/&#34;&gt;LTI系统&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;目录&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2&#34;&gt;写在前面&lt;/a&gt;
@@ -97,13 +97,56 @@ z^{n} &amp;\to z^{n} H(z) \quad (离散 LTI)
 $$E = \int_{T} |x(t) - \hat{x}(t)|^2 dt$$&lt;p&gt;那么 $E$ 越小，说明两者越接近，所以最优的傅里叶系数可以通过用 $E$ 对 $a_k$ 求偏导并令其为0来得到&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Review class</title>
+      <link>http://localhost:1313/posts/signals-and-systems/review_class/</link>
+      <pubDate>Thu, 25 Dec 2025 10:07:40 +0800</pubDate>
+      <guid>http://localhost:1313/posts/signals-and-systems/review_class/</guid>
+      <description>&lt;h1 id=&#34;复习笔记&#34;&gt;复习笔记&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;题目组成&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;十道选择&lt;/li&gt;
+&lt;li&gt;五道填空&lt;/li&gt;
+&lt;li&gt;五道判断&lt;/li&gt;
+&lt;li&gt;两道简答&lt;/li&gt;
+&lt;li&gt;五道计算&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Tips：
+题量较大，可参考考研题目 or 网上成套练习题目 （当然PPT里例题过一遍，可能会出现原题）&lt;/p&gt;
+&lt;h2 id=&#34;01-信号的时域分析&#34;&gt;01 信号的时域分析&lt;/h2&gt;
+&lt;p&gt;信号的分类、周期信号判断方法、能量&amp;amp;功率计算方法、信号的分类、信号的尺度变化、时移、翻转&lt;/p&gt;
+&lt;p&gt;特殊信号的性质（阶跃、冲激、冲激偶信号）、&lt;/p&gt;
+&lt;h2 id=&#34;02-系统的时域分析&#34;&gt;02 系统的时域分析&lt;/h2&gt;
+&lt;p&gt;系统的分类（因果、稳定、线性、时不变等等）&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;卷积的计算与性质（交换、分配、平移、展缩等）&lt;/mark&gt;、解卷积、奇异信号的卷积（记住 比较常用）&lt;/p&gt;
+&lt;h2 id=&#34;03-系统的时域分析微分差分方程&#34;&gt;03 系统的时域分析（微分、差分方程）&lt;/h2&gt;
+&lt;p&gt;常见方程的齐次解与特解&lt;/p&gt;
+&lt;p&gt;系统的&lt;mark&gt;零输入响应和零状态响应&lt;/mark&gt;&lt;/p&gt;
+&lt;h2 id=&#34;04-信号的傅里叶级数&#34;&gt;04 信号的傅里叶级数&lt;/h2&gt;
+&lt;p&gt;&lt;mark&gt;级数收敛条件（能量条件、波形条件、狄利克雷条件）&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;帕塞瓦尔定理&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;常见信号傅里叶级数的计算&lt;/p&gt;
+&lt;h2 id=&#34;05-信号的傅里叶变换&#34;&gt;05 信号的傅里叶变换&lt;/h2&gt;
+&lt;p&gt;傅里叶变换的定义、收敛条件、幅度谱与相位谱&lt;/p&gt;
+&lt;p&gt;特殊信号的傅里叶变换（记住）、&lt;mark&gt;傅里叶变换的性质&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;傅里叶级数与傅里叶变换的关系&lt;/p&gt;
+&lt;h2 id=&#34;06-信号的采样&#34;&gt;06 信号的采样&lt;/h2&gt;
+&lt;p&gt;&lt;mark&gt;采样定理&lt;/mark&gt;&lt;/p&gt;
+&lt;h2 id=&#34;07-调制解调滤波&#34;&gt;07 调制、解调、滤波&lt;/h2&gt;
+&lt;h2 id=&#34;08-离散信号傅里叶变换&#34;&gt;08 离散信号傅里叶变换&lt;/h2&gt;
+&lt;p&gt;DTFT、DFS、四类信号的傅里叶变换计算、DFT、FFT（算子的性质）&lt;/p&gt;
+&lt;h2 id=&#34;09-离散信号傅里叶变换二维&#34;&gt;09 离散信号傅里叶变换（二维）&lt;/h2&gt;
+&lt;h2 id=&#34;10-拉普拉斯变换&#34;&gt;10 拉普拉斯变换&lt;/h2&gt;
+&lt;p&gt;常用信号的拉普拉斯变换、拉普拉斯变换性质、与傅里叶变换关系、反变换计算、系统函数与系统稳定性分析&lt;/p&gt;
+&lt;h2 id=&#34;11-z变换&#34;&gt;11 Z变换&lt;/h2&gt;</description>
+    </item>
+    <item>
       <title>LTI Systems</title>
-      <link>https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/</link>
+      <link>http://localhost:1313/posts/signals-and-systems/lti_systems/</link>
       <pubDate>Tue, 23 Dec 2025 15:09:31 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/</guid>
+      <guid>http://localhost:1313/posts/signals-and-systems/lti_systems/</guid>
       <description>&lt;h2 id=&#34;linear-time-invariant-systems-lti-systems&#34;&gt;Linear Time-Invariant Systems (LTI Systems)&lt;/h2&gt;
 &lt;p&gt;这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/&#34;&gt;前置知识回顾：信号与系统基础&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://localhost:1313/posts/signals-and-systems/signals_and_systems/&#34;&gt;前置知识回顾：信号与系统基础&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;目录：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9A%E4%B9%89&#34;&gt;线性时不变系统的定义&lt;/a&gt;&lt;/li&gt;
@@ -128,9 +171,9 @@ $$&lt;p&gt;&lt;mark&gt;&lt;strong&gt;Tips&lt;/strong&gt;&lt;/mark&gt;:&lt;/p&gt;
     </item>
     <item>
       <title>Signals and Systems</title>
-      <link>https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/</link>
+      <link>http://localhost:1313/posts/signals-and-systems/signals_and_systems/</link>
       <pubDate>Tue, 23 Dec 2025 12:11:47 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/</guid>
+      <guid>http://localhost:1313/posts/signals-and-systems/signals_and_systems/</guid>
       <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面&lt;/h2&gt;
 &lt;p&gt;期末周到了，数字信号学的一塌糊涂，创建这个系列也是督促自己好好复习这一门课😢&lt;/p&gt;
 $$E=mc^2$$&lt;p&gt;测试一下是否支持LaTex渲染&lt;/p&gt;
