@@ -185,7 +185,7 @@ $$">
   </header> 
   <div class="post-content"><h2 id="world-model-2018">World Model (2018)<a hidden class="anchor" aria-hidden="true" href="#world-model-2018">#</a></h2>
 <p><a href="https://arxiv.org/abs/1803.10122">World Models</a>是由David Ha和Jürgen Schmidhuber在2018年提出的一种基于生成模型的强化学习方法。该方法通过学习环境的动态模型来进行规划和决策，能够在复杂的环境中实现高效的学习和控制。</p>
-<p><img loading="lazy" src="img/world_model.png"></p>
+<p><img loading="lazy" src="/posts/reinforcement-learning/worldmodel/dreamer/img/world_model.png"></p>
 <p>这一版本的 World Model 主要由三个部分组成，分别是：</p>
 <ul>
 <li>Vision Model：使用 Variational Autoencoder (VAE) 来学习环境的视觉表示，将高维的图像输入压缩成低维的潜在空间表示。</li>
@@ -197,13 +197,13 @@ $$">
 <h3 id="mdn-rnn-m-model">MDN-RNN (M) Model<a hidden class="anchor" aria-hidden="true" href="#mdn-rnn-m-model">#</a></h3>
 <p>RNN 的作用很容易理解，就是根据当前输入的 $a_t$, $z_t$ 和前一时刻的状态 $h_{t-1}$ 来预测下一时刻的状态 $h_t$ 与 $z_t+1$ 的分布</p>
 <p>MDN 是 Mixture Density Network，它负责预测混合概率分布的参数，而不是输出一个完整的确定值，这可以应对环境中的随机性（Car Racing 中，同一个状态可能对应不同的下一状态）</p>
-<p><img loading="lazy" src="img/mdn_rnn.png"></p>
+<p><img loading="lazy" src="/posts/reinforcement-learning/worldmodel/dreamer/img/mdn_rnn.png"></p>
 <h3 id="controller-c-model">Controller (C) Model<a hidden class="anchor" aria-hidden="true" href="#controller-c-model">#</a></h3>
 <p>实验中，使用一个非常简单的单层网络来作为 Controller
 </p>
 $$
 a_t = W_c [z_t, h_t] + b_c
-$$<p><img alt="alt text" loading="lazy" src="img/work_flow.png"></p>
+$$<p><img alt="alt text" loading="lazy" src="/posts/reinforcement-learning/worldmodel/dreamer/img/work_flow.png"></p>
 <h2 id="dreamer-v1-2020">Dreamer V1 (2020)<a hidden class="anchor" aria-hidden="true" href="#dreamer-v1-2020">#</a></h2>
 <p><a href="https://arxiv.org/abs/1912.01603">Dream to control: Learning behaviors by latent imagination</a> 是由Danijar Hafner等人在2020年提出的一种基于世界模型的强化学习方法。与World Models相比，Dreamer引入了更先进的模型结构和训练方法</p>
 
