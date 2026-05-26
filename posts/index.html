@@ -178,6 +178,22 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Vlm in Games
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>目录 Odysseus: Scaling VLMs to 100&#43; Turn Decision-Making in Games via Reinforcement Learning
+Odysseus: Scaling VLMs to 100&#43; Turn Decision-Making in Games via Reinforcement Learning 论文链接
+文章最有意思的地方在于 VLM 可以同时输出多个动作决策，这就可以用来解决 Zelda 环境中需要一次执行两个动作才能解决特定任务的情形了（而且因为单帧输入后状态几乎没有改变，所以他们也加入了动作循环，来让模型在连续的帧中执行同样的动作）
+这篇研究的背景知识是 POMDP（部分可观测马尔可夫决策过程） $$\begin{aligned} POMDP &amp;= \langle S, A, T, R, \Omega, O, \gamma \rangle \\ s_{t&#43;1} &amp;\sim T(s_{t&#43;1} | s_t, a_t) \\ a_t &amp;= \pi(o_t) \\ r_t &amp;= R(s_t, a_t) \\ o_t &amp;\sim O(o_t | s_t) \\ \text{Goal} &amp;= \max_\pi \mathbb{E_{\pi}} \left[ \sum_{t=0}^{\infty} \gamma^t r_t \right] \end{aligned}$$对于 VLM 模型的 finetuning，这篇论文发现用 Critic free 的 RL 方法在 Super Mario 游戏中训练效果不稳定（没给出有信服力的解释）
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-05-26 13:22:30 +0800 CST'>May 26, 2026</span>&nbsp;·&nbsp;1 min</footer>
+  <a class="entry-link" aria-label="post link to Vlm in Games" href="https://crazyjassbread.github.io/posts/worldmodel/vlm/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">26 Movie List
     </h2>
   </header>
@@ -185,15 +201,21 @@
     <p>2026 Movie List 这里是 crazybread 的 2026 电影清单，内容持续更新中
 目录 《世界的主人》
 《花束般的恋爱》
+《给阿嬷的情书》
 电影清单 5月之前看过电影有很多，也看了不少动漫作品，就不再赘述了，这里主要记录一下5月以来看的电影
 世界的主人 上映时间: 2025
 观影时间: 2026.5.10
 这部电影说来也巧，是在逛电影网站时刷到的，刚开始看的时候完全不知道主题和剧情走向，但是很快就被剧情吸引了，哇，从来没有看过从这个角度切入的电影，太震撼了，简直是平地起惊雷… 如果再做详细的评价会涉及到剧透（对于这部作品的观影体验应该会造成很大的影响），总之就是十分推荐
-评分 10/10
+评分 9/10
 花束般的恋爱 上映时间: 2021
 观影时间: 2026.5.16
 这部电影我很喜欢，应该会在回家后用大屏幕二刷，故事很像《爱乐之城》，不过更符合亚洲文化背景，青春期的恋爱不就像花束一样嘛，短暂但是无比美好。很难用文字转述这部电影带给人的感觉，所以非常推荐亲自看一遍这部电影，绝对不会失望
-评分 10/10
+评分 9/10
+给阿嬷的情书 上映时间: 2026.4.30
+观影时间: 2026.5.20
+很好看的一部电影，看完更能感受到书信的魅力，在之前通信不便利的时代中，书信所承载的情感价值是无法估量的。这部电影的情节设计真的很巧妙，我去的场次人不是很多，但是到故事的后半段还是有很多人感动到流泪，总体而言是一部相当好看的地方民俗电影，两个小时讲述一个温馨的成人童话
+最受触动的一封信，它出现在了故事中最合适的位置 “行船入夜，恰江上升明月，圆如玉坠，仿若身在故乡，似与你并肩共赏。江海万里，心中念你，便不觉遥远。湄南河畔木棉花盛开，像极了家乡的春天，压了一朵在信中，望你也能闻到花香”
+评分 8/10 （没给10分的主要原因是因为电影性不足，太过于依赖文本魅力了）
 </p>
   </div>
   <footer class="entry-footer"><span title='2026-05-19 13:38:59 +0800 CST'>May 19, 2026</span>&nbsp;·&nbsp;1 min</footer>
@@ -271,7 +293,7 @@ $$ T a_k = \frac{2}{\omega} \sin\left(\omega T_1 \right) = X(j \omega) $$当 $\l
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-12-29 11:00:06 +0800 CST'>December 29, 2025</span>&nbsp;·&nbsp;11 min</footer>
-  <a class="entry-link" aria-label="post link to Fourier Transform" href="https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/"></a>
+  <a class="entry-link" aria-label="post link to Fourier Transform" href="https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_transform/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -341,7 +363,7 @@ part two - 数据统计的基本方法 标准差 $\sigma = \sqrt{\frac{1}{n} \su
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-12-27 13:28:12 +0800 CST'>December 27, 2025</span>&nbsp;·&nbsp;4 min</footer>
-  <a class="entry-link" aria-label="post link to Fourier Series" href="https://crazyjassbread.github.io/posts/signals-and-systems/fourier_series/"></a>
+  <a class="entry-link" aria-label="post link to Fourier Series" href="https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_series/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -384,7 +406,7 @@ $$ y[n] = \sum_{k=-\infty}^{\infty} x[k] h[n-k] = x[n] * h[n] $$Tips:
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-12-23 15:09:31 +0800 CST'>December 23, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to LTI Systems" href="https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/"></a>
+  <a class="entry-link" aria-label="post link to LTI Systems" href="https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/lti_systems/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -402,40 +424,14 @@ $$\begin{aligned} E &amp;= \sum_{n=-\infty}^{\infty} |x[n]|^2 \\ P &amp;= \lim_{
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-12-23 12:11:47 +0800 CST'>December 23, 2025</span>&nbsp;·&nbsp;2 min</footer>
-  <a class="entry-link" aria-label="post link to Signals and Systems" href="https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/"></a>
+  <a class="entry-link" aria-label="post link to Signals and Systems" href="https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/signals_and_systems/"></a>
 </article>
-
-<article class="post-entry"> 
-<figure class="entry-cover">
-        <img loading="lazy" src="https://m.juyingonline.com/upload/202111/10/202111100949333069.png" alt="">
-</figure>
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">南哪入学指南
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>一名NJUer的必备网址列表 基础网站（也是必备网站） 本科生院 重要性不必多言
-选课网址 只有经历过深夜蹲点抢课的人才算一个真正的NJUer
-教服平台 可以查看自己的本学期课程、申请免修不免考等
-网上办事大厅 也是一个非常重要的网址，当你不知道自己想办的业务需要去那个网站时可以上这个上面碰碰运气
-五育管理系统 在这里可以查看学校近期开展的一些五育活动，也可以导出自己的五育成绩单
-什么？你问我五育活动有什么用？其实没什么用（但是学院每学期的综合测评会作为一个衡量标准，所以越多越好）
-此外，多余的五育活动也可以转化成选修学分（但是大部分情况下不会用到这个）
-第二课堂 用来查看自己的志愿活动时长、参与的社会实践以及加入的社团活动等（这里再次给天健社打广告！欢迎大家加入天健大家庭）
-交换生管理系统 建议有意向参加交换活动的同学多多留意网站上的项目
-Tips：可以作为查看自己在学院大致排名的一种方法
-网络认证 打开前记得连接 NJU-WLAN
-资源网站 南大图书馆 图书馆官网下面提供了很多别的数据库网站（如知网、Web of science等），通过图书馆进入可以使用企业账号登陆，免费下载所需要的大部分论文资料
-信息化建设管理平台 在这里你可以下载学校免费提供的正版软件
-Adobe（Pr、Ps、Acrobat等）、微软全家桶、Matlab等软件都可以在这里下载安装，如果你发现某个软件需要购买或订阅，不妨先来这里看看有无免费版本
-此外，Notion可以使用学校邮箱登陆，完成学生认证后即可免费使用，不需要缴纳每年365元的订阅费。 Copliot也可以在完成学生认证后免费使用
-工具网站 南大云盘 每人都有50G的免费云空间～
-南大Latex 不想本地配置latex编译环境？那就试试这个吧！
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-09-06 13:46:12 +0800 CST'>September 6, 2025</span>&nbsp;·&nbsp;1 min</footer>
-  <a class="entry-link" aria-label="post link to 南哪入学指南" href="https://crazyjassbread.github.io/posts/nju_about/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://crazyjassbread.github.io/posts/page/2/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">

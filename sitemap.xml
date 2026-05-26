@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://crazyjassbread.github.io/posts/well-rounded/26-movie-list/</loc>
-    <lastmod>2026-05-19T13:38:59+08:00</lastmod>
-  </url><url>
     <loc>https://crazyjassbread.github.io/</loc>
-    <lastmod>2026-05-19T13:38:59+08:00</lastmod>
+    <lastmod>2026-05-26T13:22:30+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/</loc>
+    <lastmod>2026-05-26T13:22:30+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/worldmodel/vlm/</loc>
+    <lastmod>2026-05-26T13:22:30+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/well-rounded/26-movie-list/</loc>
     <lastmod>2026-05-19T13:38:59+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/categories/</loc>
@@ -47,7 +50,7 @@
     <loc>https://crazyjassbread.github.io/posts/well-rounded/26-reading-list/</loc>
     <lastmod>2026-01-13T14:31:58+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_transform/</loc>
+    <loc>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_transform/</loc>
     <lastmod>2025-12-29T11:00:06+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/categories/signals-and-systems/</loc>
@@ -68,7 +71,7 @@
     <loc>https://crazyjassbread.github.io/posts/final-exam-review/data-mining/review/</loc>
     <lastmod>2025-12-27T16:25:31+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/posts/signals-and-systems/fourier_series/</loc>
+    <loc>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_series/</loc>
     <lastmod>2025-12-27T13:28:12+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/reinforcement-learning/hrl/</loc>
@@ -83,10 +86,10 @@
     <loc>https://crazyjassbread.github.io/tags/rl/</loc>
     <lastmod>2025-12-25T16:49:43+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/posts/signals-and-systems/lti_systems/</loc>
+    <loc>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/lti_systems/</loc>
     <lastmod>2025-12-23T15:09:31+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/posts/signals-and-systems/signals_and_systems/</loc>
+    <loc>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/signals_and_systems/</loc>
     <lastmod>2025-12-23T12:11:47+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/nju_about/</loc>
