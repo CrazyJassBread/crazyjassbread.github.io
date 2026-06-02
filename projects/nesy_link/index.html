@@ -100,8 +100,8 @@
   "keywords": [
     "project"
   ],
-  "articleBody": "Overview TODO\n",
-  "wordCount" : "2",
+  "articleBody": " NesyLink A Gymnasium-compatible Zelda-like dungeon environment for reinforcement learning.\nInstallation · Quick Start · Built-in Tasks · Architecture · Rewards · Training\nnesylink provides a small, configurable dungeon game environment for RL experiments. It separates game mechanics, JSON maps, Python task specs, reward modules, and Gymnasium wrappers so users can start with built-in tasks or compose new environments without changing the core engine.\nInstallation From source:\ngit clone https://github.com/CrazyJassBread/nesylink.git cd nesylink python -m venv .venv source .venv/bin/activate # use '.venv\\Scripts\\Activate.ps1' for PowerShell pip install -e . Optional extras:\npip install -e \".[pygame]\" # human-play/debug runner pip install -e \".[dreamer]\" # Dreamer-style image helper dependencies Quick Start Use Gymnasium registration:\nimport gymnasium as gym import nesylink env = gym.make(\"NesyLink-CollectKeyEasy-v0\") obs, info = env.reset(seed=0) obs, reward, terminated, truncated, info = env.step(env.action_space.sample()) env.close() Use the direct factory when you want to override task defaults:\nfrom nesylink.env import make_env env = make_env( task_id=\"collect_key_easy\", max_steps=500, reward_kwargs={\"step\": -0.01}, ) Built-in Tasks task_id Gymnasium ID Objective collect_key_easy NesyLink-CollectKeyEasy-v0 Collect a key and open the exit. kill_monsters_easy NesyLink-KillMonstersEasy-v0 Defeat the monster, collect the key, and exit. avoid_traps_easy NesyLink-AvoidTrapsEasy-v0 Reach the exit while avoiding traps. List tasks in Python:\nfrom nesylink.tasks import list_tasks for task in list_tasks(): print(task.task_id, task.gym_id) Architecture nesylink/ env.py make_env(...) facade and Gymnasium registration tasks/ Python TaskSpec registry core/ runtime, state, mechanics, world loading, rendering rewards/ reward modules and reward signal extraction wrappers/ Gymnasium and Dreamer-facing adapters map_data/ built-in JSON maps tools/ map utilities Design boundaries:\nJSON maps define only the world: rooms, layouts, objects, exits, and spawns. Python tasks compose maps, rewards, episode limits, action repeat, and mission text. Reward modules compute scalar rewards and reward-driven termination. Gymnasium wrappers expose reset, step, render, spaces, and info. Rewards Select built-in rewards by reward_id:\nenv = make_env( map_id=\"key_door\", reward_id=\"collect_key\", reward_kwargs={ \"step\": -0.01, \"keys_delta\": 5.0, \"door_opened\": 3.0, \"exit_reached\": 20.0, }, ) Training Start with a random rollout smoke test:\nenv = make_env(task_id=\"collect_key_easy\") obs, info = env.reset(seed=0) for _ in range(100): action = env.action_space.sample() obs, reward, terminated, truncated, info = env.step(action) if terminated or truncated: break print(info[\"terminal_reason\"], info[\"reward\"][\"reward_signals\"]) env.close() Appendix for more details, please refer to the GitHub repository.\n",
+  "wordCount" : "350",
   "inLanguage": "en",
   "datePublished": "2026-04-17T00:00:00Z",
   "dateModified": "2026-04-17T00:00:00Z",
@@ -214,11 +214,122 @@
 
   <div class="post-content">
     <h2>Project Info</h2>
-    <ul><li><strong>Status:</strong> ongoing</li><li><strong>Tech:</strong> Python</li><li><strong>Repo:</strong> <a href="https://github.com/CrazyJassBread/Link-s-awakening-RL" target="_blank" rel="noopener">https://github.com/CrazyJassBread/Link-s-awakening-RL</a></li>
+    <ul><li><strong>Status:</strong> Keeping updating</li><li><strong>Tech:</strong> Python</li><li><strong>Repo:</strong> <a href="https://github.com/CrazyJassBread/nesylink" target="_blank" rel="noopener">https://github.com/CrazyJassBread/nesylink</a></li>
     </ul>
 
-    <h2 id="overview">Overview</h2>
-<p>TODO</p>
+    <div align="center">
+<h1 id="nesylink">NesyLink</h1>
+<p><em>A Gymnasium-compatible Zelda-like dungeon environment for reinforcement learning.</em></p>
+<p><a href="https://www.python.org/"><img alt="Python" loading="lazy" src="https://img.shields.io/badge/python-3.10%2B-blue.svg"></a> <a href="https://gymnasium.farama.org/"><img alt="Gymnasium" loading="lazy" src="https://img.shields.io/badge/Gymnasium-compatible-2ea44f.svg"></a></p>
+<p><a href="#installation">Installation</a> · <a href="#quick-start">Quick Start</a> · <a href="#built-in-tasks">Built-in Tasks</a> · <a href="#architecture">Architecture</a> ·  <a href="#rewards">Rewards</a> · <a href="#training">Training</a></p>
+</div>
+<hr>
+<p><code>nesylink</code> provides a small, configurable dungeon game environment for RL experiments. It separates game mechanics, JSON maps, Python task specs, reward modules, and Gymnasium wrappers so users can start with built-in tasks or compose new environments without changing the core engine.</p>
+<h2 id="installation">Installation</h2>
+<p>From source:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/CrazyJassBread/nesylink.git
+</span></span><span style="display:flex;"><span>cd nesylink
+</span></span><span style="display:flex;"><span>python -m venv .venv
+</span></span><span style="display:flex;"><span>source .venv/bin/activate
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># use &#39;.venv\Scripts\Activate.ps1&#39; for PowerShell</span>
+</span></span><span style="display:flex;"><span>pip install -e .
+</span></span></code></pre></div><p>Optional extras:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install -e <span style="color:#e6db74">&#34;.[pygame]&#34;</span>   <span style="color:#75715e"># human-play/debug runner</span>
+</span></span><span style="display:flex;"><span>pip install -e <span style="color:#e6db74">&#34;.[dreamer]&#34;</span>  <span style="color:#75715e"># Dreamer-style image helper dependencies</span>
+</span></span></code></pre></div><h2 id="quick-start">Quick Start</h2>
+<p>Use Gymnasium registration:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> gymnasium <span style="color:#66d9ef">as</span> gym
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> nesylink
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>env <span style="color:#f92672">=</span> gym<span style="color:#f92672">.</span>make(<span style="color:#e6db74">&#34;NesyLink-CollectKeyEasy-v0&#34;</span>)
+</span></span><span style="display:flex;"><span>obs, info <span style="color:#f92672">=</span> env<span style="color:#f92672">.</span>reset(seed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>obs, reward, terminated, truncated, info <span style="color:#f92672">=</span> env<span style="color:#f92672">.</span>step(env<span style="color:#f92672">.</span>action_space<span style="color:#f92672">.</span>sample())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>env<span style="color:#f92672">.</span>close()
+</span></span></code></pre></div><p>Use the direct factory when you want to override task defaults:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> nesylink.env <span style="color:#f92672">import</span> make_env
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>env <span style="color:#f92672">=</span> make_env(
+</span></span><span style="display:flex;"><span>    task_id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;collect_key_easy&#34;</span>,
+</span></span><span style="display:flex;"><span>    max_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>    reward_kwargs<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;step&#34;</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">0.01</span>},
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="built-in-tasks">Built-in Tasks</h2>
+<table>
+  <thead>
+      <tr>
+          <th>task_id</th>
+          <th>Gymnasium ID</th>
+          <th>Objective</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>collect_key_easy</code></td>
+          <td><code>NesyLink-CollectKeyEasy-v0</code></td>
+          <td>Collect a key and open the exit.</td>
+      </tr>
+      <tr>
+          <td><code>kill_monsters_easy</code></td>
+          <td><code>NesyLink-KillMonstersEasy-v0</code></td>
+          <td>Defeat the monster, collect the key, and exit.</td>
+      </tr>
+      <tr>
+          <td><code>avoid_traps_easy</code></td>
+          <td><code>NesyLink-AvoidTrapsEasy-v0</code></td>
+          <td>Reach the exit while avoiding traps.</td>
+      </tr>
+  </tbody>
+</table>
+<p>List tasks in Python:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> nesylink.tasks <span style="color:#f92672">import</span> list_tasks
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> task <span style="color:#f92672">in</span> list_tasks():
+</span></span><span style="display:flex;"><span>    print(task<span style="color:#f92672">.</span>task_id, task<span style="color:#f92672">.</span>gym_id)
+</span></span></code></pre></div><h2 id="architecture">Architecture</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>nesylink/
+</span></span><span style="display:flex;"><span>  env.py              make_env(...) facade and Gymnasium registration
+</span></span><span style="display:flex;"><span>  tasks/              Python TaskSpec registry
+</span></span><span style="display:flex;"><span>  core/               runtime, state, mechanics, world loading, rendering
+</span></span><span style="display:flex;"><span>  rewards/            reward modules and reward signal extraction
+</span></span><span style="display:flex;"><span>  wrappers/           Gymnasium and Dreamer-facing adapters
+</span></span><span style="display:flex;"><span>  map_data/           built-in JSON maps
+</span></span><span style="display:flex;"><span>  tools/              map utilities
+</span></span></code></pre></div><p>Design boundaries:</p>
+<ul>
+<li>JSON maps define only the world: rooms, layouts, objects, exits, and spawns.</li>
+<li>Python tasks compose maps, rewards, episode limits, action repeat, and mission text.</li>
+<li>Reward modules compute scalar rewards and reward-driven termination.</li>
+<li>Gymnasium wrappers expose <code>reset</code>, <code>step</code>, <code>render</code>, spaces, and <code>info</code>.</li>
+</ul>
+<h2 id="rewards">Rewards</h2>
+<p>Select built-in rewards by <code>reward_id</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>env <span style="color:#f92672">=</span> make_env(
+</span></span><span style="display:flex;"><span>    map_id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;key_door&#34;</span>,
+</span></span><span style="display:flex;"><span>    reward_id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;collect_key&#34;</span>,
+</span></span><span style="display:flex;"><span>    reward_kwargs<span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;step&#34;</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">0.01</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;keys_delta&#34;</span>: <span style="color:#ae81ff">5.0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;door_opened&#34;</span>: <span style="color:#ae81ff">3.0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;exit_reached&#34;</span>: <span style="color:#ae81ff">20.0</span>,
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="training">Training</h2>
+<p>Start with a random rollout smoke test:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>env <span style="color:#f92672">=</span> make_env(task_id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;collect_key_easy&#34;</span>)
+</span></span><span style="display:flex;"><span>obs, info <span style="color:#f92672">=</span> env<span style="color:#f92672">.</span>reset(seed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    action <span style="color:#f92672">=</span> env<span style="color:#f92672">.</span>action_space<span style="color:#f92672">.</span>sample()
+</span></span><span style="display:flex;"><span>    obs, reward, terminated, truncated, info <span style="color:#f92672">=</span> env<span style="color:#f92672">.</span>step(action)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> terminated <span style="color:#f92672">or</span> truncated:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(info[<span style="color:#e6db74">&#34;terminal_reason&#34;</span>], info[<span style="color:#e6db74">&#34;reward&#34;</span>][<span style="color:#e6db74">&#34;reward_signals&#34;</span>])
+</span></span><span style="display:flex;"><span>env<span style="color:#f92672">.</span>close()
+</span></span></code></pre></div><h2 id="appendix">Appendix</h2>
+<p>for more details, please refer to the <a href="https://github.com/CrazyJassBread/nesylink/">GitHub repository</a>.</p>
 
   </div>
 </article>
