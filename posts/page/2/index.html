@@ -177,6 +177,47 @@
 </header>
 
 <article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">LTI Systems
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Linear Time-Invariant Systems (LTI Systems) 这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性
+前置知识回顾：信号与系统基础
+目录：
+线性时不变系统的定义 线性时不变系统的性质 线性时不变系统的定义 这一部分会介绍离散LTI系统和连续LTI系统
+不过在开始之前需要研究一下单位脉冲函数的特性🦉
+离散LTI系统 在上一篇笔记中，有一个很重要的公式 $x[n] \delta[n - n_0] = x[n_0]$ （脉冲信号的筛选特性）
+由此我们可以用脉冲信号来表示任意的离散信号：
+$$x[n] = \sum_{k=-\infty}^{\infty} x[k] \delta[n-k]$$假设系统对单位脉冲信号的响应信号为 $h[n]$, 那么不妨定义 $h_k[n]$ 为系统对 $\delta[n-k]$ 的响应信号。
+利用系统的线性特性，我们可以将任意离散信号的响应表示为 $$ y[n] = \sum_{k=-\infty}^{\infty} x[k] h_k[n] $$再利用系统的时不变性，我们可以得到 $h_k[n] = h[n-k]$， 从而得到
+$$ y[n] = \sum_{k=-\infty}^{\infty} x[k] h[n-k] = x[n] * h[n] $$Tips:
+其实我们可以将表达式 $\sum_{k=-\infty}^{\infty} x[k] h[n-k]$ 当作关于 k 的函数，则$y_k[n] = x[k] h[n-k]$ ，即所有 $y_k[n]$ 的叠加即为系统的输出信号 $y[n]$
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-23 15:09:31 +0800 CST'>December 23, 2025</span>&nbsp;·&nbsp;3 min</footer>
+  <a class="entry-link" aria-label="post link to LTI Systems" href="https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/lti_systems/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Signals and Systems
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>写在前面 期末周到了，数字信号学的一塌糊涂，创建这个系列也是督促自己好好复习这一门课😢
+$$E=mc^2$$测试一下是否支持LaTex渲染
+信号与系统 本章主要负责介绍一些典型信号与系统，并分析他们的基本性质
+能量与功率 对于一个离散信号 $x[n]$，其能量与功率定义为
+$$\begin{aligned} E &amp;= \sum_{n=-\infty}^{\infty} |x[n]|^2 \\ P &amp;= \lim_{N \to \infty} \frac{1}{2N&#43;1} \sum_{n=-N}^{N} |x[n]|^2 \end{aligned}$$对于一个连续信号 $x(t)$，其能量与功率定义为 $$\begin{aligned} E &amp;= \int_{-\infty}^{\infty} |x(t)|^2 dt \\ P &amp;= \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt \end{aligned}$$脉冲信号 &amp; 阶跃信号 对于离散信号，我们可以规定如下两种特殊性质的信号
+脉冲信号 $$ \delta [n] = \begin{cases} 1, &amp; n = 0 \\ 0, &amp; n \neq 0 \end{cases} $$对于任意的信号 $x[n]$，都有 $x[n] \delta [n] = x[0]\quad x[n] \delta[n-n_0] = x[n_0]$
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-23 12:11:47 +0800 CST'>December 23, 2025</span>&nbsp;·&nbsp;2 min</footer>
+  <a class="entry-link" aria-label="post link to Signals and Systems" href="https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/signals_and_systems/"></a>
+</article>
+
+<article class="post-entry"> 
 <figure class="entry-cover">
         <img loading="lazy" src="https://m.juyingonline.com/upload/202111/10/202111100949333069.png" alt="">
 </figure>
