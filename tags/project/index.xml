@@ -9,14 +9,14 @@
     <lastBuildDate>Mon, 20 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/tags/project/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Tetris Environment(Gym-Compatible)</title>
+      <title>Tetris Environment for Reinforcement Learning</title>
       <link>https://crazyjassbread.github.io/projects/tetirs/</link>
       <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://crazyjassbread.github.io/projects/tetirs/</guid>
       <description>This project provides a custom Tetris environment for reinforcement learning using the Gymnasium API. It includes a Tetris game implementation and an environment wrapper that allows for easy integration with RL algorithms.</description>
     </item>
     <item>
-      <title>Nesy Link: An environment for reinforcement learning</title>
+      <title>NesyLink: An environment for reinforcement learning</title>
       <link>https://crazyjassbread.github.io/projects/nesy_link/</link>
       <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://crazyjassbread.github.io/projects/nesy_link/</guid>
