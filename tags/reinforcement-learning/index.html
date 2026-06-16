@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Posts | CrazyBread&#39; Blog</title>
+<title>Reinforcement Learning | CrazyBread&#39; Blog</title>
 <meta name="keywords" content="">
-<meta name="description" content="Posts - CrazyBread&#39; Blog">
+<meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="https://crazyjassbread.github.io/posts/">
+<link rel="canonical" href="https://crazyjassbread.github.io/tags/reinforcement-learning/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.d41e36f890d8dabdf2838bf28dcad343415f6e65d3346320a1692429fe0c635a.css" integrity="sha256-1B42&#43;JDY2r3yg4vyjcrTQ0FfbmXTNGMgoWkkKf4MY1o=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://crazyjassbread.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://crazyjassbread.github.io/favicon-16x16.png">
@@ -18,8 +18,8 @@
 <link rel="mask-icon" href="https://crazyjassbread.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://crazyjassbread.github.io/posts/index.xml">
-<link rel="alternate" hreflang="en" href="https://crazyjassbread.github.io/posts/">
+<link rel="alternate" type="application/rss+xml" href="https://crazyjassbread.github.io/tags/reinforcement-learning/index.xml">
+<link rel="alternate" hreflang="en" href="https://crazyjassbread.github.io/tags/reinforcement-learning/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,30 +56,15 @@
         }
 
     </style>
-</noscript><meta property="og:url" content="https://crazyjassbread.github.io/posts/">
+</noscript><meta property="og:url" content="https://crazyjassbread.github.io/tags/reinforcement-learning/">
   <meta property="og:site_name" content="CrazyBread&#39; Blog">
-  <meta property="og:title" content="Posts">
+  <meta property="og:title" content="Reinforcement Learning">
   <meta property="og:locale" content="en-us">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Posts">
+<meta name="twitter:title" content="Reinforcement Learning">
 <meta name="twitter:description" content="">
 
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://crazyjassbread.github.io/posts/"
-    }
-  ]
-}
-</script>
      <script
   id="MathJax-script"
   async
@@ -158,7 +143,7 @@
             </li>
             <li>
                 <a href="https://crazyjassbread.github.io/posts/" title="Notes">
-                    <span class="active">Notes</span>
+                    <span>Notes</span>
                 </a>
             </li>
             <li>
@@ -170,103 +155,47 @@
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://crazyjassbread.github.io/">Home</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://crazyjassbread.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://crazyjassbread.github.io/tags/">Tags</a></div>
   <h1>
-    Posts
+    Reinforcement Learning
   </h1>
 </header>
 
-<article class="post-entry"> 
+<article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">LTI Systems
+    <h2 class="entry-hint-parent">Vlm in Games
     </h2>
   </header>
   <div class="entry-content">
-    <p>Linear Time-Invariant Systems (LTI Systems) 这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性
-前置知识回顾：信号与系统基础
-目录：
-线性时不变系统的定义 线性时不变系统的性质 线性时不变系统的定义 这一部分会介绍离散LTI系统和连续LTI系统
-不过在开始之前需要研究一下单位脉冲函数的特性🦉
-离散LTI系统 在上一篇笔记中，有一个很重要的公式 $x[n] \delta[n - n_0] = x[n_0]$ （脉冲信号的筛选特性）
-由此我们可以用脉冲信号来表示任意的离散信号：
-$$x[n] = \sum_{k=-\infty}^{\infty} x[k] \delta[n-k]$$假设系统对单位脉冲信号的响应信号为 $h[n]$, 那么不妨定义 $h_k[n]$ 为系统对 $\delta[n-k]$ 的响应信号。
-利用系统的线性特性，我们可以将任意离散信号的响应表示为 $$ y[n] = \sum_{k=-\infty}^{\infty} x[k] h_k[n] $$再利用系统的时不变性，我们可以得到 $h_k[n] = h[n-k]$， 从而得到
-$$ y[n] = \sum_{k=-\infty}^{\infty} x[k] h[n-k] = x[n] * h[n] $$Tips:
-其实我们可以将表达式 $\sum_{k=-\infty}^{\infty} x[k] h[n-k]$ 当作关于 k 的函数，则$y_k[n] = x[k] h[n-k]$ ，即所有 $y_k[n]$ 的叠加即为系统的输出信号 $y[n]$
+    <p>目录 Odysseus: Scaling VLMs to 100&#43; Turn Decision-Making in Games via Reinforcement Learning
+Odysseus: Scaling VLMs to 100&#43; Turn Decision-Making in Games via Reinforcement Learning 论文链接
+文章最有意思的地方在于 VLM 可以同时输出多个动作决策，这就可以用来解决 Zelda 环境中需要一次执行两个动作才能解决特定任务的情形了（而且因为单帧输入后状态几乎没有改变，所以他们也加入了动作循环，来让模型在连续的帧中执行同样的动作）
+这篇研究的背景知识是 POMDP（部分可观测马尔可夫决策过程） $$\begin{aligned} POMDP &amp;= \langle S, A, T, R, \Omega, O, \gamma \rangle \\ s_{t&#43;1} &amp;\sim T(s_{t&#43;1} | s_t, a_t) \\ a_t &amp;= \pi(o_t) \\ r_t &amp;= R(s_t, a_t) \\ o_t &amp;\sim O(o_t | s_t) \\ \text{Goal} &amp;= \max_\pi \mathbb{E_{\pi}} \left[ \sum_{t=0}^{\infty} \gamma^t r_t \right] \end{aligned}$$对于 VLM 模型的 finetuning，这篇论文发现用 Critic free 的 RL 方法在 Super Mario 游戏中训练效果不稳定（没给出有信服力的解释）
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-12-23 15:09:31 +0800 CST'>December 23, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to LTI Systems" href="https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/lti_systems/"></a>
+  <footer class="entry-footer"><span title='2026-05-26 13:22:30 +0800 CST'>May 26, 2026</span>&nbsp;·&nbsp;1 min</footer>
+  <a class="entry-link" aria-label="post link to Vlm in Games" href="https://crazyjassbread.github.io/posts/worldmodel/vlm/"></a>
 </article>
 
-<article class="post-entry"> 
+<article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Signals and Systems
+    <h2 class="entry-hint-parent">Hierarchical Reinforcement Learning
     </h2>
   </header>
   <div class="entry-content">
-    <p>写在前面 期末周到了，数字信号学的一塌糊涂，创建这个系列也是督促自己好好复习这一门课😢
-$$E=mc^2$$测试一下是否支持LaTex渲染
-信号与系统 本章主要负责介绍一些典型信号与系统，并分析他们的基本性质
-能量与功率 对于一个离散信号 $x[n]$，其能量与功率定义为
-$$\begin{aligned} E &amp;= \sum_{n=-\infty}^{\infty} |x[n]|^2 \\ P &amp;= \lim_{N \to \infty} \frac{1}{2N&#43;1} \sum_{n=-N}^{N} |x[n]|^2 \end{aligned}$$对于一个连续信号 $x(t)$，其能量与功率定义为 $$\begin{aligned} E &amp;= \int_{-\infty}^{\infty} |x(t)|^2 dt \\ P &amp;= \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt \end{aligned}$$脉冲信号 &amp; 阶跃信号 对于离散信号，我们可以规定如下两种特殊性质的信号
-脉冲信号 $$ \delta [n] = \begin{cases} 1, &amp; n = 0 \\ 0, &amp; n \neq 0 \end{cases} $$对于任意的信号 $x[n]$，都有 $x[n] \delta [n] = x[0]\quad x[n] \delta[n-n_0] = x[n_0]$
+    <p>前言 目录
+Learning Representations in Model-Free Hierarchical Reinforcement Learning
+Hierarchical Deep Reinforcement Learning Integrating Temporal Abstraction and Intrinsic Motivation
+REINFORCEMENT LEARNING WITH ANTICIPATION: A HIERARCHICAL APPROACH FOR LONG-HORIZON TASKS
+Learning Representations in Model-Free Hierarchical Reinforcement Learning 论文链接
+论文的研究动机是通过引入 HRL 来解决 RL 面对具有 Sparse Reward 的问题表现不佳的问题（个人感觉这是在使用另一种方式去解决 NeSy 方法在做的事情，都是引入抽象的特征表示）
+Method 论文采用的方法框架由一个生产 sub goal 的 Meta-Controller 和一个解决 sub goal 的 Controller 组成
+在时间 t 时，Meta-Controller 接收环境状态 $s_t$ 并选择一个 sub goal $g_t \in \mathcal{G}$ ，Controller 接收环境状态 $s_t$ 和 sub goal $g_t$ 并选择一个动作 $a_t$
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-12-23 12:11:47 +0800 CST'>December 23, 2025</span>&nbsp;·&nbsp;2 min</footer>
-  <a class="entry-link" aria-label="post link to Signals and Systems" href="https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/signals_and_systems/"></a>
+  <footer class="entry-footer"><span title='2025-12-25 16:49:43 +0800 CST'>December 25, 2025</span>&nbsp;·&nbsp;3 min</footer>
+  <a class="entry-link" aria-label="post link to Hierarchical Reinforcement Learning" href="https://crazyjassbread.github.io/posts/reinforcement-learning/hrl/"></a>
 </article>
-
-<article class="post-entry"> 
-<figure class="entry-cover">
-        <img loading="lazy" src="https://m.juyingonline.com/upload/202111/10/202111100949333069.png" alt="">
-</figure>
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">南哪入学指南
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>一名NJUer的必备网址列表 基础网站（也是必备网站） 本科生院 重要性不必多言
-选课网址 只有经历过深夜蹲点抢课的人才算一个真正的NJUer
-教服平台 可以查看自己的本学期课程、申请免修不免考等
-网上办事大厅 也是一个非常重要的网址，当你不知道自己想办的业务需要去那个网站时可以上这个上面碰碰运气
-五育管理系统 在这里可以查看学校近期开展的一些五育活动，也可以导出自己的五育成绩单
-什么？你问我五育活动有什么用？其实没什么用（但是学院每学期的综合测评会作为一个衡量标准，所以越多越好）
-此外，多余的五育活动也可以转化成选修学分（但是大部分情况下不会用到这个）
-第二课堂 用来查看自己的志愿活动时长、参与的社会实践以及加入的社团活动等（这里再次给天健社打广告！欢迎大家加入天健大家庭）
-交换生管理系统 建议有意向参加交换活动的同学多多留意网站上的项目
-Tips：可以作为查看自己在学院大致排名的一种方法
-网络认证 打开前记得连接 NJU-WLAN
-资源网站 南大图书馆 图书馆官网下面提供了很多别的数据库网站（如知网、Web of science等），通过图书馆进入可以使用企业账号登陆，免费下载所需要的大部分论文资料
-信息化建设管理平台 在这里你可以下载学校免费提供的正版软件
-Adobe（Pr、Ps、Acrobat等）、微软全家桶、Matlab等软件都可以在这里下载安装，如果你发现某个软件需要购买或订阅，不妨先来这里看看有无免费版本
-此外，Notion可以使用学校邮箱登陆，完成学生认证后即可免费使用，不需要缴纳每年365元的订阅费。 Copliot也可以在完成学生认证后免费使用
-工具网站 南大云盘 每人都有50G的免费云空间～
-南大Latex 不想本地配置latex编译环境？那就试试这个吧！
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-09-06 13:46:12 +0800 CST'>September 6, 2025</span>&nbsp;·&nbsp;1 min</footer>
-  <a class="entry-link" aria-label="post link to 南哪入学指南" href="https://crazyjassbread.github.io/posts/nju_about/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p></p>
-  </div>
-  <footer class="entry-footer">0 min</footer>
-  <a class="entry-link" aria-label="post link to " href="https://crazyjassbread.github.io/posts/final-exam-review/nlp/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="prev" href="https://crazyjassbread.github.io/posts/">
-      «&nbsp;Prev&nbsp;
-    </a>
-  </nav>
-</footer>
     </main>
     
 <footer class="footer">

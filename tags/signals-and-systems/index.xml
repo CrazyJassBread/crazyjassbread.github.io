@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Signals and Systems on CrazyBread&#39; Blog</title>
+    <link>https://crazyjassbread.github.io/tags/signals-and-systems/</link>
+    <description>Recent content in Signals and Systems on CrazyBread&#39; Blog</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 29 Dec 2025 11:00:06 +0800</lastBuildDate>
+    <atom:link href="https://crazyjassbread.github.io/tags/signals-and-systems/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fourier Transform</title>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_transform/</link>
+      <pubDate>Mon, 29 Dec 2025 11:00:06 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_transform/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;前情回顾&lt;/strong&gt;： &lt;a href=&#34;https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/signals_and_systems/&#34;&gt;信号与系统基础&lt;/a&gt;  |  &lt;a href=&#34;https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/lti_systems/&#34;&gt;LTI系统&lt;/a&gt; |  &lt;a href=&#34;https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_series/&#34;&gt;傅里叶级数&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;终于，我们迎来了信号处理这门课的第一个大 BOSS —— 傅里叶变换！让我们一步步击溃这个可怕的魔王吧 😤&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;目录&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%89%8D%E8%A8%80&#34;&gt;前言&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2&#34;&gt;连续时间傅里叶变换&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%94%B6%E6%95%9B%E6%80%A7&#34;&gt;收敛性&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%B8%B8%E8%A7%81%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2&#34;&gt;常见信号的傅里叶变换&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2&#34;&gt;周期信号的傅里叶变换&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E8%BF%9E%E7%BB%AD%E4%BF%A1%E5%8F%B7%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%80%A7%E8%B4%A8&#34;&gt;傅里叶变换的性质&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%8D%B7%E7%A7%AF--%E7%9B%B8%E4%B9%98&#34;&gt;卷积 &amp;amp; 相乘&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%BA%BF%E6%80%A7%E5%B8%B8%E7%B3%BB%E6%95%B0%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B&#34;&gt;线性常系数微分方程&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2&#34;&gt;离散时间傅里叶变换&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E6%94%B6%E6%95%9B%E6%80%A7-1&#34;&gt;收敛性&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2-1&#34;&gt;周期信号的傅里叶变换&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%A6%BB%E6%95%A3%E4%BF%A1%E5%8F%B7%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%80%A7%E8%B4%A8&#34;&gt;离散时间傅里叶变换的性质&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%8D%B7%E7%A7%AF--%E7%9B%B8%E4%B9%98-1&#34;&gt;卷积 &amp;amp; 相乘&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%AF%B9%E5%81%B6%E6%80%A7&#34;&gt;对偶性&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;在上一节中，我们逐步撕开了傅里叶级数的神秘面纱，那么傅里叶变换有是个什么东西呢，在介绍傅里叶变换之前，我们先来研究一个非常有趣的例子&lt;/p&gt;
+&lt;p&gt;现在我们手头有一个周期为 T，宽度为 $2T_1$ 矩形信号的傅里叶级数系数为
+&lt;/p&gt;
+$$
+a_k = \frac{2}{k \omega_0 T} \sin\left( k \omega_0 T_1 \right)
+$$&lt;p&gt;当逐步增大周期 T 的值时，会发现 $a_k$ 越来越小，且系数之间的间隔 $\omega_0$ 也越来越小&lt;/p&gt;
+&lt;p&gt;我们不妨采用一种新的表示形式，并且 $k \omega_0 \to w$&lt;/p&gt;
+$$
+T a_k = \frac{2}{\omega} \sin\left(\omega T_1 \right) = X(j \omega)
+$$&lt;p&gt;当 $\lim_{T \to \infty}$ 时， $\omega$ 就从离散变量便成了连续变量&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Fourier Series</title>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_series/</link>
+      <pubDate>Sat, 27 Dec 2025 13:28:12 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_series/</guid>
+      <description>&lt;p&gt;终于到了傅里叶级数的章节了！信号处理打怪修炼已经到了关键的一步，冲破这关我们就能打遍天下无敌手了😼&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;前情回顾&lt;/strong&gt;： &lt;a href=&#34;https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/signals_and_systems/&#34;&gt;信号与系统基础&lt;/a&gt;  |  &lt;a href=&#34;https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/lti_systems/&#34;&gt;LTI系统&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;目录&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2&#34;&gt;写在前面&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%B3%BB%E7%BB%9F%E5%93%8D%E5%BA%94%E7%89%B9%E7%82%B9&#34;&gt;系统响应特点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%A4%8D%E6%8C%87%E6%95%B0%E4%BF%A1%E5%8F%B7%E7%9A%84%E8%A1%A8%E8%BE%BE%E8%83%BD%E5%8A%9B&#34;&gt;复指数信号的表达能力&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0&#34;&gt;傅里叶级数&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0&#34;&gt;连续时间傅里叶级数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0&#34;&gt;离散时间傅里叶级数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#lti-%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0&#34;&gt;LTI 系统与傅里叶级数&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;写在前面&#34;&gt;写在前面&lt;/h2&gt;
+&lt;p&gt;在和傅里叶级数打交道之前，需要弄明白一个事情，那就是我们为什么需要它？&lt;/p&gt;
+&lt;p&gt;当我们在研究 LTI 系统时，如果能将一个复杂信号拆分成一系列简单信号的叠加，那么就能利用 LTI 系统线性与时不变的特性，利用每个简单信号的响应计算出最终的系统响应，那么这就带来了两个要求：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(1) 选择的简单信号需要有足够强的表达能力，可以表示几乎所有的信号&lt;/li&gt;
+&lt;li&gt;(2) 系统对简单信号的响应足够简单，方便计算&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那么让我们来看看复指数信号的特性吧&lt;/p&gt;
+&lt;h3 id=&#34;系统响应特点&#34;&gt;系统响应特点&lt;/h3&gt;
+$$\begin{aligned}
+e^{st} &amp;\to e^{st} H(s) \quad (连续 LTI)\\
+z^{n} &amp;\to z^{n} H(z) \quad (离散 LTI)
+\end{aligned}$$&lt;p&gt;从 👆 的公式（证明方法非常简单，套用上一章介绍的卷积操作就可以得到）可以看出，复指数信号经过 LTI 系统后，仍是复指数信号，区别仅在于幅度上的变化。所以对于复指数信号而言，它满足我们提出的第二点要求，剩下要证明的就是第一点了&lt;/p&gt;
+&lt;h3 id=&#34;复指数信号的表达能力&#34;&gt;复指数信号的表达能力&lt;/h3&gt;
+&lt;p&gt;很可惜，博主当前的能力并不能给出一个严格的证明，所以下面只好假设复指数信号可以表示绝大部分信号了 💦&lt;/p&gt;
+&lt;p&gt;不过可以通过一个很好玩的角度来帮助大家理解傅里叶级数系数的含义&lt;/p&gt;
+&lt;p&gt;当我们将一个周期（角频率为 $\omega_0$）信号 $x(t)$ 分解为一系列复指数信号的叠加 $\hat{x}(t) = \sum_{k=-\infty}^{\infty} a_k e^{j k \omega_0 t}$ 时，我们的目标是让 $\hat{x}(t)$ 尽可能地接近 $x(t)$，那么如何衡量两者的接近程度呢？&lt;/p&gt;
+&lt;p&gt;答案是用能量来衡量，令
+&lt;/p&gt;
+$$E = \int_{T} |x(t) - \hat{x}(t)|^2 dt$$&lt;p&gt;那么 $E$ 越小，说明两者越接近，所以最优的傅里叶系数可以通过用 $E$ 对 $a_k$ 求偏导并令其为0来得到&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>LTI Systems</title>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/lti_systems/</link>
+      <pubDate>Tue, 23 Dec 2025 15:09:31 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/lti_systems/</guid>
+      <description>&lt;h2 id=&#34;linear-time-invariant-systems-lti-systems&#34;&gt;Linear Time-Invariant Systems (LTI Systems)&lt;/h2&gt;
+&lt;p&gt;这份笔记主要负责介绍线性时不变系统的定义与一些好玩的特性&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/signals_and_systems/&#34;&gt;前置知识回顾：信号与系统基础&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;目录：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9A%E4%B9%89&#34;&gt;线性时不变系统的定义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%A7%E8%B4%A8&#34;&gt;线性时不变系统的性质&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;线性时不变系统的定义&#34;&gt;线性时不变系统的定义&lt;/h2&gt;
+&lt;p&gt;这一部分会介绍离散LTI系统和连续LTI系统&lt;/p&gt;
+&lt;p&gt;不过在开始之前需要研究一下单位脉冲函数的特性🦉&lt;/p&gt;
+&lt;h3 id=&#34;离散lti系统&#34;&gt;离散LTI系统&lt;/h3&gt;
+&lt;p&gt;在上一篇笔记中，有一个很重要的公式 $x[n] \delta[n - n_0] = x[n_0]$ （脉冲信号的筛选特性）&lt;/p&gt;
+&lt;p&gt;由此我们可以用脉冲信号来表示任意的离散信号：&lt;/p&gt;
+$$x[n] = \sum_{k=-\infty}^{\infty} x[k] \delta[n-k]$$&lt;p&gt;假设系统对单位脉冲信号的响应信号为 $h[n]$, 那么不妨定义 $h_k[n]$ 为系统对 $\delta[n-k]$ 的响应信号。&lt;/p&gt;
+&lt;p&gt;利用系统的&lt;mark&gt;线性特性&lt;/mark&gt;，我们可以将任意离散信号的响应表示为
+&lt;/p&gt;
+$$
+y[n] = \sum_{k=-\infty}^{\infty} x[k] h_k[n]
+$$&lt;p&gt;再利用系统的&lt;mark&gt;时不变性&lt;/mark&gt;，我们可以得到 $h_k[n] = h[n-k]$， 从而得到&lt;/p&gt;
+$$
+y[n] = \sum_{k=-\infty}^{\infty} x[k] h[n-k] = x[n] * h[n]
+$$&lt;p&gt;&lt;mark&gt;&lt;strong&gt;Tips&lt;/strong&gt;&lt;/mark&gt;:&lt;/p&gt;
+&lt;p&gt;其实我们可以将表达式 $\sum_{k=-\infty}^{\infty} x[k] h[n-k]$ 当作关于 k 的函数，则$y_k[n] = x[k] h[n-k]$ ，即所有 $y_k[n]$ 的叠加即为系统的输出信号 $y[n]$&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Signals and Systems</title>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/signals_and_systems/</link>
+      <pubDate>Tue, 23 Dec 2025 12:11:47 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/signals_and_systems/</guid>
+      <description>&lt;h2 id=&#34;写在前面&#34;&gt;写在前面&lt;/h2&gt;
+&lt;p&gt;期末周到了，数字信号学的一塌糊涂，创建这个系列也是督促自己好好复习这一门课😢&lt;/p&gt;
+$$E=mc^2$$&lt;p&gt;测试一下是否支持LaTex渲染&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;信号与系统&#34;&gt;信号与系统&lt;/h2&gt;
+&lt;p&gt;本章主要负责介绍一些典型信号与系统，并分析他们的基本性质&lt;/p&gt;
+&lt;h3 id=&#34;能量与功率&#34;&gt;能量与功率&lt;/h3&gt;
+&lt;p&gt;对于一个离散信号 $x[n]$，其能量与功率定义为&lt;/p&gt;
+$$\begin{aligned}
+E &amp;= \sum_{n=-\infty}^{\infty} |x[n]|^2 \\
+P &amp;= \lim_{N \to \infty} \frac{1}{2N+1} \sum_{n=-N}^{N} |x[n]|^2
+\end{aligned}$$&lt;p&gt;对于一个连续信号 $x(t)$，其能量与功率定义为
+&lt;/p&gt;
+$$\begin{aligned}
+E &amp;= \int_{-\infty}^{\infty} |x(t)|^2 dt \\
+P &amp;= \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2 dt
+\end{aligned}$$&lt;h3 id=&#34;脉冲信号--阶跃信号&#34;&gt;脉冲信号 &amp;amp; 阶跃信号&lt;/h3&gt;
+&lt;p&gt;对于离散信号，我们可以规定如下两种特殊性质的信号&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;脉冲信号&lt;/strong&gt;
+&lt;/p&gt;
+$$
+\delta [n] = \begin{cases}
+1, &amp; n = 0 \\
+0, &amp; n \neq 0
+\end{cases}
+$$&lt;p&gt;对于任意的信号 $x[n]$，都有 $x[n] \delta [n] = x[0]\quad x[n] \delta[n-n_0] = x[n_0]$&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

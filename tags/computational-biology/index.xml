@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Computational Biology on CrazyBread&#39; Blog</title>
+    <link>https://crazyjassbread.github.io/tags/computational-biology/</link>
+    <description>Recent content in Computational Biology on CrazyBread&#39; Blog</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 02 Jun 2026 16:38:19 +0800</lastBuildDate>
+    <atom:link href="https://crazyjassbread.github.io/tags/computational-biology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Computational Biology Final Project</title>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/computational-biology/</link>
+      <pubDate>Tue, 02 Jun 2026 16:38:19 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/computational-biology/</guid>
+      <description>&lt;h1 id=&#34;computational-biology-protein-sequence&#34;&gt;Computational Biology: protein sequence&lt;/h1&gt;
+&lt;p&gt;这一领域的研究，思想很简单，就是研究者们认为蛋白质的氨基酸序列中包含了这个蛋白质的结构与功能信息， 因此可以通过分析蛋白质的氨基酸序列来预测蛋白质的结构与功能&lt;/p&gt;
+&lt;h2 id=&#34;protein-language-models&#34;&gt;Protein language models&lt;/h2&gt;
+&lt;p&gt;目录：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#unified-rational-protein-engineering-with-sequence-based-deep-representation-learning&#34;&gt;Unified rational protein engineering with sequence-based deep representation learning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#biological-structure-and-function-emerge-from-scaling-unsupervised-learning-to-250-million-protein-sequences&#34;&gt;Biological Structure and Function Emerge from Scaling Unsupervised Learning to 250 Million Protein Sequences&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#language-models-of-protein-sequences-at-the-scale-of-evolution-enable-accurate-structure-prediction&#34;&gt;Language models of protein sequences at the scale of evolution enable accurate structure prediction&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;unified-rational-protein-engineering-with-sequence-based-deep-representation-learning&#34;&gt;Unified rational protein engineering with sequence-based deep representation learning&lt;/h3&gt;
+&lt;p&gt;2019 年的一篇文章， 在 UniRef 50 数据集上使用 RNN + Cross Entropy 进行训练，最终得到的 Token 表示是对所有层的输出取平均得到，训练时使用 self supervised learning 的方式，训练目标是预测下一个 token 的概率分布&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

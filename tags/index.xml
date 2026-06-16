@@ -6,8 +6,36 @@
     <description>Recent content in Tags on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jun 2026 13:24:40 +0800</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PRCV</title>
+      <link>https://crazyjassbread.github.io/tags/prcv/</link>
+      <pubDate>Mon, 15 Jun 2026 13:24:40 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/tags/prcv/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Computational Biology</title>
+      <link>https://crazyjassbread.github.io/tags/computational-biology/</link>
+      <pubDate>Tue, 02 Jun 2026 16:38:19 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/tags/computational-biology/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reinforcement Learning</title>
+      <link>https://crazyjassbread.github.io/tags/reinforcement-learning/</link>
+      <pubDate>Tue, 26 May 2026 13:22:30 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/tags/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>VLM</title>
+      <link>https://crazyjassbread.github.io/tags/vlm/</link>
+      <pubDate>Tue, 26 May 2026 13:22:30 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/tags/vlm/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Project</title>
       <link>https://crazyjassbread.github.io/tags/project/</link>
@@ -20,6 +48,13 @@
       <link>https://crazyjassbread.github.io/tags/paper/</link>
       <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://crazyjassbread.github.io/tags/paper/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Signals and Systems</title>
+      <link>https://crazyjassbread.github.io/tags/signals-and-systems/</link>
+      <pubDate>Mon, 29 Dec 2025 11:00:06 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/tags/signals-and-systems/</guid>
       <description></description>
     </item>
     <item>
@@ -41,13 +76,6 @@
       <link>https://crazyjassbread.github.io/tags/hrl/</link>
       <pubDate>Thu, 25 Dec 2025 16:49:43 +0800</pubDate>
       <guid>https://crazyjassbread.github.io/tags/hrl/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>RL</title>
-      <link>https://crazyjassbread.github.io/tags/rl/</link>
-      <pubDate>Thu, 25 Dec 2025 16:49:43 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/tags/rl/</guid>
       <description></description>
     </item>
   </channel>

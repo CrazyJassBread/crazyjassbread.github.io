@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>PRCV on CrazyBread&#39; Blog</title>
+    <link>https://crazyjassbread.github.io/tags/prcv/</link>
+    <description>Recent content in PRCV on CrazyBread&#39; Blog</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Jun 2026 13:24:40 +0800</lastBuildDate>
+    <atom:link href="https://crazyjassbread.github.io/tags/prcv/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PRCV 期末复习笔记</title>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/prcv/</link>
+      <pubDate>Mon, 15 Jun 2026 13:24:40 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/prcv/</guid>
+      <description>&lt;h1 id=&#34;prcv-期末复习笔记&#34;&gt;PRCV 期末复习笔记&lt;/h1&gt;
+&lt;p&gt;章节目录：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; ()&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#2d-%E5%9B%BE%E5%83%8F%E5%8F%98%E6%8D%A2&#34;&gt;2D-图像变换&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#%E5%8D%95%E5%BA%94%E6%80%A7%E5%8F%98%E6%8D%A2&#34;&gt;单应性变换&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2d-图像变换&#34;&gt;2D-图像变换&lt;/h2&gt;
+&lt;p&gt;对于图像的变换操作一共可以分成两类：Filtering 和 Warping，前者修改图像像素值，后者改变图像的空间结构，本节内容主要围绕 2D geometric transformation 展开&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Warping&lt;/strong&gt; 定义如下：
+&lt;/p&gt;
+$$(x,y) \to (x&#39;,y&#39;)$$&lt;h3 id=&#34;齐次坐标heterogeneous-coordinate&#34;&gt;齐次坐标（heterogeneous coordinate）&lt;/h3&gt;
+&lt;p&gt;齐次坐标的定义很简单:
+&lt;/p&gt;
+$$
+\begin{bmatrix}x\\ y\\ w\end{bmatrix} = \begin{bmatrix} \frac{x}{w}\\ \frac{y}{w} \end{bmatrix}
+$$&lt;p&gt;
+所有满足齐次关系的点都表示二维坐标中的同一个点，在引入了第三维度后，我们可以将所有常见的图像变换方式表示为矩阵乘法&lt;/p&gt;
+&lt;h3 id=&#34;仿射变换affine-transform&#34;&gt;仿射变换（affine transform）&lt;/h3&gt;
+$$
+\begin{bmatrix}x&#39;\\ y&#39;\\ 1\end{bmatrix} = \begin{bmatrix}a &amp; b &amp; t_x\\ c &amp; d &amp; t_y\\ 0 &amp; 0 &amp; 1\end{bmatrix} \begin{bmatrix}x\\ y\\ 1\end{bmatrix}
+$$&lt;p&gt;展开为
+&lt;/p&gt;
+$$
+\begin{aligned}
+x&#39; &amp;= ax + by + t_x \\
+y&#39; &amp;= cx + dy + t_y
+\end{aligned}
+$$&lt;p&gt;仿射变换可以包含：非均匀缩放、旋转、平移、剪切&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

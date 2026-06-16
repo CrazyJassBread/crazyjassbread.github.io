@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>VLM on CrazyBread&#39; Blog</title>
+    <link>https://crazyjassbread.github.io/tags/vlm/</link>
+    <description>Recent content in VLM on CrazyBread&#39; Blog</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 May 2026 13:22:30 +0800</lastBuildDate>
+    <atom:link href="https://crazyjassbread.github.io/tags/vlm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vlm in Games</title>
+      <link>https://crazyjassbread.github.io/posts/worldmodel/vlm/</link>
+      <pubDate>Tue, 26 May 2026 13:22:30 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/worldmodel/vlm/</guid>
+      <description>&lt;h2 id=&#34;目录&#34;&gt;目录&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;#Odysseus-Scaling-VLMs-to-100-Turn-Decision-Making-in-Games-via-Reinforcement-Learning&#34;&gt;Odysseus: Scaling VLMs to 100+ Turn Decision-Making in Games via Reinforcement Learning&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;odysseus-scaling-vlms-to-100-turn-decision-making-in-games-via-reinforcement-learning&#34;&gt;Odysseus: Scaling VLMs to 100+ Turn Decision-Making in Games via Reinforcement Learning&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://arxiv.org/abs/2605.00347&#34;&gt;论文链接&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;文章最有意思的地方在于 VLM 可以同时输出多个动作决策，这就可以用来解决 Zelda 环境中需要一次执行两个动作才能解决特定任务的情形了（而且因为单帧输入后状态几乎没有改变，所以他们也加入了动作循环，来让模型在连续的帧中执行同样的动作）&lt;/p&gt;
+&lt;p&gt;这篇研究的背景知识是 &lt;strong&gt;POMDP&lt;/strong&gt;（部分可观测马尔可夫决策过程）
+&lt;/p&gt;
+$$\begin{aligned}
+POMDP &amp;= \langle S, A, T, R, \Omega, O, \gamma \rangle \\
+s_{t+1} &amp;\sim T(s_{t+1} | s_t, a_t) \\
+a_t &amp;= \pi(o_t) \\
+r_t &amp;= R(s_t, a_t) \\
+o_t &amp;\sim O(o_t | s_t) \\
+\text{Goal} &amp;= \max_\pi \mathbb{E_{\pi}} \left[ \sum_{t=0}^{\infty} \gamma^t r_t \right]
+\end{aligned}$$&lt;p&gt;对于 VLM 模型的 finetuning，这篇论文发现用 Critic free 的 RL 方法在 Super Mario 游戏中训练效果不稳定（没给出有信服力的解释）&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -3,16 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://crazyjassbread.github.io/</loc>
-    <lastmod>2026-06-15T19:35:17+08:00</lastmod>
+    <lastmod>2026-06-15T13:24:40+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/</loc>
-    <lastmod>2026-06-15T19:35:17+08:00</lastmod>
+    <lastmod>2026-06-15T13:24:40+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/prcv/</loc>
+    <lastmod>2026-06-15T13:24:40+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/final-exam-review/prcv/</loc>
     <lastmod>2026-06-15T13:24:40+08:00</lastmod>
   </url><url>
+    <loc>https://crazyjassbread.github.io/tags/</loc>
+    <lastmod>2026-06-15T13:24:40+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/computational-biology/</loc>
+    <lastmod>2026-06-02T16:38:19+08:00</lastmod>
+  </url><url>
     <loc>https://crazyjassbread.github.io/posts/final-exam-review/computational-biology/</loc>
     <lastmod>2026-06-02T16:38:19+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2026-05-26T13:22:30+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/vlm/</loc>
+    <lastmod>2026-05-26T13:22:30+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/worldmodel/vlm/</loc>
     <lastmod>2026-05-26T13:22:30+08:00</lastmod>
@@ -30,9 +45,6 @@
     <lastmod>2026-04-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/projects/</loc>
-    <lastmod>2026-04-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/</loc>
     <lastmod>2026-04-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/projects/tetirs/</loc>
@@ -59,16 +71,13 @@
     <loc>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_transform/</loc>
     <lastmod>2025-12-29T11:00:06+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/categories/signals-and-systems/</loc>
+    <loc>https://crazyjassbread.github.io/tags/signals-and-systems/</loc>
     <lastmod>2025-12-29T11:00:06+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/tags/deep-learning/</loc>
     <lastmod>2025-12-28T12:54:12+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/final-exam-review/deep-learning/review/</loc>
-    <lastmod>2025-12-28T12:54:12+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/categories/final-exam-review/</loc>
     <lastmod>2025-12-28T12:54:12+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/tags/data-mining/</loc>
@@ -86,12 +95,6 @@
     <loc>https://crazyjassbread.github.io/tags/hrl/</loc>
     <lastmod>2025-12-25T16:49:43+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/categories/reinforcement-learning/</loc>
-    <lastmod>2025-12-25T16:49:43+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/rl/</loc>
-    <lastmod>2025-12-25T16:49:43+08:00</lastmod>
-  </url><url>
     <loc>https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/lti_systems/</loc>
     <lastmod>2025-12-23T15:09:31+08:00</lastmod>
   </url><url>
@@ -100,6 +103,8 @@
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/nju_about/</loc>
     <lastmod>2025-09-06T13:46:12+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/final-exam-review/nlp/</loc>
   </url><url>
     <loc>https://crazyjassbread.github.io/archives/</loc>
   </url>
