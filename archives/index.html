@@ -109,25 +109,31 @@
   }
 }
 </script>
-     <script
+     <script>
+  window.MathJax = {
+    loader: {
+      load: ["[tex]/color"],
+    },
+    tex: {
+      packages: { "[+]": ["color"] },
+      displayMath: [
+        ["\\[", "\\]"],
+        ["$$", "$$"],
+      ],
+      inlineMath: [
+        ["\\(", "\\)"],
+        ["$", "$"],
+      ],
+      processEscapes: true,
+    },
+  };
+</script>
+<script
   id="MathJax-script"
   async
   src="https://cdn.jsdelivr.net.cn/npm/mathjax@3/es5/tex-chtml.js"
 ></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [
-        ["\\[", "\\]"],
-        ["$$", "$$"],
-      ], 
-      inlineMath: [
-        ["\\(", "\\)"],
-        ["$", "$"]  
-      ],
-    },
-  }
-</script> 
+ 
 </head>
 
 <body class="list" id="top">
@@ -208,14 +214,50 @@
 <div class="archive-year">
   <h2 class="archive-year-header" id="2026">
     <a class="archive-header-link" href="#2026">2026</a>
-    <sup class="archive-count">&nbsp;5</sup>
+    <sup class="archive-count">&nbsp;11</sup>
   </h2>
   <div class="archive-month">
     <h3 class="archive-month-header" id="2026-June">
       <a class="archive-header-link" href="#2026-June">June</a>
-      <sup class="archive-count">&nbsp;2</sup>
+      <sup class="archive-count">&nbsp;8</sup>
     </h3>
     <div class="archive-posts">
+      <div class="archive-entry">
+        <h3 class="archive-entry-title entry-hint-parent">Offline Reinforcement Learning
+        </h3>
+        <div class="archive-meta"><span title='2026-06-24 00:15:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;3 min</div>
+        <a class="entry-link" aria-label="post link to Offline Reinforcement Learning" href="https://crazyjassbread.github.io/posts/reinforcement-learning/marl/04/"></a>
+      </div>
+      <div class="archive-entry">
+        <h3 class="archive-entry-title entry-hint-parent">Deep RL Algorithms
+        </h3>
+        <div class="archive-meta"><span title='2026-06-24 00:10:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;6 min</div>
+        <a class="entry-link" aria-label="post link to Deep RL Algorithms" href="https://crazyjassbread.github.io/posts/reinforcement-learning/marl/03/"></a>
+      </div>
+      <div class="archive-entry">
+        <h3 class="archive-entry-title entry-hint-parent">Policy Based Methods
+        </h3>
+        <div class="archive-meta"><span title='2026-06-24 00:05:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;2 min</div>
+        <a class="entry-link" aria-label="post link to Policy Based Methods" href="https://crazyjassbread.github.io/posts/reinforcement-learning/marl/02/"></a>
+      </div>
+      <div class="archive-entry">
+        <h3 class="archive-entry-title entry-hint-parent">Value Based Methods
+        </h3>
+        <div class="archive-meta"><span title='2026-06-24 00:00:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;3 min</div>
+        <a class="entry-link" aria-label="post link to Value Based Methods" href="https://crazyjassbread.github.io/posts/reinforcement-learning/marl/01/"></a>
+      </div>
+      <div class="archive-entry">
+        <h3 class="archive-entry-title entry-hint-parent">文本分类
+        </h3>
+        <div class="archive-meta"><span title='2026-06-23 22:52:43 +0800 CST'>June 23, 2026</span>&nbsp;·&nbsp;1 min</div>
+        <a class="entry-link" aria-label="post link to 文本分类" href="https://crazyjassbread.github.io/posts/final-exam-review/nlp/02/"></a>
+      </div>
+      <div class="archive-entry">
+        <h3 class="archive-entry-title entry-hint-parent">基于规则方法的自然语言处理
+        </h3>
+        <div class="archive-meta"><span title='2026-06-23 22:14:06 +0800 CST'>June 23, 2026</span>&nbsp;·&nbsp;1 min</div>
+        <a class="entry-link" aria-label="post link to 基于规则方法的自然语言处理" href="https://crazyjassbread.github.io/posts/final-exam-review/nlp/01/"></a>
+      </div>
       <div class="archive-entry">
         <h3 class="archive-entry-title entry-hint-parent">PRCV 期末复习笔记
         </h3>

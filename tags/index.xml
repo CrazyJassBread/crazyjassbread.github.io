@@ -6,8 +6,29 @@
     <description>Recent content in Tags on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jun 2026 13:24:40 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 00:20:00 +0800</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MARL</title>
+      <link>https://crazyjassbread.github.io/tags/marl/</link>
+      <pubDate>Wed, 24 Jun 2026 00:20:00 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/tags/marl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reinforcement Learning</title>
+      <link>https://crazyjassbread.github.io/tags/reinforcement-learning/</link>
+      <pubDate>Wed, 24 Jun 2026 00:20:00 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/tags/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>NLP</title>
+      <link>https://crazyjassbread.github.io/tags/nlp/</link>
+      <pubDate>Tue, 23 Jun 2026 22:52:43 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/tags/nlp/</guid>
+      <description></description>
+    </item>
     <item>
       <title>PRCV</title>
       <link>https://crazyjassbread.github.io/tags/prcv/</link>
@@ -20,13 +41,6 @@
       <link>https://crazyjassbread.github.io/tags/computational-biology/</link>
       <pubDate>Tue, 02 Jun 2026 16:38:19 +0800</pubDate>
       <guid>https://crazyjassbread.github.io/tags/computational-biology/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Reinforcement Learning</title>
-      <link>https://crazyjassbread.github.io/tags/reinforcement-learning/</link>
-      <pubDate>Tue, 26 May 2026 13:22:30 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/tags/reinforcement-learning/</guid>
       <description></description>
     </item>
     <item>

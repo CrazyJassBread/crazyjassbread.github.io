@@ -3,10 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://crazyjassbread.github.io/</loc>
-    <lastmod>2026-06-15T13:24:40+08:00</lastmod>
+    <lastmod>2026-06-24T00:20:00+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/marl/</loc>
+    <lastmod>2026-06-24T00:20:00+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/</loc>
+    <lastmod>2026-06-24T00:20:00+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/</loc>
-    <lastmod>2026-06-15T13:24:40+08:00</lastmod>
+    <lastmod>2026-06-24T00:20:00+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/reinforcement-learning/</loc>
+    <lastmod>2026-06-24T00:20:00+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/</loc>
+    <lastmod>2026-06-24T00:20:00+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/04/</loc>
+    <lastmod>2026-06-24T00:15:00+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/03/</loc>
+    <lastmod>2026-06-24T00:10:00+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/02/</loc>
+    <lastmod>2026-06-24T00:05:00+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/01/</loc>
+    <lastmod>2026-06-24T00:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/tags/nlp/</loc>
+    <lastmod>2026-06-23T22:52:43+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/final-exam-review/nlp/02/</loc>
+    <lastmod>2026-06-23T22:52:43+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/final-exam-review/nlp/01/</loc>
+    <lastmod>2026-06-23T22:14:06+08:00</lastmod>
+  </url><url>
+    <loc>https://crazyjassbread.github.io/posts/final-exam-review/nlp/</loc>
+    <lastmod>2026-06-23T11:24:40+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/tags/prcv/</loc>
     <lastmod>2026-06-15T13:24:40+08:00</lastmod>
@@ -14,17 +50,11 @@
     <loc>https://crazyjassbread.github.io/posts/final-exam-review/prcv/</loc>
     <lastmod>2026-06-15T13:24:40+08:00</lastmod>
   </url><url>
-    <loc>https://crazyjassbread.github.io/tags/</loc>
-    <lastmod>2026-06-15T13:24:40+08:00</lastmod>
-  </url><url>
     <loc>https://crazyjassbread.github.io/tags/computational-biology/</loc>
     <lastmod>2026-06-02T16:38:19+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/final-exam-review/computational-biology/</loc>
     <lastmod>2026-06-02T16:38:19+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/tags/reinforcement-learning/</loc>
-    <lastmod>2026-05-26T13:22:30+08:00</lastmod>
   </url><url>
     <loc>https://crazyjassbread.github.io/tags/vlm/</loc>
     <lastmod>2026-05-26T13:22:30+08:00</lastmod>
@@ -103,8 +133,6 @@
   </url><url>
     <loc>https://crazyjassbread.github.io/posts/nju_about/</loc>
     <lastmod>2025-09-06T13:46:12+08:00</lastmod>
-  </url><url>
-    <loc>https://crazyjassbread.github.io/posts/final-exam-review/nlp/</loc>
   </url><url>
     <loc>https://crazyjassbread.github.io/archives/</loc>
   </url>

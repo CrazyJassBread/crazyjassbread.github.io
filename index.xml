@@ -6,8 +6,230 @@
     <description>Recent content in About Me on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jun 2026 13:24:40 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 00:15:00 +0800</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Offline Reinforcement Learning</title>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/04/</link>
+      <pubDate>Wed, 24 Jun 2026 00:15:00 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/04/</guid>
+      <description>&lt;h1 id=&#34;offline-reinforcement-learning&#34;&gt;Offline Reinforcement Learning&lt;/h1&gt;
+&lt;p&gt;Offline RL 也叫 Batch RL，它和常见的在线强化学习最大的区别在于：训练时不再和环境交互，而是只能使用一个固定的数据集&lt;/p&gt;
+$$
+\mathcal{D} = \{(s_i, a_i, r_i, s&#39;_i, d_i)\}_{i=1}^{N}
+$$&lt;p&gt;其中 $d_i$ 表示 episode 是否结束。&lt;/p&gt;
+&lt;p&gt;在线 RL 可以一边试错一边收集新数据，所以即使当前策略很差，也有机会通过 exploration 找到更好的动作。但是 Offline RL 的策略一旦选择了数据集中很少出现甚至没有出现过的动作，就没有真实环境可以告诉它这个动作到底好不好。&lt;/p&gt;
+&lt;p&gt;这会带来一个核心问题：&lt;strong&gt;distribution shift&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;训练数据来自行为策略 $\pi_\beta(a|s)$，而我们最终想学习一个新策略 $\pi(a|s)$。如果 $\pi$ 选择了 $\pi_\beta$ 很少选择的动作，那么对应的 Q 值估计很容易被函数逼近误差放大，最终得到一个看起来 Q 值很高、实际表现很差的策略。&lt;/p&gt;
+&lt;p&gt;因此 Offline RL 的关键目标不是简单地做 Bellman backup，而是在学习回报的同时控制策略不要离数据分布太远。&lt;/p&gt;
+&lt;h2 id=&#34;offline-rl-的基本流程&#34;&gt;Offline RL 的基本流程&lt;/h2&gt;
+&lt;p&gt;一个典型 Offline RL 过程可以写成&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;收集固定数据集 D
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        v
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;分析 D 中覆盖的状态和动作
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        v
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;在 D 上训练 policy 或 Q function
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        v
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;限制策略不要选择数据外动作
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        v
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;离线验证或少量在线评估
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果用 Bellman 形式训练 Q function，基本目标仍然是&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deep RL Algorithms</title>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/03/</link>
+      <pubDate>Wed, 24 Jun 2026 00:10:00 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/03/</guid>
+      <description>&lt;h1 id=&#34;deep-rl-algorithms&#34;&gt;Deep RL Algorithms&lt;/h1&gt;
+&lt;p&gt;这一节重点介绍几个深度强化学习中非常经典的算法：DQN、Double DQN、A3C 和 PPO。&lt;/p&gt;
+&lt;p&gt;从整体脉络上看，这几个算法分别代表了几条重要路线：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;算法&lt;/th&gt;
+          &lt;th&gt;类型&lt;/th&gt;
+          &lt;th&gt;核心思想&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;DQN&lt;/td&gt;
+          &lt;td&gt;value-based&lt;/td&gt;
+          &lt;td&gt;用神经网络近似 $Q(s,a)$&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Double DQN&lt;/td&gt;
+          &lt;td&gt;value-based&lt;/td&gt;
+          &lt;td&gt;降低 DQN 中 max 带来的 Q 值过估计&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;A3C&lt;/td&gt;
+          &lt;td&gt;actor-critic&lt;/td&gt;
+          &lt;td&gt;多个 worker 异步采样并更新全局网络&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;PPO&lt;/td&gt;
+          &lt;td&gt;policy-based / actor-critic&lt;/td&gt;
+          &lt;td&gt;用 clipped objective 稳定更新策略&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;dqn&#34;&gt;DQN&lt;/h2&gt;
+&lt;p&gt;在 tabular Q-learning 中，我们可以直接维护一个表 $Q(s,a)$。但是当状态空间非常大，比如 Atari 图像输入时，表格方法就不可行了。&lt;/p&gt;
+&lt;p&gt;DQN 的核心思想是使用神经网络来近似 Q function：&lt;/p&gt;
+$$
+Q(s,a;\theta) \approx Q^*(s,a)
+$$&lt;p&gt;网络输入状态 $s$，输出每个动作的 Q 值：&lt;/p&gt;
+$$
+Q(s,\cdot;\theta) = [Q(s,a_1;\theta), Q(s,a_2;\theta), \dots, Q(s,a_n;\theta)]
+$$&lt;p&gt;DQN 的 target 来自 Q-learning：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Policy Based Methods</title>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/02/</link>
+      <pubDate>Wed, 24 Jun 2026 00:05:00 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/02/</guid>
+      <description>&lt;h1 id=&#34;policy-based-methods&#34;&gt;Policy Based Methods&lt;/h1&gt;
+&lt;h2 id=&#34;policy-gradientpg&#34;&gt;Policy Gradient（PG）&lt;/h2&gt;
+&lt;p&gt;PG 方法是直接对策略进行建模和优化的方法，利用目标函数的梯度来直接更新策略参数&lt;/p&gt;
+$$
+\theta \leftarrow \theta + \alpha \nabla_{\theta} J(\theta)
+$$&lt;p&gt;这个目标函数 $J(\theta)$ 是一个关于策略参数 $\theta$ 的函数，表示在给定策略下的期望回报。&lt;/p&gt;
+$$
+J(\theta) = \mathbb{E}_{\pi_\theta} [G_t] = V^{\pi_\theta}(s)
+$$&lt;p&gt;虽然 Value function 是一个直接关于 state 的函数，但是我们可以使用 Q function 来表示，此时便可以在 Value Function 的基础上引入 action，而在策略算法下，action 是由策略 $\pi_\theta$ 给出的，所以我们可以将目标函数写成&lt;/p&gt;
+$$
+\begin{aligned}
+\nabla J(\theta) &amp;= \nabla_\theta V^{\pi_\theta}(s) \\
+&amp;= \nabla_\theta \sum_{a} \pi_\theta(a|s) Q^{\pi_\theta}(s, a) \\
+&amp;= \sum_{a} \nabla_\theta \pi_\theta(a|s) Q^{\pi_\theta}(s, a) + X \quad (X 代表第二项）\\ 
+&amp;\propto \textcolor{blue}{\sum_{a} \nabla_\theta \pi_\theta(a|s) Q^{\pi_\theta}(s, a)} \\
+&amp;= \sum_{a} \pi_\theta(a|s) \frac{\nabla_\theta \pi_\theta(a|s)}{\pi_\theta(a|s)} Q^{\pi_\theta}(s, a) \\
+&amp;= \mathbb{E}_{\pi_\theta} \left[ \frac{\nabla_\theta \pi_\theta(A|S)}{\pi_\theta(A|S)} Q^{\pi_\theta}(S, A) \right] \\
+&amp;= \textcolor{red}{\mathbb{E}_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta(A|S) Q^{\pi_\theta}(S, A) \right]}
+\end{aligned} 
+$$&lt;p&gt;Yahoo！我们完成了对目标函数的梯度推导，不过这有一个好玩的地方，那就是在后面的过程中我们使用了一个对数小技巧把 $\sum$ 变成了 $\mathbb{E}$ 的形式。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Value Based Methods</title>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/01/</link>
+      <pubDate>Wed, 24 Jun 2026 00:00:00 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/01/</guid>
+      <description>&lt;h1 id=&#34;value-based-methods&#34;&gt;Value Based Methods&lt;/h1&gt;
+&lt;h2 id=&#34;dp-mc-and-td&#34;&gt;DP, MC and TD&lt;/h2&gt;
+&lt;p&gt;三个方法可以看作对环境的要求逐渐放低，先给出一个总览&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;方法&lt;/th&gt;
+          &lt;th&gt;核心思想&lt;/th&gt;
+          &lt;th style=&#34;text-align: right&#34;&gt;环境模型&lt;/th&gt;
+          &lt;th style=&#34;text-align: right&#34;&gt;完整 episode&lt;/th&gt;
+          &lt;th style=&#34;text-align: right&#34;&gt;bootstrapping&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;DP&lt;/td&gt;
+          &lt;td&gt;已知 Model 做 Bellman backup&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;不需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;是&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;MC&lt;/td&gt;
+          &lt;td&gt;完整采样回报 $G_t$ 更新&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;不需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;否&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;TD&lt;/td&gt;
+          &lt;td&gt;用一步采样 + 后继状态估计更新&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;不需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;不需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;是&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;dp&#34;&gt;DP&lt;/h3&gt;
+&lt;p&gt;首先对于 DP 来说，因为我们要遍历所有状态转移，所以需要环境模型来给出 $P(s&#39;|s,a)$，DP 的更新过程是使用 Bellman backup 来逐步更新状态值函数 $V(s)$ 直到收敛
+&lt;/p&gt;
+$$
+V_{\pi}(s_t) = \sum_a \pi(a|s_t) \sum_{s&#39;,r}\textcolor{red}{P(s&#39;,r|s_t,a)} [r + \gamma V_{\pi}(s&#39;)] 
+$$&lt;p&gt;DP 的 Target 可以写成
+&lt;/p&gt;
+$$
+\mathbb{E}_{\pi} \left[ r + \gamma V_{\pi}(S_{t+1})  | S_t = s \right] 
+$$&lt;h3 id=&#34;monte-carlo&#34;&gt;Monte Carlo&lt;/h3&gt;
+&lt;p&gt;MC 更新不再需要环境模型，它的更新目标需要从完整的 episode 中计算得到 $G_t$
+&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>文本分类</title>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/nlp/02/</link>
+      <pubDate>Tue, 23 Jun 2026 22:52:43 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/nlp/02/</guid>
+      <description>&lt;h1 id=&#34;文本分类&#34;&gt;文本分类&lt;/h1&gt;
+&lt;p&gt;文本分类的部分主要分成三个内容：文本表示、特征选择、分类算法&lt;/p&gt;
+&lt;h2 id=&#34;1-文本表示&#34;&gt;1. 文本表示&lt;/h2&gt;
+&lt;p&gt;首先介绍 &lt;strong&gt;向量空间模型（Vector Space Model, VSM）&lt;/strong&gt;，它将文本表示为向量的形式，通常使用 &lt;strong&gt;词袋模型（Bag of Words, BOW）&lt;/strong&gt; 来表示文本&lt;/p&gt;
+&lt;p&gt;文本表示的一个重要问题就是如何计算特征项权重，即每个词袋元素的权重是多少&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;布尔变量&lt;/strong&gt; 是一个简单的方法&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;词频率 TF&lt;/strong&gt;
+&lt;/p&gt;
+$$
+w_i = \log(tf_i + 1)
+$$&lt;p&gt;&lt;strong&gt;逆文档频率 IDF&lt;/strong&gt;：一个词的 df 越小，说明它越能区分不同的文档，权重就应该越大
+&lt;/p&gt;
+$$
+idf_i = \log \frac{N}{df_i} \quad  N \text{ 是文档总数，} df_i \text{ 是包含词 } i \text{ 的文档数}
+$$&lt;p&gt;&lt;strong&gt;TF-IDF&lt;/strong&gt;
+&lt;/p&gt;
+$$
+w_i = tf_i \cdot idf_i
+$$&lt;h2 id=&#34;2-特征选择&#34;&gt;2. 特征选择&lt;/h2&gt;
+&lt;p&gt;用于文本分类的特征选取准则有很多，一个常用的指标是 DF 文档频率
+&lt;/p&gt;
+$$
+P(c_j|t_i) \approx \frac{A_{ij}}{\sum_{j=1}^{k} A_{ij} + C} \quad C \text{ 是类别数}
+$$&lt;p&gt;而更常用的指标是 &lt;strong&gt;信息增益（Information Gain, IG）&lt;/strong&gt;，它衡量了一个特征对分类结果的不确定性减少的程度&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>基于规则方法的自然语言处理</title>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/nlp/01/</link>
+      <pubDate>Tue, 23 Jun 2026 22:14:06 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/nlp/01/</guid>
+      <description>&lt;h1 id=&#34;基于规则方法的自然语言处理&#34;&gt;基于规则方法的自然语言处理&lt;/h1&gt;
+&lt;p&gt;本章主要介绍基于规则的方法在 NLP 中的应用方式，包括：形态还原、分词、词性标注、命名实体识别、机器翻译&lt;/p&gt;
+&lt;h2 id=&#34;1形态还原&#34;&gt;1.形态还原&lt;/h2&gt;
+&lt;p&gt;将词还原成原形，比如把 went 还原成 go，把 better 还原成 good 等&lt;/p&gt;
+&lt;p&gt;构词特点：曲折变化、派生变化、复合变化&lt;/p&gt;
+&lt;p&gt;还原规则：通用规则、个性规则（比如不规则变化）&lt;/p&gt;
+&lt;h2 id=&#34;2分词&#34;&gt;2.分词&lt;/h2&gt;
+&lt;p&gt;主要介绍了中文分词，也就是如何把一个紧密的字串划分成词的组合&lt;/p&gt;
+&lt;p&gt;中文分词方法存在三种歧义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;交集型&lt;/strong&gt;：$ABC$ 可以划分成 $A|BC$ 或 $AB|C$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;组合型&lt;/strong&gt;：$ABC$ 可以划分成 $A|B|C$ 或 $AB|C$ 或 $A|BC$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;混合型&lt;/strong&gt;：上述两种歧义都存在的时候&lt;/p&gt;
+&lt;h3 id=&#34;分词方法&#34;&gt;分词方法&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;最大正向匹配 FMM&lt;/strong&gt; 当然也包括逆向 RMM&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;双向最大匹配 Bi-MM&lt;/strong&gt;：同时使用 FMM 和 RMM，可以发现&lt;font color=&#34;blue&#34;&gt;交集型&lt;/font&gt;歧义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;FMM + 逆向最短词&lt;/strong&gt;：可以发现&lt;font color=&#34;blue&#34;&gt;组合型&lt;/font&gt;歧义&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;逐词遍历&lt;/strong&gt;：每次选择最长的候选词并将其删除，重复上述过程&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;划分标记&lt;/strong&gt;：&lt;/p&gt;
+&lt;details&gt;
+&lt;summary&gt;这个可以详细展开描述&lt;/summary&gt;
+对于一个由 N 个字组成的句子，它有 N - 1 个划分点，怎么选择这些划分点是一个很有趣的课题
+&lt;p&gt;一个常用的划分指标是&lt;font color=&#34;blue&#34;&gt;互信息 PMI（Pointwise Mutual Information）&lt;/font&gt;，它可以衡量两个字之间的关联程度，PMI 越大，说明这两个字越可能组成一个词
+&lt;/p&gt;
+$$\text{PMI}(x,y) = \log \frac{P(x,y)}{P(x)P(y)}$$&lt;p&gt;
+其中 $P(x,y)$ 是字 $x$ 和字 $y$ 同时出现的概率，$P(x)$ 和 $P(y)$ 分别是字 $x$ 和字 $y$ 出现的概率&lt;/p&gt;</description>
+    </item>
     <item>
       <title>PRCV 期末复习笔记</title>
       <link>https://crazyjassbread.github.io/posts/final-exam-review/prcv/</link>
@@ -166,6 +388,7 @@ o_t &amp;\sim O(o_t | s_t) \\
 &lt;p&gt;&lt;a href=&#34;#%E4%B8%80%E5%8F%AA%E7%89%B9%E7%AB%8B%E7%8B%AC%E8%A1%8C%E7%9A%84%E7%8C%AA&#34;&gt;《一只特立独行的猪》&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;#%E5%8A%A8%E7%89%A9%E5%9B%AD&#34;&gt;《动物园》&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;#%E7%BE%8E%E4%B8%BD%E6%96%B0%E4%B8%96%E7%95%8C&#34;&gt;《美丽新世界》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%E7%85%A7%E6%8A%A4&#34;&gt;《照护》&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;阅读清单&#34;&gt;阅读清单&lt;/h2&gt;
 &lt;h3 id=&#34;断头王后&#34;&gt;断头王后&lt;/h3&gt;
 &lt;p&gt;作者茨威格是我非常喜欢的传记作家，这本书很有意思的地方在于它是从玛丽王后的视角出发，自她的童年讲起，用细腻的笔触描绘了她是如何从一位奥地利公主一步步走到了大革命的风暴中心，又是如何被历史裹挟着走向毁灭的。&lt;/p&gt;
@@ -193,8 +416,7 @@ o_t &amp;\sim O(o_t | s_t) \\
 &lt;p&gt;为什么我说它不是严肃推理呢？因为这本书在一开始就把故事的结果摆出来了哈哈！但这本书的魅力恰恰也在与此，正是因为已经把结尾放在了开端，所以整本书反而不会向别的推理小说一样努力构造各种悬念充当钩子，而是把所有的重点都放在了讲故事上。虽然结尾早已知晓，但是仍会被故事中描述的人与人间亲密的关系所打动。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;个人评价&lt;/strong&gt; ⭐⭐⭐⭐&lt;/p&gt;
 &lt;h3 id=&#34;蛙&#34;&gt;蛙&lt;/h3&gt;
-&lt;p&gt;第一次接触莫言的作品，怎么说呢，感觉可以和《人生》、《兄弟》这类作品放一起，都是讲述文革那个特殊年代的故事，风格也很接近，但是在阅读的过程中没有多少共鸣，我觉得这个有两方面原因，一是文革的年代离我太过久远，二则因为这本书也和别的作品一样，描述的都是同一种角度的文革&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;个人评价&lt;/strong&gt; ⭐⭐⭐&lt;/p&gt;</description>
+&lt;p&gt;第一次接触莫言的作品，怎么说呢，感觉可以和《人生》、《兄弟》这类作品放一起，都是讲述文革那个特殊年代的故事，风格也很接近，但是在阅读的过程中没有多少共鸣，我觉得这个有两方面原因，一是文革的年代离我太过久远，二则因为这本书也和别的作品一样，描述的都是同一种角度的文革&lt;/p&gt;</description>
     </item>
     <item>
       <title>Fourier Transform</title>
@@ -506,13 +728,6 @@ $$&lt;p&gt;对于任意的信号 $x[n]$，都有 $x[n] \delta [n] = x[0]\quad x[
 &lt;p&gt;每人都有50G的免费云空间～&lt;/p&gt;
 &lt;h4 id=&#34;南大latex&#34;&gt;&lt;a href=&#34;https://tex.nju.edu.cn/&#34;&gt;南大Latex&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;不想本地配置latex编译环境？那就试试这个吧！&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://crazyjassbread.github.io/posts/final-exam-review/nlp/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/final-exam-review/nlp/</guid>
-      <description></description>
     </item>
   </channel>
 </rss>

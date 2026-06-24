@@ -80,25 +80,31 @@
   ]
 }
 </script>
-     <script
+     <script>
+  window.MathJax = {
+    loader: {
+      load: ["[tex]/color"],
+    },
+    tex: {
+      packages: { "[+]": ["color"] },
+      displayMath: [
+        ["\\[", "\\]"],
+        ["$$", "$$"],
+      ],
+      inlineMath: [
+        ["\\(", "\\)"],
+        ["$", "$"],
+      ],
+      processEscapes: true,
+    },
+  };
+</script>
+<script
   id="MathJax-script"
   async
   src="https://cdn.jsdelivr.net.cn/npm/mathjax@3/es5/tex-chtml.js"
 ></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [
-        ["\\[", "\\]"],
-        ["$$", "$$"],
-      ], 
-      inlineMath: [
-        ["\\(", "\\)"],
-        ["$", "$"]  
-      ],
-    },
-  }
-</script> 
+ 
 </head>
 
 <body class="list" id="top">
@@ -175,6 +181,40 @@
     Posts
   </h1>
 </header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">MARL 复习笔记概览
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>MARL 复习笔记概览 这里整理强化学习基础与 MARL 复习相关笔记的目录索引。
+笔记目录 Value Based Methods Policy Based Methods Deep RL Algorithms Offline Reinforcement Learning </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-24 00:20:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;1 min</footer>
+  <a class="entry-link" aria-label="post link to MARL 复习笔记概览" href="https://crazyjassbread.github.io/posts/reinforcement-learning/marl/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">NLP 期末复习概览
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>复习笔记概览 包含 NLP 的基本概念介绍以及其他笔记的目录索引
+笔记目录 基于规则方法的自然语言处理 文本分类 基本概念 $$ \text{NLP} \rightarrow \text{CL} \rightarrow \text{NLU} $$三种不同的语系：
+屈折语：通过词形变化来表达语法关系，如英语、德语等 黏着语：通过词缀来表达语法关系，如日语、韩语等 孤立语：词形不变，语法关系通过词序和虚词来表达，如汉语、越南语等 MT 发展历程
+1950s前: 基于模版的 MT 1960s-1990s: 基于规则的 MT （规则、词典、算法） 1990s-2013s: 基于统计的 MT （语料、特征、模型） 2013s-现在: 基于神经网络的 MT （语料、模型） NLP 研究内容 可以划分成四种类别
+分类：文本分类、情感分类、文本匹配、文本蕴含 序列标注：中文分词、词性标注、信息抽取、槽位填充 生成：机器翻译、文本摘要、风格迁移、自动问答、对话系统 结构预测：序列分割、句子分割、段落分割、句法分析 NLP 研究基本问题
+问题一：形态学 Morphology，研究词如何由词素组成 问题二：句法学 Syntax，研究词如何组合成句子 问题三：语义学 Semantics，研究句子如何表达意义 问题四：语用学 Pragmatics，研究句子如何在上下文中使用 问题五：语音学 Phonetics，研究语言的声音系统 NLP 研究困难：歧义 ambiguity
+存在词法歧义、词性歧义、结构歧义、语义歧义、语音歧义
+Catalan Number：$C_n = \frac{1}{n&#43;1}\binom{2n}{n} = \frac{(2n)!}{(n&#43;1)!n!}$
+一个包含 N 个成分的句子（N-1 个介词短语），它可能的组合数为 $C_{N-1}$
+统计机器翻译 ...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-23 11:24:40 +0800 CST'>June 23, 2026</span>&nbsp;·&nbsp;1 min</footer>
+  <a class="entry-link" aria-label="post link to NLP 期末复习概览" href="https://crazyjassbread.github.io/posts/final-exam-review/nlp/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -284,6 +324,7 @@ Odysseus: Scaling VLMs to 100&#43; Turn Decision-Making in Games via Reinforceme
 《一只特立独行的猪》
 《动物园》
 《美丽新世界》
+《照护》
 阅读清单 断头王后 作者茨威格是我非常喜欢的传记作家，这本书很有意思的地方在于它是从玛丽王后的视角出发，自她的童年讲起，用细腻的笔触描绘了她是如何从一位奥地利公主一步步走到了大革命的风暴中心，又是如何被历史裹挟着走向毁灭的。
 书中对玛丽·安托瓦内特的性格刻画非常生动，既有作为一个普通女人的柔情与渴望，也有作为一个王后的骄傲与无奈。她并非历史上那个只会挥霍无度的“断头王后”，而是一个复杂而真实的人物，只不过被推到时代的最中心而已。
 在阅读这本书之前，我一直以为巴士底狱被攻占后国民议会立即就处死了路易十六和王后，法国大革命基本告一段落。可是在阅读完这本书后才发现，法国大革命并不是历史课本中讲述的那么简单，路易十六与王后在被推翻后经历了漫长的囚禁与审判，在多种因素的影响下才最终被人民送到上了断头台（而且路易十六要比王后早被处死几个月）
@@ -305,7 +346,6 @@ Odysseus: Scaling VLMs to 100&#43; Turn Decision-Making in Games via Reinforceme
 为什么我说它不是严肃推理呢？因为这本书在一开始就把故事的结果摆出来了哈哈！但这本书的魅力恰恰也在与此，正是因为已经把结尾放在了开端，所以整本书反而不会向别的推理小说一样努力构造各种悬念充当钩子，而是把所有的重点都放在了讲故事上。虽然结尾早已知晓，但是仍会被故事中描述的人与人间亲密的关系所打动。
 个人评价 ⭐⭐⭐⭐
 蛙 第一次接触莫言的作品，怎么说呢，感觉可以和《人生》、《兄弟》这类作品放一起，都是讲述文革那个特殊年代的故事，风格也很接近，但是在阅读的过程中没有多少共鸣，我觉得这个有两方面原因，一是文革的年代离我太过久远，二则因为这本书也和别的作品一样，描述的都是同一种角度的文革
-个人评价 ⭐⭐⭐
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2026-01-13 14:31:58 +0800 CST'>January 13, 2026</span>&nbsp;·&nbsp;1 min</footer>
@@ -376,49 +416,6 @@ part two - 数据统计的基本方法 标准差 $\sigma = \sqrt{\frac{1}{n} \su
   </div>
   <footer class="entry-footer"><span title='2025-12-27 16:25:31 +0800 CST'>December 27, 2025</span>&nbsp;·&nbsp;9 min</footer>
   <a class="entry-link" aria-label="post link to Data Mining Review" href="https://crazyjassbread.github.io/posts/final-exam-review/data-mining/review/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Fourier Series
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>终于到了傅里叶级数的章节了！信号处理打怪修炼已经到了关键的一步，冲破这关我们就能打遍天下无敌手了😼
-前情回顾： 信号与系统基础 | LTI系统
-目录
-写在前面 系统响应特点 复指数信号的表达能力 傅里叶级数 连续时间傅里叶级数 离散时间傅里叶级数 LTI 系统与傅里叶级数 写在前面 在和傅里叶级数打交道之前，需要弄明白一个事情，那就是我们为什么需要它？
-当我们在研究 LTI 系统时，如果能将一个复杂信号拆分成一系列简单信号的叠加，那么就能利用 LTI 系统线性与时不变的特性，利用每个简单信号的响应计算出最终的系统响应，那么这就带来了两个要求：
-(1) 选择的简单信号需要有足够强的表达能力，可以表示几乎所有的信号 (2) 系统对简单信号的响应足够简单，方便计算 那么让我们来看看复指数信号的特性吧
-系统响应特点 $$\begin{aligned} e^{st} &amp;\to e^{st} H(s) \quad (连续 LTI)\\ z^{n} &amp;\to z^{n} H(z) \quad (离散 LTI) \end{aligned}$$从 👆 的公式（证明方法非常简单，套用上一章介绍的卷积操作就可以得到）可以看出，复指数信号经过 LTI 系统后，仍是复指数信号，区别仅在于幅度上的变化。所以对于复指数信号而言，它满足我们提出的第二点要求，剩下要证明的就是第一点了
-复指数信号的表达能力 很可惜，博主当前的能力并不能给出一个严格的证明，所以下面只好假设复指数信号可以表示绝大部分信号了 💦
-不过可以通过一个很好玩的角度来帮助大家理解傅里叶级数系数的含义
-当我们将一个周期（角频率为 $\omega_0$）信号 $x(t)$ 分解为一系列复指数信号的叠加 $\hat{x}(t) = \sum_{k=-\infty}^{\infty} a_k e^{j k \omega_0 t}$ 时，我们的目标是让 $\hat{x}(t)$ 尽可能地接近 $x(t)$，那么如何衡量两者的接近程度呢？
-答案是用能量来衡量，令 $$E = \int_{T} |x(t) - \hat{x}(t)|^2 dt$$那么 $E$ 越小，说明两者越接近，所以最优的傅里叶系数可以通过用 $E$ 对 $a_k$ 求偏导并令其为0来得到
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-12-27 13:28:12 +0800 CST'>December 27, 2025</span>&nbsp;·&nbsp;4 min</footer>
-  <a class="entry-link" aria-label="post link to Fourier Series" href="https://crazyjassbread.github.io/posts/final-exam-review/signals-and-systems/fourier_series/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Hierarchical Reinforcement Learning
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>前言 目录
-Learning Representations in Model-Free Hierarchical Reinforcement Learning
-Hierarchical Deep Reinforcement Learning Integrating Temporal Abstraction and Intrinsic Motivation
-REINFORCEMENT LEARNING WITH ANTICIPATION: A HIERARCHICAL APPROACH FOR LONG-HORIZON TASKS
-Learning Representations in Model-Free Hierarchical Reinforcement Learning 论文链接
-论文的研究动机是通过引入 HRL 来解决 RL 面对具有 Sparse Reward 的问题表现不佳的问题（个人感觉这是在使用另一种方式去解决 NeSy 方法在做的事情，都是引入抽象的特征表示）
-Method 论文采用的方法框架由一个生产 sub goal 的 Meta-Controller 和一个解决 sub goal 的 Controller 组成
-在时间 t 时，Meta-Controller 接收环境状态 $s_t$ 并选择一个 sub goal $g_t \in \mathcal{G}$ ，Controller 接收环境状态 $s_t$ 和 sub goal $g_t$ 并选择一个动作 $a_t$
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-12-25 16:49:43 +0800 CST'>December 25, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to Hierarchical Reinforcement Learning" href="https://crazyjassbread.github.io/posts/reinforcement-learning/hrl/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

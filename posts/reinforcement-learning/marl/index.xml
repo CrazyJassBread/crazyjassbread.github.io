@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>MARL 复习笔记概览 on CrazyBread&#39; Blog</title>
+    <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/</link>
+    <description>Recent content in MARL 复习笔记概览 on CrazyBread&#39; Blog</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 Jun 2026 00:15:00 +0800</lastBuildDate>
+    <atom:link href="https://crazyjassbread.github.io/posts/reinforcement-learning/marl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Offline Reinforcement Learning</title>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/04/</link>
+      <pubDate>Wed, 24 Jun 2026 00:15:00 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/04/</guid>
+      <description>&lt;h1 id=&#34;offline-reinforcement-learning&#34;&gt;Offline Reinforcement Learning&lt;/h1&gt;
+&lt;p&gt;Offline RL 也叫 Batch RL，它和常见的在线强化学习最大的区别在于：训练时不再和环境交互，而是只能使用一个固定的数据集&lt;/p&gt;
+$$
+\mathcal{D} = \{(s_i, a_i, r_i, s&#39;_i, d_i)\}_{i=1}^{N}
+$$&lt;p&gt;其中 $d_i$ 表示 episode 是否结束。&lt;/p&gt;
+&lt;p&gt;在线 RL 可以一边试错一边收集新数据，所以即使当前策略很差，也有机会通过 exploration 找到更好的动作。但是 Offline RL 的策略一旦选择了数据集中很少出现甚至没有出现过的动作，就没有真实环境可以告诉它这个动作到底好不好。&lt;/p&gt;
+&lt;p&gt;这会带来一个核心问题：&lt;strong&gt;distribution shift&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;训练数据来自行为策略 $\pi_\beta(a|s)$，而我们最终想学习一个新策略 $\pi(a|s)$。如果 $\pi$ 选择了 $\pi_\beta$ 很少选择的动作，那么对应的 Q 值估计很容易被函数逼近误差放大，最终得到一个看起来 Q 值很高、实际表现很差的策略。&lt;/p&gt;
+&lt;p&gt;因此 Offline RL 的关键目标不是简单地做 Bellman backup，而是在学习回报的同时控制策略不要离数据分布太远。&lt;/p&gt;
+&lt;h2 id=&#34;offline-rl-的基本流程&#34;&gt;Offline RL 的基本流程&lt;/h2&gt;
+&lt;p&gt;一个典型 Offline RL 过程可以写成&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;收集固定数据集 D
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        v
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;分析 D 中覆盖的状态和动作
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        v
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;在 D 上训练 policy 或 Q function
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        v
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;限制策略不要选择数据外动作
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        |
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        v
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;离线验证或少量在线评估
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果用 Bellman 形式训练 Q function，基本目标仍然是&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deep RL Algorithms</title>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/03/</link>
+      <pubDate>Wed, 24 Jun 2026 00:10:00 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/03/</guid>
+      <description>&lt;h1 id=&#34;deep-rl-algorithms&#34;&gt;Deep RL Algorithms&lt;/h1&gt;
+&lt;p&gt;这一节重点介绍几个深度强化学习中非常经典的算法：DQN、Double DQN、A3C 和 PPO。&lt;/p&gt;
+&lt;p&gt;从整体脉络上看，这几个算法分别代表了几条重要路线：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;算法&lt;/th&gt;
+          &lt;th&gt;类型&lt;/th&gt;
+          &lt;th&gt;核心思想&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;DQN&lt;/td&gt;
+          &lt;td&gt;value-based&lt;/td&gt;
+          &lt;td&gt;用神经网络近似 $Q(s,a)$&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Double DQN&lt;/td&gt;
+          &lt;td&gt;value-based&lt;/td&gt;
+          &lt;td&gt;降低 DQN 中 max 带来的 Q 值过估计&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;A3C&lt;/td&gt;
+          &lt;td&gt;actor-critic&lt;/td&gt;
+          &lt;td&gt;多个 worker 异步采样并更新全局网络&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;PPO&lt;/td&gt;
+          &lt;td&gt;policy-based / actor-critic&lt;/td&gt;
+          &lt;td&gt;用 clipped objective 稳定更新策略&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;dqn&#34;&gt;DQN&lt;/h2&gt;
+&lt;p&gt;在 tabular Q-learning 中，我们可以直接维护一个表 $Q(s,a)$。但是当状态空间非常大，比如 Atari 图像输入时，表格方法就不可行了。&lt;/p&gt;
+&lt;p&gt;DQN 的核心思想是使用神经网络来近似 Q function：&lt;/p&gt;
+$$
+Q(s,a;\theta) \approx Q^*(s,a)
+$$&lt;p&gt;网络输入状态 $s$，输出每个动作的 Q 值：&lt;/p&gt;
+$$
+Q(s,\cdot;\theta) = [Q(s,a_1;\theta), Q(s,a_2;\theta), \dots, Q(s,a_n;\theta)]
+$$&lt;p&gt;DQN 的 target 来自 Q-learning：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Policy Based Methods</title>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/02/</link>
+      <pubDate>Wed, 24 Jun 2026 00:05:00 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/02/</guid>
+      <description>&lt;h1 id=&#34;policy-based-methods&#34;&gt;Policy Based Methods&lt;/h1&gt;
+&lt;h2 id=&#34;policy-gradientpg&#34;&gt;Policy Gradient（PG）&lt;/h2&gt;
+&lt;p&gt;PG 方法是直接对策略进行建模和优化的方法，利用目标函数的梯度来直接更新策略参数&lt;/p&gt;
+$$
+\theta \leftarrow \theta + \alpha \nabla_{\theta} J(\theta)
+$$&lt;p&gt;这个目标函数 $J(\theta)$ 是一个关于策略参数 $\theta$ 的函数，表示在给定策略下的期望回报。&lt;/p&gt;
+$$
+J(\theta) = \mathbb{E}_{\pi_\theta} [G_t] = V^{\pi_\theta}(s)
+$$&lt;p&gt;虽然 Value function 是一个直接关于 state 的函数，但是我们可以使用 Q function 来表示，此时便可以在 Value Function 的基础上引入 action，而在策略算法下，action 是由策略 $\pi_\theta$ 给出的，所以我们可以将目标函数写成&lt;/p&gt;
+$$
+\begin{aligned}
+\nabla J(\theta) &amp;= \nabla_\theta V^{\pi_\theta}(s) \\
+&amp;= \nabla_\theta \sum_{a} \pi_\theta(a|s) Q^{\pi_\theta}(s, a) \\
+&amp;= \sum_{a} \nabla_\theta \pi_\theta(a|s) Q^{\pi_\theta}(s, a) + X \quad (X 代表第二项）\\ 
+&amp;\propto \textcolor{blue}{\sum_{a} \nabla_\theta \pi_\theta(a|s) Q^{\pi_\theta}(s, a)} \\
+&amp;= \sum_{a} \pi_\theta(a|s) \frac{\nabla_\theta \pi_\theta(a|s)}{\pi_\theta(a|s)} Q^{\pi_\theta}(s, a) \\
+&amp;= \mathbb{E}_{\pi_\theta} \left[ \frac{\nabla_\theta \pi_\theta(A|S)}{\pi_\theta(A|S)} Q^{\pi_\theta}(S, A) \right] \\
+&amp;= \textcolor{red}{\mathbb{E}_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta(A|S) Q^{\pi_\theta}(S, A) \right]}
+\end{aligned} 
+$$&lt;p&gt;Yahoo！我们完成了对目标函数的梯度推导，不过这有一个好玩的地方，那就是在后面的过程中我们使用了一个对数小技巧把 $\sum$ 变成了 $\mathbb{E}$ 的形式。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Value Based Methods</title>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/01/</link>
+      <pubDate>Wed, 24 Jun 2026 00:00:00 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/01/</guid>
+      <description>&lt;h1 id=&#34;value-based-methods&#34;&gt;Value Based Methods&lt;/h1&gt;
+&lt;h2 id=&#34;dp-mc-and-td&#34;&gt;DP, MC and TD&lt;/h2&gt;
+&lt;p&gt;三个方法可以看作对环境的要求逐渐放低，先给出一个总览&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;方法&lt;/th&gt;
+          &lt;th&gt;核心思想&lt;/th&gt;
+          &lt;th style=&#34;text-align: right&#34;&gt;环境模型&lt;/th&gt;
+          &lt;th style=&#34;text-align: right&#34;&gt;完整 episode&lt;/th&gt;
+          &lt;th style=&#34;text-align: right&#34;&gt;bootstrapping&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;DP&lt;/td&gt;
+          &lt;td&gt;已知 Model 做 Bellman backup&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;不需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;是&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;MC&lt;/td&gt;
+          &lt;td&gt;完整采样回报 $G_t$ 更新&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;不需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;否&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;TD&lt;/td&gt;
+          &lt;td&gt;用一步采样 + 后继状态估计更新&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;不需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;不需要&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;是&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;dp&#34;&gt;DP&lt;/h3&gt;
+&lt;p&gt;首先对于 DP 来说，因为我们要遍历所有状态转移，所以需要环境模型来给出 $P(s&#39;|s,a)$，DP 的更新过程是使用 Bellman backup 来逐步更新状态值函数 $V(s)$ 直到收敛
+&lt;/p&gt;
+$$
+V_{\pi}(s_t) = \sum_a \pi(a|s_t) \sum_{s&#39;,r}\textcolor{red}{P(s&#39;,r|s_t,a)} [r + \gamma V_{\pi}(s&#39;)] 
+$$&lt;p&gt;DP 的 Target 可以写成
+&lt;/p&gt;
+$$
+\mathbb{E}_{\pi} \left[ r + \gamma V_{\pi}(S_{t+1})  | S_t = s \right] 
+$$&lt;h3 id=&#34;monte-carlo&#34;&gt;Monte Carlo&lt;/h3&gt;
+&lt;p&gt;MC 更新不再需要环境模型，它的更新目标需要从完整的 episode 中计算得到 $G_t$
+&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

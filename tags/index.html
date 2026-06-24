@@ -65,25 +65,31 @@
 <meta name="twitter:title" content="Tags">
 <meta name="twitter:description" content="">
 
-     <script
+     <script>
+  window.MathJax = {
+    loader: {
+      load: ["[tex]/color"],
+    },
+    tex: {
+      packages: { "[+]": ["color"] },
+      displayMath: [
+        ["\\[", "\\]"],
+        ["$$", "$$"],
+      ],
+      inlineMath: [
+        ["\\(", "\\)"],
+        ["$", "$"],
+      ],
+      processEscapes: true,
+    },
+  };
+</script>
+<script
   id="MathJax-script"
   async
   src="https://cdn.jsdelivr.net.cn/npm/mathjax@3/es5/tex-chtml.js"
 ></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [
-        ["\\[", "\\]"],
-        ["$$", "$$"],
-      ], 
-      inlineMath: [
-        ["\\(", "\\)"],
-        ["$", "$"]  
-      ],
-    },
-  }
-</script> 
+ 
 </head>
 
 <body class="list" id="top">
@@ -173,6 +179,12 @@
         <a href="https://crazyjassbread.github.io/tags/hrl/">HRL <sup><strong><sup>1</sup></strong></sup> </a>
     </li>
     <li>
+        <a href="https://crazyjassbread.github.io/tags/marl/">MARL <sup><strong><sup>5</sup></strong></sup> </a>
+    </li>
+    <li>
+        <a href="https://crazyjassbread.github.io/tags/nlp/">NLP <sup><strong><sup>3</sup></strong></sup> </a>
+    </li>
+    <li>
         <a href="https://crazyjassbread.github.io/tags/paper/">paper <sup><strong><sup>1</sup></strong></sup> </a>
     </li>
     <li>
@@ -182,7 +194,7 @@
         <a href="https://crazyjassbread.github.io/tags/project/">project <sup><strong><sup>2</sup></strong></sup> </a>
     </li>
     <li>
-        <a href="https://crazyjassbread.github.io/tags/reinforcement-learning/">Reinforcement Learning <sup><strong><sup>2</sup></strong></sup> </a>
+        <a href="https://crazyjassbread.github.io/tags/reinforcement-learning/">Reinforcement Learning <sup><strong><sup>7</sup></strong></sup> </a>
     </li>
     <li>
         <a href="https://crazyjassbread.github.io/tags/signals-and-systems/">Signals and Systems <sup><strong><sup>4</sup></strong></sup> </a>

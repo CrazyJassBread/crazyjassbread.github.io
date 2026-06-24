@@ -144,6 +144,7 @@ o_t &amp;\sim O(o_t | s_t) \\
 &lt;p&gt;&lt;a href=&#34;#%E4%B8%80%E5%8F%AA%E7%89%B9%E7%AB%8B%E7%8B%AC%E8%A1%8C%E7%9A%84%E7%8C%AA&#34;&gt;《一只特立独行的猪》&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;#%E5%8A%A8%E7%89%A9%E5%9B%AD&#34;&gt;《动物园》&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;#%E7%BE%8E%E4%B8%BD%E6%96%B0%E4%B8%96%E7%95%8C&#34;&gt;《美丽新世界》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;#%E7%85%A7%E6%8A%A4&#34;&gt;《照护》&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;阅读清单&#34;&gt;阅读清单&lt;/h2&gt;
 &lt;h3 id=&#34;断头王后&#34;&gt;断头王后&lt;/h3&gt;
 &lt;p&gt;作者茨威格是我非常喜欢的传记作家，这本书很有意思的地方在于它是从玛丽王后的视角出发，自她的童年讲起，用细腻的笔触描绘了她是如何从一位奥地利公主一步步走到了大革命的风暴中心，又是如何被历史裹挟着走向毁灭的。&lt;/p&gt;
@@ -171,8 +172,7 @@ o_t &amp;\sim O(o_t | s_t) \\
 &lt;p&gt;为什么我说它不是严肃推理呢？因为这本书在一开始就把故事的结果摆出来了哈哈！但这本书的魅力恰恰也在与此，正是因为已经把结尾放在了开端，所以整本书反而不会向别的推理小说一样努力构造各种悬念充当钩子，而是把所有的重点都放在了讲故事上。虽然结尾早已知晓，但是仍会被故事中描述的人与人间亲密的关系所打动。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;个人评价&lt;/strong&gt; ⭐⭐⭐⭐&lt;/p&gt;
 &lt;h3 id=&#34;蛙&#34;&gt;蛙&lt;/h3&gt;
-&lt;p&gt;第一次接触莫言的作品，怎么说呢，感觉可以和《人生》、《兄弟》这类作品放一起，都是讲述文革那个特殊年代的故事，风格也很接近，但是在阅读的过程中没有多少共鸣，我觉得这个有两方面原因，一是文革的年代离我太过久远，二则因为这本书也和别的作品一样，描述的都是同一种角度的文革&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;个人评价&lt;/strong&gt; ⭐⭐⭐&lt;/p&gt;</description>
+&lt;p&gt;第一次接触莫言的作品，怎么说呢，感觉可以和《人生》、《兄弟》这类作品放一起，都是讲述文革那个特殊年代的故事，风格也很接近，但是在阅读的过程中没有多少共鸣，我觉得这个有两方面原因，一是文革的年代离我太过久远，二则因为这本书也和别的作品一样，描述的都是同一种角度的文革&lt;/p&gt;</description>
     </item>
     <item>
       <title>Fourier Transform</title>
@@ -484,13 +484,6 @@ $$&lt;p&gt;对于任意的信号 $x[n]$，都有 $x[n] \delta [n] = x[0]\quad x[
 &lt;p&gt;每人都有50G的免费云空间～&lt;/p&gt;
 &lt;h4 id=&#34;南大latex&#34;&gt;&lt;a href=&#34;https://tex.nju.edu.cn/&#34;&gt;南大Latex&lt;/a&gt;&lt;/h4&gt;
 &lt;p&gt;不想本地配置latex编译环境？那就试试这个吧！&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://crazyjassbread.github.io/posts/final-exam-review/nlp/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/final-exam-review/nlp/</guid>
-      <description></description>
     </item>
   </channel>
 </rss>
