@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://crazyjassbread.github.io/tags/marl/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.d41e36f890d8dabdf2838bf28dcad343415f6e65d3346320a1692429fe0c635a.css" integrity="sha256-1B42&#43;JDY2r3yg4vyjcrTQ0FfbmXTNGMgoWkkKf4MY1o=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8c3275d015aa063654daa347c7773298135ab9932a935e528d9b0008aba61901.css" integrity="sha256-jDJ10BWqBjZU2qNHx3cymBNauZMqk15SjZsACKumGQE=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://crazyjassbread.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://crazyjassbread.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://crazyjassbread.github.io/favicon-32x32.png">
@@ -166,6 +166,40 @@
     MARL
   </h1>
 </header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Multi-Agent Reinforcement Learning
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>从这一节开始进入 Multi-Agent Reinforcement Learning，也就是多智能体强化学习。
+在单智能体 RL 中，我们通常只关心一个 agent 的 return：
+$$ J(\pi) = \mathbb{E}_{\pi}[G_t] $$但是在多智能体场景下，环境中同时存在多个 agent，每个 agent 的收益不仅取决于自己的动作，也取决于其他 agent 的动作。也就是说，问题从“一个 agent 怎么最大化自己的回报”，变成了“多个 agent 在相互影响时会形成什么结果”。
+所以在正式进入 MARL 算法之前，需要先补充一些博弈论中的基本概念。
+前置准备 布雷斯悖论 先看一个很经典的例子：布雷斯悖论（Braess’s Paradox）。
+假设有 $4000$ 辆车要从 Start 开到 End，中间有两个途径点 $A$ 和 $B$，一开始有两条路线可以选：
+$$ S \rightarrow A \rightarrow E $$$$ S \rightarrow B \rightarrow E $$每条边的通行时间如下，其中 $t$ 表示这条边上的车辆数：
+路段 时间 $S \rightarrow A$ $\frac{t}{100}$ $A \rightarrow E$ $45$ $S \rightarrow B$ $45$ $B \rightarrow E$ $\frac{t}{100}$ 设选择 $S \rightarrow A \rightarrow E$ 的车辆数是 $x$，那么选择 $S \rightarrow B \rightarrow E$ 的车辆数就是 $4000-x$。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-26 11:48:59 +0800 CST'>June 26, 2026</span>&nbsp;·&nbsp;15 min</footer>
+  <a class="entry-link" aria-label="post link to Multi-Agent Reinforcement Learning" href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/05/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Reinforcement Learning 基础
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>汇总了本人学习 RL 过程所做的笔记，前面几篇还是古法炮制，但是越往后就越依赖 AI 辅助（比我手打 Latex 快多了），所以后续的笔记可能会有点“奇怪” 😼
+笔记目录 Value Based Methods Policy Based Methods 这里缺了 DPG 的部分 Deep RL Algorithms Offline Reinforcement Learning 下面是多智能体部分的简单汇总
+Multi-Agent Reinforcement Learning </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-24 00:20:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;1 min</footer>
+  <a class="entry-link" aria-label="post link to Reinforcement Learning 基础" href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/"></a>
+</article>
     </main>
     
 <footer class="footer">

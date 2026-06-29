@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on CrazyBread&#39; Blog</title>
+    <title>Notes on CrazyBread&#39; Blog</title>
     <link>https://crazyjassbread.github.io/posts/</link>
-    <description>Recent content in Posts on CrazyBread&#39; Blog</description>
+    <description>Recent content in Notes on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 15 Jun 2026 13:24:40 +0800</lastBuildDate>

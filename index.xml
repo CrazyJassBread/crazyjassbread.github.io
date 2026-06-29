@@ -6,13 +6,61 @@
     <description>Recent content in About Me on CrazyBread&#39; Blog</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Jun 2026 00:15:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 26 Jun 2026 11:48:59 +0800</lastBuildDate>
     <atom:link href="https://crazyjassbread.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Multi-Agent Reinforcement Learning</title>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/basic/05/</link>
+      <pubDate>Fri, 26 Jun 2026 11:48:59 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/basic/05/</guid>
+      <description>&lt;p&gt;从这一节开始进入 Multi-Agent Reinforcement Learning，也就是多智能体强化学习。&lt;/p&gt;
+&lt;p&gt;在单智能体 RL 中，我们通常只关心一个 agent 的 return：&lt;/p&gt;
+$$
+J(\pi) = \mathbb{E}_{\pi}[G_t]
+$$&lt;p&gt;但是在多智能体场景下，环境中同时存在多个 agent，每个 agent 的收益不仅取决于自己的动作，也取决于其他 agent 的动作。也就是说，问题从“一个 agent 怎么最大化自己的回报”，变成了“多个 agent 在相互影响时会形成什么结果”。&lt;/p&gt;
+&lt;p&gt;所以在正式进入 MARL 算法之前，需要先补充一些博弈论中的基本概念。&lt;/p&gt;
+&lt;h2 id=&#34;前置准备&#34;&gt;前置准备&lt;/h2&gt;
+&lt;h3 id=&#34;布雷斯悖论&#34;&gt;布雷斯悖论&lt;/h3&gt;
+&lt;p&gt;先看一个很经典的例子：布雷斯悖论（Braess&amp;rsquo;s Paradox）。&lt;/p&gt;
+&lt;p&gt;假设有 $4000$ 辆车要从 Start 开到 End，中间有两个途径点 $A$ 和 $B$，一开始有两条路线可以选：&lt;/p&gt;
+$$
+S \rightarrow A \rightarrow E
+$$$$
+S \rightarrow B \rightarrow E
+$$&lt;p&gt;每条边的通行时间如下，其中 $t$ 表示这条边上的车辆数：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;路段&lt;/th&gt;
+          &lt;th style=&#34;text-align: right&#34;&gt;时间&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;$S \rightarrow A$&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;$\frac{t}{100}$&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;$A \rightarrow E$&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;$45$&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;$S \rightarrow B$&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;$45$&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;$B \rightarrow E$&lt;/td&gt;
+          &lt;td style=&#34;text-align: right&#34;&gt;$\frac{t}{100}$&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;设选择 $S \rightarrow A \rightarrow E$ 的车辆数是 $x$，那么选择 $S \rightarrow B \rightarrow E$ 的车辆数就是 $4000-x$。&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Offline Reinforcement Learning</title>
-      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/04/</link>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/basic/04/</link>
       <pubDate>Wed, 24 Jun 2026 00:15:00 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/04/</guid>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/basic/04/</guid>
       <description>&lt;p&gt;Offline RL 也叫 Batch RL，它和常见的在线强化学习最大的区别在于：训练时不再和环境交互，而是只能使用一个固定的数据集&lt;/p&gt;
 $$
 \mathcal{D} = \{(s_i, a_i, r_i, s&#39;_i, d_i)\}_{i=1}^{N}
@@ -40,9 +88,9 @@ $$&lt;p&gt;其中 $d_i$ 表示 episode 是否结束。&lt;/p&gt;
     </item>
     <item>
       <title>Deep RL Algorithms</title>
-      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/03/</link>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/basic/03/</link>
       <pubDate>Wed, 24 Jun 2026 00:10:00 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/03/</guid>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/basic/03/</guid>
       <description>&lt;p&gt;这一节重点介绍几个深度强化学习中非常经典的算法：DQN、Double DQN、A3C 和 PPO。&lt;/p&gt;
 &lt;p&gt;从整体脉络上看，这几个算法分别代表了几条重要路线：&lt;/p&gt;
 &lt;table&gt;
@@ -91,9 +139,9 @@ $$&lt;p&gt;需要注意的就是标红的部分，这里的 $\theta^-$ 是 Targe
     </item>
     <item>
       <title>Policy Based Methods</title>
-      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/02/</link>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/basic/02/</link>
       <pubDate>Wed, 24 Jun 2026 00:05:00 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/02/</guid>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/basic/02/</guid>
       <description>&lt;h2 id=&#34;policy-gradientpg&#34;&gt;Policy Gradient（PG）&lt;/h2&gt;
 &lt;p&gt;PG 方法是直接对策略进行建模和优化的方法，利用目标函数的梯度来直接更新策略参数&lt;/p&gt;
 $$
@@ -116,9 +164,9 @@ $$&lt;p&gt;Yahoo！我们完成了对目标函数的梯度推导，不过这有�
     </item>
     <item>
       <title>Value Based Methods</title>
-      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/01/</link>
+      <link>https://crazyjassbread.github.io/posts/reinforcement-learning/basic/01/</link>
       <pubDate>Wed, 24 Jun 2026 00:00:00 +0800</pubDate>
-      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/marl/01/</guid>
+      <guid>https://crazyjassbread.github.io/posts/reinforcement-learning/basic/01/</guid>
       <description>&lt;h2 id=&#34;dp-mc-and-td&#34;&gt;DP, MC and TD&lt;/h2&gt;
 &lt;p&gt;三个方法可以看作对环境的要求逐渐放低，先给出一个总览&lt;/p&gt;
 &lt;table&gt;

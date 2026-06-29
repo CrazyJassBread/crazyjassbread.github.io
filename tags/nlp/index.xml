@@ -69,5 +69,55 @@ $$&lt;p&gt;而更常用的指标是 &lt;strong&gt;信息增益（Information Gai
 $$\text{PMI}(x,y) = \log \frac{P(x,y)}{P(x)P(y)}$$&lt;p&gt;
 其中 $P(x,y)$ 是字 $x$ 和字 $y$ 同时出现的概率，$P(x)$ 和 $P(y)$ 分别是字 $x$ 和字 $y$ 出现的概率&lt;/p&gt;</description>
     </item>
+    <item>
+      <title>NLP 期末复习概览</title>
+      <link>https://crazyjassbread.github.io/posts/final-exam-review/nlp/</link>
+      <pubDate>Tue, 23 Jun 2026 11:24:40 +0800</pubDate>
+      <guid>https://crazyjassbread.github.io/posts/final-exam-review/nlp/</guid>
+      <description>&lt;h1 id=&#34;复习笔记概览&#34;&gt;复习笔记概览&lt;/h1&gt;
+&lt;p&gt;包含 NLP 的基本概念介绍以及其他笔记的目录索引&lt;/p&gt;
+&lt;h2 id=&#34;笔记目录&#34;&gt;笔记目录&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;./01/&#34;&gt;基于规则方法的自然语言处理&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;./02/&#34;&gt;文本分类&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;基本概念&#34;&gt;基本概念&lt;/h2&gt;
+$$
+\text{NLP} \rightarrow \text{CL} \rightarrow \text{NLU}
+$$&lt;p&gt;三种不同的语系：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;屈折语：通过词形变化来表达语法关系，如英语、德语等&lt;/li&gt;
+&lt;li&gt;黏着语：通过词缀来表达语法关系，如日语、韩语等&lt;/li&gt;
+&lt;li&gt;孤立语：词形不变，语法关系通过词序和虚词来表达，如汉语、越南语等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;MT&lt;/strong&gt; 发展历程&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1950s前: 基于模版的 MT&lt;/li&gt;
+&lt;li&gt;1960s-1990s: 基于规则的 MT （规则、词典、算法）&lt;/li&gt;
+&lt;li&gt;1990s-2013s: 基于统计的 MT （语料、特征、模型）&lt;/li&gt;
+&lt;li&gt;2013s-现在: 基于神经网络的 MT （语料、模型）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;NLP 研究内容&lt;/strong&gt; 可以划分成四种类别&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分类：文本分类、情感分类、文本匹配、文本蕴含&lt;/li&gt;
+&lt;li&gt;序列标注：中文分词、词性标注、信息抽取、槽位填充&lt;/li&gt;
+&lt;li&gt;生成：机器翻译、文本摘要、风格迁移、自动问答、对话系统&lt;/li&gt;
+&lt;li&gt;结构预测：序列分割、句子分割、段落分割、句法分析&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;NLP 研究基本问题&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;问题一：形态学 Morphology，研究词如何由词素组成&lt;/li&gt;
+&lt;li&gt;问题二：句法学 Syntax，研究词如何组合成句子&lt;/li&gt;
+&lt;li&gt;问题三：语义学 Semantics，研究句子如何表达意义&lt;/li&gt;
+&lt;li&gt;问题四：语用学 Pragmatics，研究句子如何在上下文中使用&lt;/li&gt;
+&lt;li&gt;问题五：语音学 Phonetics，研究语言的声音系统&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;NLP 研究困难&lt;/strong&gt;：歧义 ambiguity&lt;/p&gt;
+&lt;p&gt;存在词法歧义、词性歧义、结构歧义、语义歧义、语音歧义&lt;/p&gt;
+&lt;p&gt;Catalan Number：$C_n = \frac{1}{n+1}\binom{2n}{n} = \frac{(2n)!}{(n+1)!n!}$&lt;/p&gt;
+&lt;p&gt;一个包含 N 个成分的句子（N-1 个介词短语），它可能的组合数为 $C_{N-1}$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;统计机器翻译&lt;/strong&gt;
+&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

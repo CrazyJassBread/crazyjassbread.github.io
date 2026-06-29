@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://crazyjassbread.github.io/tags/nlp/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.d41e36f890d8dabdf2838bf28dcad343415f6e65d3346320a1692429fe0c635a.css" integrity="sha256-1B42&#43;JDY2r3yg4vyjcrTQ0FfbmXTNGMgoWkkKf4MY1o=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8c3275d015aa063654daa347c7773298135ab9932a935e528d9b0008aba61901.css" integrity="sha256-jDJ10BWqBjZU2qNHx3cymBNauZMqk15SjZsACKumGQE=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://crazyjassbread.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://crazyjassbread.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://crazyjassbread.github.io/favicon-32x32.png">
@@ -166,6 +166,71 @@
     NLP
   </h1>
 </header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">文本分类
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>文本分类 文本分类的部分主要分成三个内容：文本表示、特征选择、分类算法
+1. 文本表示 首先介绍 向量空间模型（Vector Space Model, VSM），它将文本表示为向量的形式，通常使用 词袋模型（Bag of Words, BOW） 来表示文本
+文本表示的一个重要问题就是如何计算特征项权重，即每个词袋元素的权重是多少
+布尔变量 是一个简单的方法
+词频率 TF $$ w_i = \log(tf_i &#43; 1) $$逆文档频率 IDF：一个词的 df 越小，说明它越能区分不同的文档，权重就应该越大 $$ idf_i = \log \frac{N}{df_i} \quad N \text{ 是文档总数，} df_i \text{ 是包含词 } i \text{ 的文档数} $$TF-IDF $$ w_i = tf_i \cdot idf_i $$2. 特征选择 用于文本分类的特征选取准则有很多，一个常用的指标是 DF 文档频率 $$ P(c_j|t_i) \approx \frac{A_{ij}}{\sum_{j=1}^{k} A_{ij} &#43; C} \quad C \text{ 是类别数} $$而更常用的指标是 信息增益（Information Gain, IG），它衡量了一个特征对分类结果的不确定性减少的程度
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-23 22:52:43 +0800 CST'>June 23, 2026</span>&nbsp;·&nbsp;1 min</footer>
+  <a class="entry-link" aria-label="post link to 文本分类" href="https://crazyjassbread.github.io/posts/final-exam-review/nlp/02/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">基于规则方法的自然语言处理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>基于规则方法的自然语言处理 本章主要介绍基于规则的方法在 NLP 中的应用方式，包括：形态还原、分词、词性标注、命名实体识别、机器翻译
+1.形态还原 将词还原成原形，比如把 went 还原成 go，把 better 还原成 good 等
+构词特点：曲折变化、派生变化、复合变化
+还原规则：通用规则、个性规则（比如不规则变化）
+2.分词 主要介绍了中文分词，也就是如何把一个紧密的字串划分成词的组合
+中文分词方法存在三种歧义
+交集型：$ABC$ 可以划分成 $A|BC$ 或 $AB|C$
+组合型：$ABC$ 可以划分成 $A|B|C$ 或 $AB|C$ 或 $A|BC$
+混合型：上述两种歧义都存在的时候
+分词方法 最大正向匹配 FMM 当然也包括逆向 RMM
+双向最大匹配 Bi-MM：同时使用 FMM 和 RMM，可以发现交集型歧义
+FMM &#43; 逆向最短词：可以发现组合型歧义
+逐词遍历：每次选择最长的候选词并将其删除，重复上述过程
+划分标记：
+这个可以详细展开描述 对于一个由 N 个字组成的句子，它有 N - 1 个划分点，怎么选择这些划分点是一个很有趣的课题 一个常用的划分指标是互信息 PMI（Pointwise Mutual Information），它可以衡量两个字之间的关联程度，PMI 越大，说明这两个字越可能组成一个词 $$\text{PMI}(x,y) = \log \frac{P(x,y)}{P(x)P(y)}$$ 其中 $P(x,y)$ 是字 $x$ 和字 $y$ 同时出现的概率，$P(x)$ 和 $P(y)$ 分别是字 $x$ 和字 $y$ 出现的概率
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-23 22:14:06 +0800 CST'>June 23, 2026</span>&nbsp;·&nbsp;1 min</footer>
+  <a class="entry-link" aria-label="post link to 基于规则方法的自然语言处理" href="https://crazyjassbread.github.io/posts/final-exam-review/nlp/01/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">NLP 期末复习概览
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>复习笔记概览 包含 NLP 的基本概念介绍以及其他笔记的目录索引
+笔记目录 基于规则方法的自然语言处理 文本分类 基本概念 $$ \text{NLP} \rightarrow \text{CL} \rightarrow \text{NLU} $$三种不同的语系：
+屈折语：通过词形变化来表达语法关系，如英语、德语等 黏着语：通过词缀来表达语法关系，如日语、韩语等 孤立语：词形不变，语法关系通过词序和虚词来表达，如汉语、越南语等 MT 发展历程
+1950s前: 基于模版的 MT 1960s-1990s: 基于规则的 MT （规则、词典、算法） 1990s-2013s: 基于统计的 MT （语料、特征、模型） 2013s-现在: 基于神经网络的 MT （语料、模型） NLP 研究内容 可以划分成四种类别
+分类：文本分类、情感分类、文本匹配、文本蕴含 序列标注：中文分词、词性标注、信息抽取、槽位填充 生成：机器翻译、文本摘要、风格迁移、自动问答、对话系统 结构预测：序列分割、句子分割、段落分割、句法分析 NLP 研究基本问题
+问题一：形态学 Morphology，研究词如何由词素组成 问题二：句法学 Syntax，研究词如何组合成句子 问题三：语义学 Semantics，研究句子如何表达意义 问题四：语用学 Pragmatics，研究句子如何在上下文中使用 问题五：语音学 Phonetics，研究语言的声音系统 NLP 研究困难：歧义 ambiguity
+存在词法歧义、词性歧义、结构歧义、语义歧义、语音歧义
+Catalan Number：$C_n = \frac{1}{n&#43;1}\binom{2n}{n} = \frac{(2n)!}{(n&#43;1)!n!}$
+一个包含 N 个成分的句子（N-1 个介词短语），它可能的组合数为 $C_{N-1}$
+统计机器翻译 ...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-23 11:24:40 +0800 CST'>June 23, 2026</span>&nbsp;·&nbsp;1 min</footer>
+  <a class="entry-link" aria-label="post link to NLP 期末复习概览" href="https://crazyjassbread.github.io/posts/final-exam-review/nlp/"></a>
+</article>
     </main>
     
 <footer class="footer">

@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://crazyjassbread.github.io/tags/reinforcement-learning/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.d41e36f890d8dabdf2838bf28dcad343415f6e65d3346320a1692429fe0c635a.css" integrity="sha256-1B42&#43;JDY2r3yg4vyjcrTQ0FfbmXTNGMgoWkkKf4MY1o=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8c3275d015aa063654daa347c7773298135ab9932a935e528d9b0008aba61901.css" integrity="sha256-jDJ10BWqBjZU2qNHx3cymBNauZMqk15SjZsACKumGQE=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://crazyjassbread.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://crazyjassbread.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://crazyjassbread.github.io/favicon-32x32.png">
@@ -166,6 +166,108 @@
     Reinforcement Learning
   </h1>
 </header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Multi-Agent Reinforcement Learning
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>从这一节开始进入 Multi-Agent Reinforcement Learning，也就是多智能体强化学习。
+在单智能体 RL 中，我们通常只关心一个 agent 的 return：
+$$ J(\pi) = \mathbb{E}_{\pi}[G_t] $$但是在多智能体场景下，环境中同时存在多个 agent，每个 agent 的收益不仅取决于自己的动作，也取决于其他 agent 的动作。也就是说，问题从“一个 agent 怎么最大化自己的回报”，变成了“多个 agent 在相互影响时会形成什么结果”。
+所以在正式进入 MARL 算法之前，需要先补充一些博弈论中的基本概念。
+前置准备 布雷斯悖论 先看一个很经典的例子：布雷斯悖论（Braess’s Paradox）。
+假设有 $4000$ 辆车要从 Start 开到 End，中间有两个途径点 $A$ 和 $B$，一开始有两条路线可以选：
+$$ S \rightarrow A \rightarrow E $$$$ S \rightarrow B \rightarrow E $$每条边的通行时间如下，其中 $t$ 表示这条边上的车辆数：
+路段 时间 $S \rightarrow A$ $\frac{t}{100}$ $A \rightarrow E$ $45$ $S \rightarrow B$ $45$ $B \rightarrow E$ $\frac{t}{100}$ 设选择 $S \rightarrow A \rightarrow E$ 的车辆数是 $x$，那么选择 $S \rightarrow B \rightarrow E$ 的车辆数就是 $4000-x$。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-26 11:48:59 +0800 CST'>June 26, 2026</span>&nbsp;·&nbsp;15 min</footer>
+  <a class="entry-link" aria-label="post link to Multi-Agent Reinforcement Learning" href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/05/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Reinforcement Learning 基础
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>汇总了本人学习 RL 过程所做的笔记，前面几篇还是古法炮制，但是越往后就越依赖 AI 辅助（比我手打 Latex 快多了），所以后续的笔记可能会有点“奇怪” 😼
+笔记目录 Value Based Methods Policy Based Methods 这里缺了 DPG 的部分 Deep RL Algorithms Offline Reinforcement Learning 下面是多智能体部分的简单汇总
+Multi-Agent Reinforcement Learning </p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-24 00:20:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;1 min</footer>
+  <a class="entry-link" aria-label="post link to Reinforcement Learning 基础" href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Offline Reinforcement Learning
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Offline RL 也叫 Batch RL，它和常见的在线强化学习最大的区别在于：训练时不再和环境交互，而是只能使用一个固定的数据集
+$$ \mathcal{D} = \{(s_i, a_i, r_i, s&#39;_i, d_i)\}_{i=1}^{N} $$其中 $d_i$ 表示 episode 是否结束。
+在线 RL 可以一边试错一边收集新数据，所以即使当前策略很差，也有机会通过 exploration 找到更好的动作。但是 Offline RL 的策略一旦选择了数据集中很少出现甚至没有出现过的动作，就没有真实环境可以告诉它这个动作到底好不好。
+这会带来一个核心问题：distribution shift。
+训练数据来自行为策略 $\pi_\beta(a|s)$，而我们最终想学习一个新策略 $\pi(a|s)$。如果 $\pi$ 选择了 $\pi_\beta$ 很少选择的动作，那么对应的 Q 值估计很容易被函数逼近误差放大，最终得到一个看起来 Q 值很高、实际表现很差的策略。
+因此 Offline RL 的关键目标不是简单地做 Bellman backup，而是在学习回报的同时控制策略不要离数据分布太远。
+Offline RL 的基本流程 一个典型 Offline RL 过程可以写成
+收集固定数据集 D | v 分析 D 中覆盖的状态和动作 | v 在 D 上训练 policy 或 Q function | v 限制策略不要选择数据外动作 | v 离线验证或少量在线评估 如果用 Bellman 形式训练 Q function，基本目标仍然是
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-24 00:15:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;3 min</footer>
+  <a class="entry-link" aria-label="post link to Offline Reinforcement Learning" href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/04/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Deep RL Algorithms
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>这一节重点介绍几个深度强化学习中非常经典的算法：DQN、Double DQN、A3C 和 PPO。
+从整体脉络上看，这几个算法分别代表了几条重要路线：
+算法 类型 核心思想 DQN value-based 用神经网络近似 $Q(s,a)$ Double DQN value-based 降低 DQN 中 max 带来的 Q 值过估计 A3C actor-critic 多个 worker 异步采样并更新全局网络 PPO policy-based / actor-critic 用 clipped objective 稳定更新策略 DQN 在 tabular Q-learning 中，我们可以直接维护一个表 $Q(s,a)$。但是当状态空间非常大，比如 Atari 图像输入时，表格方法就不可行了。
+DQN 的核心思想是使用神经网络来近似 Q function：
+$$ Q(s,a;\theta) \approx Q^*(s,a) $$网络输入状态 $s$，输出每个动作的 Q 值：
+$$ Q(s,\cdot;\theta) = [Q(s,a_1;\theta), Q(s,a_2;\theta), \dots, Q(s,a_n;\theta)] $$DQN 的 target 来自 Q-learning：
+$$ y = r &#43; \gamma \max_{a&#39;} \textcolor{red}{Q(s&#39;,a&#39;;\theta^-)} $$需要注意的就是标红的部分，这里的 $\theta^-$ 是 Target 的网络的参数，从而做到了把优化目标与当前网络解耦
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-24 00:10:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;6 min</footer>
+  <a class="entry-link" aria-label="post link to Deep RL Algorithms" href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/03/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Policy Based Methods
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Policy Gradient（PG） PG 方法是直接对策略进行建模和优化的方法，利用目标函数的梯度来直接更新策略参数
+$$ \theta \leftarrow \theta &#43; \alpha \nabla_{\theta} J(\theta) $$这个目标函数 $J(\theta)$ 是一个关于策略参数 $\theta$ 的函数，表示在给定策略下的期望回报。
+$$ J(\theta) = \mathbb{E}_{\pi_\theta} [G_t] = V^{\pi_\theta}(s) $$虽然 Value function 是一个直接关于 state 的函数，但是我们可以使用 Q function 来表示，此时便可以在 Value Function 的基础上引入 action，而在策略算法下，action 是由策略 $\pi_\theta$ 给出的，所以我们可以将目标函数写成
+$$ \begin{aligned} \nabla J(\theta) &amp;= \nabla_\theta V^{\pi_\theta}(s) \\ &amp;= \nabla_\theta \sum_{a} \pi_\theta(a|s) Q^{\pi_\theta}(s, a) \\ &amp;= \sum_{a} \nabla_\theta \pi_\theta(a|s) Q^{\pi_\theta}(s, a) &#43; X \quad (X 代表第二项）\\ &amp;\propto \textcolor{blue}{\sum_{a} \nabla_\theta \pi_\theta(a|s) Q^{\pi_\theta}(s, a)} \\ &amp;= \sum_{a} \pi_\theta(a|s) \frac{\nabla_\theta \pi_\theta(a|s)}{\pi_\theta(a|s)} Q^{\pi_\theta}(s, a) \\ &amp;= \mathbb{E}_{\pi_\theta} \left[ \frac{\nabla_\theta \pi_\theta(A|S)}{\pi_\theta(A|S)} Q^{\pi_\theta}(S, A) \right] \\ &amp;= \textcolor{red}{\mathbb{E}_{\pi_\theta} \left[ \nabla_\theta \log \pi_\theta(A|S) Q^{\pi_\theta}(S, A) \right]} \end{aligned} $$Yahoo！我们完成了对目标函数的梯度推导，不过这有一个好玩的地方，那就是在后面的过程中我们使用了一个对数小技巧把 $\sum$ 变成了 $\mathbb{E}$ 的形式。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-24 00:05:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;2 min</footer>
+  <a class="entry-link" aria-label="post link to Policy Based Methods" href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/02/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Value Based Methods
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>DP, MC and TD 三个方法可以看作对环境的要求逐渐放低，先给出一个总览
+方法 核心思想 环境模型 完整 episode bootstrapping DP 已知 Model 做 Bellman backup 需要 不需要 是 MC 完整采样回报 $G_t$ 更新 不需要 需要 否 TD 用一步采样 &#43; 后继状态估计更新 不需要 不需要 是 DP 首先对于 DP 来说，因为我们要遍历所有状态转移，所以需要环境模型来给出 $P(s&#39;|s,a)$，DP 的更新过程是使用 Bellman backup 来逐步更新状态值函数 $V(s)$ 直到收敛 $$ V_{\pi}(s_t) = \sum_a \pi(a|s_t) \sum_{s&#39;,r}\textcolor{red}{P(s&#39;,r|s_t,a)} [r &#43; \gamma V_{\pi}(s&#39;)] $$DP 的 Target 可以写成 $$ \mathbb{E}_{\pi} \left[ r &#43; \gamma V_{\pi}(S_{t&#43;1}) | S_t = s \right] $$Monte Carlo MC 更新不再需要环境模型，它的更新目标需要从完整的 episode 中计算得到 $G_t$ ...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-24 00:00:00 +0800 CST'>June 24, 2026</span>&nbsp;·&nbsp;3 min</footer>
+  <a class="entry-link" aria-label="post link to Value Based Methods" href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/01/"></a>
+</article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">

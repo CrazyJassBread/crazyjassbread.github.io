@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Multi-Agent Reinforcement Learning | CrazyBread&#39; Blog</title>
+<meta name="keywords" content="MARL, Reinforcement Learning">
+<meta name="description" content="从这一节开始进入 Multi-Agent Reinforcement Learning，也就是多智能体强化学习。
+在单智能体 RL 中，我们通常只关心一个 agent 的 return：
+$$
+J(\pi) = \mathbb{E}_{\pi}[G_t]
+$$但是在多智能体场景下，环境中同时存在多个 agent，每个 agent 的收益不仅取决于自己的动作，也取决于其他 agent 的动作。也就是说，问题从“一个 agent 怎么最大化自己的回报”，变成了“多个 agent 在相互影响时会形成什么结果”。
+所以在正式进入 MARL 算法之前，需要先补充一些博弈论中的基本概念。
+前置准备
+布雷斯悖论
+先看一个很经典的例子：布雷斯悖论（Braess&rsquo;s Paradox）。
+假设有 $4000$ 辆车要从 Start 开到 End，中间有两个途径点 $A$ 和 $B$，一开始有两条路线可以选：
+$$
+S \rightarrow A \rightarrow E
+$$$$
+S \rightarrow B \rightarrow E
+$$每条边的通行时间如下，其中 $t$ 表示这条边上的车辆数：
+
+  
+      
+          路段
+          时间
+      
+  
+  
+      
+          $S \rightarrow A$
+          $\frac{t}{100}$
+      
+      
+          $A \rightarrow E$
+          $45$
+      
+      
+          $S \rightarrow B$
+          $45$
+      
+      
+          $B \rightarrow E$
+          $\frac{t}{100}$
+      
+  
+
+设选择 $S \rightarrow A \rightarrow E$ 的车辆数是 $x$，那么选择 $S \rightarrow B \rightarrow E$ 的车辆数就是 $4000-x$。">
+<meta name="author" content="">
+<link rel="canonical" href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/05/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8c3275d015aa063654daa347c7773298135ab9932a935e528d9b0008aba61901.css" integrity="sha256-jDJ10BWqBjZU2qNHx3cymBNauZMqk15SjZsACKumGQE=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://crazyjassbread.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://crazyjassbread.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://crazyjassbread.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://crazyjassbread.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://crazyjassbread.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/05/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/05/">
+  <meta property="og:site_name" content="CrazyBread&#39; Blog">
+  <meta property="og:title" content="Multi-Agent Reinforcement Learning">
+  <meta property="og:description" content="从这一节开始进入 Multi-Agent Reinforcement Learning，也就是多智能体强化学习。
+在单智能体 RL 中，我们通常只关心一个 agent 的 return：
+$$ J(\pi) = \mathbb{E}_{\pi}[G_t] $$但是在多智能体场景下，环境中同时存在多个 agent，每个 agent 的收益不仅取决于自己的动作，也取决于其他 agent 的动作。也就是说，问题从“一个 agent 怎么最大化自己的回报”，变成了“多个 agent 在相互影响时会形成什么结果”。
+所以在正式进入 MARL 算法之前，需要先补充一些博弈论中的基本概念。
+前置准备 布雷斯悖论 先看一个很经典的例子：布雷斯悖论（Braess’s Paradox）。
+假设有 $4000$ 辆车要从 Start 开到 End，中间有两个途径点 $A$ 和 $B$，一开始有两条路线可以选：
+$$ S \rightarrow A \rightarrow E $$$$ S \rightarrow B \rightarrow E $$每条边的通行时间如下，其中 $t$ 表示这条边上的车辆数：
+路段 时间 $S \rightarrow A$ $\frac{t}{100}$ $A \rightarrow E$ $45$ $S \rightarrow B$ $45$ $B \rightarrow E$ $\frac{t}{100}$ 设选择 $S \rightarrow A \rightarrow E$ 的车辆数是 $x$，那么选择 $S \rightarrow B \rightarrow E$ 的车辆数就是 $4000-x$。">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-06-26T11:48:59+08:00">
+    <meta property="article:modified_time" content="2026-06-26T11:48:59+08:00">
+    <meta property="article:tag" content="MARL">
+    <meta property="article:tag" content="Reinforcement Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Multi-Agent Reinforcement Learning">
+<meta name="twitter:description" content="从这一节开始进入 Multi-Agent Reinforcement Learning，也就是多智能体强化学习。
+在单智能体 RL 中，我们通常只关心一个 agent 的 return：
+$$
+J(\pi) = \mathbb{E}_{\pi}[G_t]
+$$但是在多智能体场景下，环境中同时存在多个 agent，每个 agent 的收益不仅取决于自己的动作，也取决于其他 agent 的动作。也就是说，问题从“一个 agent 怎么最大化自己的回报”，变成了“多个 agent 在相互影响时会形成什么结果”。
+所以在正式进入 MARL 算法之前，需要先补充一些博弈论中的基本概念。
+前置准备
+布雷斯悖论
+先看一个很经典的例子：布雷斯悖论（Braess&rsquo;s Paradox）。
+假设有 $4000$ 辆车要从 Start 开到 End，中间有两个途径点 $A$ 和 $B$，一开始有两条路线可以选：
+$$
+S \rightarrow A \rightarrow E
+$$$$
+S \rightarrow B \rightarrow E
+$$每条边的通行时间如下，其中 $t$ 表示这条边上的车辆数：
+
+  
+      
+          路段
+          时间
+      
+  
+  
+      
+          $S \rightarrow A$
+          $\frac{t}{100}$
+      
+      
+          $A \rightarrow E$
+          $45$
+      
+      
+          $S \rightarrow B$
+          $45$
+      
+      
+          $B \rightarrow E$
+          $\frac{t}{100}$
+      
+  
+
+设选择 $S \rightarrow A \rightarrow E$ 的车辆数是 $x$，那么选择 $S \rightarrow B \rightarrow E$ 的车辆数就是 $4000-x$。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://crazyjassbread.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Reinforcement Learning 基础",
+      "item": "https://crazyjassbread.github.io/posts/reinforcement-learning/basic/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "Multi-Agent Reinforcement Learning",
+      "item": "https://crazyjassbread.github.io/posts/reinforcement-learning/basic/05/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Multi-Agent Reinforcement Learning",
+  "name": "Multi-Agent Reinforcement Learning",
+  "description": "从这一节开始进入 Multi-Agent Reinforcement Learning，也就是多智能体强化学习。\n在单智能体 RL 中，我们通常只关心一个 agent 的 return：\n$$ J(\\pi) = \\mathbb{E}_{\\pi}[G_t] $$但是在多智能体场景下，环境中同时存在多个 agent，每个 agent 的收益不仅取决于自己的动作，也取决于其他 agent 的动作。也就是说，问题从“一个 agent 怎么最大化自己的回报”，变成了“多个 agent 在相互影响时会形成什么结果”。\n所以在正式进入 MARL 算法之前，需要先补充一些博弈论中的基本概念。\n前置准备 布雷斯悖论 先看一个很经典的例子：布雷斯悖论（Braess\u0026rsquo;s Paradox）。\n假设有 $4000$ 辆车要从 Start 开到 End，中间有两个途径点 $A$ 和 $B$，一开始有两条路线可以选：\n$$ S \\rightarrow A \\rightarrow E $$$$ S \\rightarrow B \\rightarrow E $$每条边的通行时间如下，其中 $t$ 表示这条边上的车辆数：\n路段 时间 $S \\rightarrow A$ $\\frac{t}{100}$ $A \\rightarrow E$ $45$ $S \\rightarrow B$ $45$ $B \\rightarrow E$ $\\frac{t}{100}$ 设选择 $S \\rightarrow A \\rightarrow E$ 的车辆数是 $x$，那么选择 $S \\rightarrow B \\rightarrow E$ 的车辆数就是 $4000-x$。\n",
+  "keywords": [
+    "MARL", "Reinforcement Learning"
+  ],
+  "articleBody": "从这一节开始进入 Multi-Agent Reinforcement Learning，也就是多智能体强化学习。\n在单智能体 RL 中，我们通常只关心一个 agent 的 return：\n$$ J(\\pi) = \\mathbb{E}_{\\pi}[G_t] $$但是在多智能体场景下，环境中同时存在多个 agent，每个 agent 的收益不仅取决于自己的动作，也取决于其他 agent 的动作。也就是说，问题从“一个 agent 怎么最大化自己的回报”，变成了“多个 agent 在相互影响时会形成什么结果”。\n所以在正式进入 MARL 算法之前，需要先补充一些博弈论中的基本概念。\n前置准备 布雷斯悖论 先看一个很经典的例子：布雷斯悖论（Braess’s Paradox）。\n假设有 $4000$ 辆车要从 Start 开到 End，中间有两个途径点 $A$ 和 $B$，一开始有两条路线可以选：\n$$ S \\rightarrow A \\rightarrow E $$$$ S \\rightarrow B \\rightarrow E $$每条边的通行时间如下，其中 $t$ 表示这条边上的车辆数：\n路段 时间 $S \\rightarrow A$ $\\frac{t}{100}$ $A \\rightarrow E$ $45$ $S \\rightarrow B$ $45$ $B \\rightarrow E$ $\\frac{t}{100}$ 设选择 $S \\rightarrow A \\rightarrow E$ 的车辆数是 $x$，那么选择 $S \\rightarrow B \\rightarrow E$ 的车辆数就是 $4000-x$。\n两条路线的时间分别是\n$$ T_{SAE}(x) = \\frac{x}{100} + 45 $$$$ T_{SBE}(x) = 45 + \\frac{4000-x}{100} $$如果想让两条路都没有单方面换路的动力，就需要两条路时间相同：\n$$ \\frac{x}{100} + 45 = 45 + \\frac{4000-x}{100} $$解得\n$$ x = 2000 $$所以最优分流是两条路线各走 $2000$ 辆车，此时每辆车的通行时间都是\n$$ T = \\frac{2000}{100} + 45 = 65 $$这个结果很合理：一半车走上面，一半车走下面，大家的时间都是 $65$。\n现在加入一条新的 shortcut：\n$$ A \\rightarrow B $$并且这条路不需要时间：\n$$ T_{AB} = 0 $$看起来这应该只会让情况更好，因为每辆车多了一个选择。但是如果每辆车都只按照自己的局部最优来选，结果会变差。\n首先，从 $S$ 出发时：\n走 $S \\rightarrow A$ 的时间是 $\\frac{t}{100}$，最多也就是 $\\frac{4000}{100}=40$ 走 $S \\rightarrow B$ 的时间固定是 $45$ 所以每辆车都会更倾向于先走\n$$ S \\rightarrow A $$到达 $A$ 之后：\n直接走 $A \\rightarrow E$ 的时间固定是 $45$ 走 shortcut 到 $B$，再走 $B \\rightarrow E$ 的时间是 $0 + \\frac{t}{100}$，最多也是 $40$ 所以每辆车又会更倾向于走\n$$ A \\rightarrow B \\rightarrow E $$最后所有车都会选择新路线\n$$ S \\rightarrow A \\rightarrow B \\rightarrow E $$这时 $S \\rightarrow A$ 上有 $4000$ 辆车，$B \\rightarrow E$ 上也有 $4000$ 辆车，所以每辆车的时间变成\n$$ T = \\frac{4000}{100} + 0 + \\frac{4000}{100} = 80 $$也就是说，加入一条免费的 shortcut 之后，原来每辆车只需要 $65$，现在反而变成了 $80$。\n这就是布雷斯悖论：在多智能体系统中，给每个个体增加一个看似更好的选择，并不一定会提升整体效率。因为每个个体都在做局部最优决策，最后形成的均衡结果可能比原来的系统更差。\n博弈结果的评判标准 假设有两个 agent，分别选择动作 $a_1$ 和 $a_2$，收益函数为\n$$ u_1(a_1,a_2), \\quad u_2(a_1,a_2) $$不同的评判标准对应不同的“什么结果是好结果”。\n标准 关注点 直觉 社会福利 所有 agent 的总收益 整体收益最大 帕累托优 是否还能让某些人更好且不让别人更差 没有免费的改进空间 纳什均衡 单个 agent 是否有动力单方面改变策略 谁都不想自己换动作 优超 某个动作是否无论对方怎么做都更好 不看对方，直接选更占优的动作 社会福利 社会福利（Social Welfare）关注所有 agent 的收益总和：\n$$ W(a_1,a_2) = \\sum_i u_i(a_1,a_2) $$对于两个 agent 来说就是\n$$ W(a_1,a_2) = u_1(a_1,a_2) + u_2(a_1,a_2) $$如果只从社会福利角度评价，那么最好的 joint action 是\n$$ (a_1^*,a_2^*) = \\arg\\max_{a_1,a_2} W(a_1,a_2) $$这个标准不关心收益怎么分配，只关心整体加起来是不是最大。\n帕累托优 如果一个结果 $x$ 相比另一个结果 $y$，满足：\n对所有 agent 都不更差 至少让一个 agent 变得更好 那么就说 $x$ 帕累托优于 $y$。\n写成公式就是\n$$ u_i(x) \\geq u_i(y), \\quad \\forall i $$并且存在某个 agent $j$ 满足\n$$ u_j(x) \u003e u_j(y) $$如果一个结果已经不存在任何其他结果能帕累托优于它，那么这个结果就是帕累托最优（Pareto Optimal）的。\n需要注意的是，帕累托最优并不意味着总收益最大，也不意味着公平。它只表示：想让某个人更好，就一定会让至少另一个人更差。\n纳什均衡 纳什均衡（Nash Equilibrium）关注的是稳定性。\n如果在一个 joint action $(a_1^*,a_2^*)$ 下，任意一个 agent 在其他 agent 动作不变时，都无法通过单方面改变自己的动作获得更高收益，那么这个 joint action 就是纳什均衡。\n对于两个 agent，可以写成\n$$ u_1(a_1^*,a_2^*) \\geq u_1(a_1,a_2^*), \\quad \\forall a_1 $$$$ u_2(a_1^*,a_2^*) \\geq u_2(a_1^*,a_2), \\quad \\forall a_2 $$也就是说，在纳什均衡处，每个 agent 的动作都是对其他 agent 当前动作的 best response。\n优超 优超（Dominance）关注的是动作之间的比较。\n如果对 agent $i$ 来说，动作 $a_i$ 无论其他 agent 选择什么动作，都至少不比动作 $a_i'$ 差，并且在某些情况下更好，那么就说 $a_i$ 弱优超 $a_i'$：\n$$ u_i(a_i,a_{-i}) \\geq u_i(a_i',a_{-i}), \\quad \\forall a_{-i} $$并且存在某个 $a_{-i}$ 满足\n$$ u_i(a_i,a_{-i}) \u003e u_i(a_i',a_{-i}) $$如果上面的不等式对所有 $a_{-i}$ 都严格成立，那么就是严格优超：\n$$ u_i(a_i,a_{-i}) \u003e u_i(a_i',a_{-i}), \\quad \\forall a_{-i} $$直觉上，优超策略就是“不管别人怎么选，我选这个都更好”。\n囚徒困境 囚徒困境是最经典的双人博弈问题。两个 agent 都有两个动作：\n动作 含义 C Cooperate，合作 D Defect，背叛 使用一个常见的收益矩阵：\nAgent 2: C Agent 2: D Agent 1: C $(3,3)$ $(0,5)$ Agent 1: D $(5,0)$ $(1,1)$ 括号中第一个数是 Agent 1 的收益，第二个数是 Agent 2 的收益。\n从社会福利看 计算每个结果的总收益：\n结果 收益 社会福利 $(C,C)$ $(3,3)$ $6$ $(C,D)$ $(0,5)$ $5$ $(D,C)$ $(5,0)$ $5$ $(D,D)$ $(1,1)$ $2$ 所以从社会福利最大化的角度看，最好的结果是\n$$ (C,C) $$也就是两个 agent 都合作。\n从帕累托优看 $(D,D)$ 的收益是 $(1,1)$，而 $(C,C)$ 的收益是 $(3,3)$。\n因为\n$$ 3 \u003e 1, \\quad 3 \u003e 1 $$所以 $(C,C)$ 帕累托优于 $(D,D)$。\n但是 $(C,C)$、$(C,D)$ 和 $(D,C)$ 都是帕累托最优的。比如从 $(C,C)$ 变成 $(D,C)$，Agent 1 的收益从 $3$ 变成 $5$，但是 Agent 2 的收益从 $3$ 变成 $0$，这不是帕累托改进。\n因此帕累托视角下，$(D,D)$ 明显不是好结果，因为它可以被 $(C,C)$ 同时改善。\n从纳什均衡看 如果 Agent 2 选择 $C$，Agent 1 选择 $D$ 的收益是 $5$，选择 $C$ 的收益是 $3$，所以 Agent 1 会选 $D$。\n如果 Agent 2 选择 $D$，Agent 1 选择 $D$ 的收益是 $1$，选择 $C$ 的收益是 $0$，所以 Agent 1 还是会选 $D$。\n对 Agent 2 也是完全对称的。\n所以 $(D,D)$ 是纳什均衡，因为在这个结果下，任何一方单独改成 $C$ 都会让自己的收益从 $1$ 变成 $0$。\n$$ (D,D) \\quad \\text{是囚徒困境中的唯一纳什均衡} $$这里就出现了一个很重要的问题：纳什均衡不一定是社会福利最大的结果，也不一定是帕累托最优的结果。\n从优超看 对 Agent 1 来说：\n如果 Agent 2 选择 $C$，那么 $D$ 的收益 $5$ 大于 $C$ 的收益 $3$ 如果 Agent 2 选择 $D$，那么 $D$ 的收益 $1$ 大于 $C$ 的收益 $0$ 所以 $D$ 严格优超 $C$。\n对 Agent 2 来说也是一样，$D$ 严格优超 $C$。\n因此从优超策略的角度看，两个 agent 都会选择 $D$，最后得到\n$$ (D,D) $$这也是囚徒困境的核心矛盾：个体理性会把系统推向整体更差的结果。\n纯策略纳什均衡和混合策略纳什均衡 前面囚徒困境中的 $(D,D)$ 是一个纯策略纳什均衡。\n纯策略（Pure Strategy）指的是 agent 直接选择某一个确定动作。比如在石头剪刀布中，直接选择“石头”就是一个纯策略。\n如果一个纯策略组合 $(a_1^*,a_2^*)$ 满足任意 agent 都不能通过单方面改变动作获得更高收益，那么它就是纯策略纳什均衡。\n但是不是所有博弈都有纯策略纳什均衡。一个典型例子就是石头剪刀布。\n石头剪刀布 石头剪刀布的规则是：\n石头 剪刀 布 石头 $0$ $1$ $-1$ 剪刀 $-1$ $0$ $1$ 布 $1$ $-1$ $0$ 上表表示 Agent 1 的收益，Agent 2 的收益是它的相反数，所以这是一个 zero-sum game。\n石头剪刀布没有纯策略纳什均衡。原因很简单：\n如果双方都出石头，那么任意一方都可以改成布来赢 如果一方赢了，输的一方总可以改成克制对方的动作 如果双方平局，任意一方也可以改成能赢的动作 也就是说，任何确定的动作组合都不是稳定的。\n这时就需要引入混合策略（Mixed Strategy）。\n混合策略不是直接选择一个确定动作，而是在动作上定义一个概率分布：\n$$ \\pi_i(a_i) \\in \\Delta(\\mathcal{A}_i) $$对于石头剪刀布，Agent 可以用下面的策略：\n$$ \\pi(\\text{石头}) = \\frac{1}{3}, \\quad \\pi(\\text{剪刀}) = \\frac{1}{3}, \\quad \\pi(\\text{布}) = \\frac{1}{3} $$如果两个 agent 都使用这个均匀随机策略，那么任意一方改成固定出某个动作，期望收益都还是 $0$：\n$$ \\mathbb{E}[u(\\text{石头})] = \\frac{1}{3}\\cdot 0 + \\frac{1}{3}\\cdot 1 + \\frac{1}{3}\\cdot (-1) = 0 $$同理，固定出剪刀或布的期望收益也都是 $0$。\n因此没有任何一方能通过单方面改变自己的策略获得更高期望收益，所以\n$$ \\left( \\left(\\frac{1}{3},\\frac{1}{3},\\frac{1}{3}\\right), \\left(\\frac{1}{3},\\frac{1}{3},\\frac{1}{3}\\right) \\right) $$是石头剪刀布的混合策略纳什均衡。\nStackelberg 均衡 前面的纳什均衡默认所有 agent 是同时做决策的。而 Stackelberg Game 中存在先后顺序：\nLeader 先选择策略 Follower 观察到 Leader 的策略后，再选择自己的 best response 因此 Stackelberg 均衡关注的是：Leader 在知道 Follower 会做最优回应的前提下，应该提前承诺什么策略。\n设 Leader 的策略为 $a_L$，Follower 的 best response 为\n$$ BR_F(a_L) = \\arg\\max_{a_F} u_F(a_L,a_F) $$那么 Leader 要解的问题是\n$$ a_L^* = \\arg\\max_{a_L} u_L(a_L, BR_F(a_L)) $$最终得到的策略组合\n$$ (a_L^*, BR_F(a_L^*)) $$就是 Stackelberg 均衡。\n直观来说，Stackelberg 均衡不是“大家同时选完后谁都不想改”，而是“Leader 先承诺，Follower 再最优回应，Leader 提前把这个回应也考虑进去”。\n均衡学习 在单智能体 Q-learning 中，下一状态的价值是通过对自己的 action 取最大值得到的：\n$$ V(s') = \\max_{a'} Q(s',a') $$因此标准 Q-learning 的更新可以写成\n$$ Q(s_t,a_t) \\leftarrow Q(s_t,a_t) + \\alpha \\left[ r_t + \\gamma \\textcolor{blue}{\\max_{a'} Q(s_{t+1},a')} - Q(s_t,a_t) \\right] $$但是在多智能体场景中，下一状态的价值不能只看自己的动作，因为其他 agent 的动作也会影响收益。也就是说，$V(s')$ 不再只是一个简单的 $\\max_a Q(s',a)$，而是需要根据某种均衡概念，从当前状态对应的 stage game 中计算出来。\n这类方法可以统一写成\n$$ Q_i(s_t,\\mathbf{a}_t) \\leftarrow Q_i(s_t,\\mathbf{a}_t) + \\alpha \\left[ r_i^t + \\gamma \\textcolor{red}{V_i(s_{t+1})} - Q_i(s_t,\\mathbf{a}_t) \\right] $$其中\n$$ \\mathbf{a}_t = (a_1^t,a_2^t,\\dots,a_n^t) $$表示所有 agent 的 joint action。\n所以均衡学习（Equilibrium Learning）的核心就是：每个状态 $s$ 都对应一个由 $Q_i(s,\\mathbf{a})$ 构成的矩阵博弈，然后用某种均衡解法计算 $V_i(s)$，再把这个 $V_i(s)$ 放回 TD target 中。\n方法 适用博弈 $V_i(s)$ 的计算方式 Minimax-Q two-player zero-sum 最大化自己在最坏对手下的收益 Nash-Q general-sum game 先求 Nash equilibrium，再算均衡期望收益 Friend-or-Foe Q friend / foe 关系已知 friend 用 max，foe 用 minimax Minimax-Q Minimax-Q 主要用于 two-player zero-sum game，也就是两个 agent 的收益完全相反：\n$$ u_1(s,\\mathbf{a}) + u_2(s,\\mathbf{a}) = 0 $$对于 agent $i$ 来说，对手不是一个普通环境，而是一个会尽可能让自己收益变低的 adversary。所以在计算 $V_i(s)$ 时，agent 需要选择一个混合策略 $\\pi_i$，让自己在最坏情况下的收益最大。\nMinimax-Q 的核心函数是\n$$ V_i(s) = \\max_{\\pi_i \\in \\Delta(\\mathcal{A}_i)} \\min_{a_{-i} \\in \\mathcal{A}_{-i}} \\sum_{a_i \\in \\mathcal{A}_i} \\pi_i(a_i|s) Q_i(s,a_i,a_{-i}) $$这里和标准 Q-learning 最大的区别是：\n$$ \\textcolor{blue}{\\max_{a'} Q(s',a')} \\quad \\Longrightarrow \\quad \\textcolor{red}{ \\max_{\\pi_i}\\min_{a_{-i}} \\sum_{a_i}\\pi_i(a_i|s')Q_i(s',a_i,a_{-i}) } $$也就是说，标准 Q-learning 只假设自己下一步会选最好的动作，而 Minimax-Q 假设对手会选最坏的反制动作。\nMinimax-Q 的更新可以写成\n$$ Q_i(s_t,a_i^t,a_{-i}^t) \\leftarrow Q_i(s_t,a_i^t,a_{-i}^t) + \\alpha \\left[ r_i^t + \\gamma \\textcolor{red}{ \\max_{\\pi_i}\\min_{a_{-i}} \\sum_{a_i}\\pi_i(a_i|s_{t+1})Q_i(s_{t+1},a_i,a_{-i}) } - Q_i(s_t,a_i^t,a_{-i}^t) \\right] $$算法流程可以写成\nMinimax-Q 初始化 Q_i(s, a_i, a_-i) for t = 0, 1, 2, ... do 在状态 s_t 根据当前策略选择动作 a_i^t 观察对手动作 a_-i^t、奖励 r_i^t 和下一状态 s_{t+1} V_i(s_{t+1}) \u003c- max_{pi_i} min_{a_-i} sum_{a_i} pi_i(a_i|s_{t+1}) Q_i(s_{t+1}, a_i, a_-i) Q_i(s_t, a_i^t, a_-i^t) \u003c- Q_i(s_t, a_i^t, a_-i^t) + alpha [r_i^t + gamma V_i(s_{t+1}) - Q_i(s_t, a_i^t, a_-i^t)] end for Nash-Q Minimax-Q 适合 zero-sum game，但是很多多智能体问题不是零和的。比如两个 agent 可能既有竞争，也有合作，这时候不能简单假设“别人一定会让自己最差”。\nNash-Q 的做法是：在每个状态 $s$，把所有 agent 的 $Q_i(s,\\mathbf{a})$ 看成一个 normal-form game，然后先求这个 stage game 的 Nash equilibrium。\n设在状态 $s$ 下求得的 Nash equilibrium 为\n$$ \\boldsymbol{\\pi}^*(s) = (\\pi_1^*(\\cdot|s),\\pi_2^*(\\cdot|s),\\dots,\\pi_n^*(\\cdot|s)) $$那么 agent $i$ 的状态价值定义为这个均衡下的期望收益：\n$$ V_i(s) = \\sum_{\\mathbf{a}} \\left( \\prod_{j=1}^{n}\\pi_j^*(a_j|s) \\right) Q_i(s,\\mathbf{a}) $$这里和标准 Q-learning 的区别是：\n$$ \\textcolor{blue}{\\max_{a'} Q(s',a')} \\quad \\Longrightarrow \\quad \\textcolor{red}{ \\sum_{\\mathbf{a}'} \\left( \\prod_j \\pi_j^*(a_j'|s') \\right) Q_i(s',\\mathbf{a}') } $$也就是说，Nash-Q 不是直接取最大动作，而是先计算一个多智能体均衡策略，再用均衡策略下的期望收益作为 $V_i(s')$。\nNash-Q 的更新可以写成\n$$ Q_i(s_t,\\mathbf{a}_t) \\leftarrow Q_i(s_t,\\mathbf{a}_t) + \\alpha \\left[ r_i^t + \\gamma \\textcolor{red}{ \\sum_{\\mathbf{a}'} \\left( \\prod_j \\pi_j^*(a_j'|s_{t+1}) \\right) Q_i(s_{t+1},\\mathbf{a}') } - Q_i(s_t,\\mathbf{a}_t) \\right] $$算法流程可以写成\nNash-Q 初始化每个 agent 的 Q_i(s, a) for t = 0, 1, 2, ... do 所有 agent 在状态 s_t 选择 joint action a_t 观察奖励 r_i^t 和下一状态 s_{t+1} 用 {Q_i(s_{t+1}, a')}_{i=1}^n 构造下一状态的 stage game 求该 stage game 的 Nash equilibrium pi*(s_{t+1}) V_i(s_{t+1}) \u003c- sum_{a'} [prod_j pi_j*(a_j'|s_{t+1})] Q_i(s_{t+1}, a') Q_i(s_t, a_t) \u003c- Q_i(s_t, a_t) + alpha [r_i^t + gamma V_i(s_{t+1}) - Q_i(s_t, a_t)] end for Nash-Q 的直觉很自然，但是实际使用会遇到一个问题：一个 stage game 可能存在多个 Nash equilibrium，此时到底选择哪一个均衡会影响 $V_i(s)$ 的计算结果。\nFriend-or-Foe Q Friend-or-Foe Q 可以看作对 Nash-Q 的一个简化。它不在每个状态中求一般的 Nash equilibrium，而是提前假设其他 agent 和自己之间的关系只有两种：\n类型 含义 计算方式 Friend 目标一致，大家一起最大化收益 max Foe 目标相反，对方会让自己收益最小 minimax 如果其他 agent 是 friend，那么 agent $i$ 假设大家会一起选择让自己收益最大的 joint action：\n$$ V_i^{friend}(s) = \\max_{\\mathbf{a}} Q_i(s,\\mathbf{a}) $$如果其他 agent 是 foe，那么就回到 Minimax-Q 的形式：\n$$ V_i^{foe}(s) = \\max_{\\pi_i} \\min_{a_{-i}} \\sum_{a_i}\\pi_i(a_i|s)Q_i(s,a_i,a_{-i}) $$如果同时存在 friend 和 foe，可以把 joint action 拆成三部分：\n$$ \\mathbf{a} = (a_i, \\mathbf{a}_F, \\mathbf{a}_E) $$其中 $\\mathbf{a}_F$ 表示 friend 的动作，$\\mathbf{a}_E$ 表示 foe 的动作。那么更一般的形式可以写成\n$$ V_i(s) = \\max_{\\pi_i,\\pi_F} \\min_{\\pi_E} \\mathbb{E}_{a_i,\\mathbf{a}_F,\\mathbf{a}_E} \\left[ Q_i(s,a_i,\\mathbf{a}_F,\\mathbf{a}_E) \\right] $$这里和标准 Q-learning 的区别是：\n$$ \\textcolor{blue}{\\max_{a'} Q(s',a')} \\quad \\Longrightarrow \\quad \\textcolor{red}{ \\max_{\\text{friend actions}} \\min_{\\text{foe actions}} Q_i(s',\\mathbf{a}') } $$也就是说，Friend-or-Foe Q 把其他 agent 先分类：friend 的动作和自己一起 max，foe 的动作进入 min。\n算法流程可以写成\nFriend-or-Foe Q 初始化 Q_i(s, a)，并给定其他 agent 是 friend 还是 foe for t = 0, 1, 2, ... do 在状态 s_t 选择动作，并观察 joint action a_t 观察奖励 r_i^t 和下一状态 s_{t+1} if 其他 agent 是 friend then V_i(s_{t+1}) \u003c- max_{a'} Q_i(s_{t+1}, a') else if 其他 agent 是 foe then V_i(s_{t+1}) \u003c- max_{pi_i} min_{a_-i} sum_{a_i} pi_i(a_i|s_{t+1}) Q_i(s_{t+1}, a_i, a_-i) end if Q_i(s_t, a_t) \u003c- Q_i(s_t, a_t) + alpha [r_i^t + gamma V_i(s_{t+1}) - Q_i(s_t, a_t)] end for 总结一下，这三类方法的区别主要就在于 $V_i(s')$ 的定义：\n方法 $V_i(s')$ 标准 Q-learning $\\max_{a_i'} Q_i(s',a_i')$ Minimax-Q $\\max_{\\pi_i}\\min_{a_{-i}'} \\mathbb{E}_{a_i'\\sim\\pi_i}[Q_i(s',a_i',a_{-i}')]$ Nash-Q $\\mathbb{E}_{\\mathbf{a}'\\sim\\boldsymbol{\\pi}^*}[Q_i(s',\\mathbf{a}')]$ Friend-or-Foe Q friend 部分取 $\\max$，foe 部分取 $\\min$ 从这个角度看，均衡学习其实就是把标准 Q-learning 中的\n$$ \\max_a Q(s,a) $$替换成一个由博弈均衡定义出来的\n$$ V_i(s) $$而不同算法的差异，就体现在它们相信其他 agent 会如何行动。\n对手建模 均衡学习的思路是：假设每个状态下都存在一个 stage game，然后通过某种均衡概念计算 $V_i(s)$。\n对手建模（Opponent Modeling）的思路不太一样。它不一定要求直接求均衡，而是尝试显式估计其他 agent 的行为模式：\n$$ \\hat{\\pi}_{-i}(a_{-i}|s) $$然后 agent $i$ 在决策时，把这个估计出来的对手策略也考虑进去。\n如果在单智能体 Q-learning 中，我们的目标是\n$$ \\max_{a_i} Q_i(s,a_i) $$那么在对手建模中，更自然的形式是\n$$ a_i^* = \\arg\\max_{a_i} \\mathbb{E}_{a_{-i}\\sim \\hat{\\pi}_{-i}(\\cdot|s)} \\left[ Q_i(s,a_i,a_{-i}) \\right] $$也就是说，我们不再假设对手一定按照某个均衡行动，而是先学习一个对手模型，再基于这个模型选择自己的 best response。\n策略频率建模 最直接的对手建模方法就是策略频率建模，也可以理解为虚拟博弈（Fictitious Play）的思想。\n它的核心假设很简单：对手未来的策略，可以用它过去的动作频率来估计。\n假设在状态 $s$ 下，对手动作 $a_{-i}$ 被观察到的次数是\n$$ N(s,a_{-i}) $$那么对手策略可以估计为\n$$ \\hat{\\pi}_{-i}(a_{-i}|s) = \\frac{N(s,a_{-i})} {\\sum_{a'_{-i}}N(s,a'_{-i})} $$然后 agent $i$ 使用这个估计策略来计算自己每个动作的期望价值：\n$$ \\hat{Q}_i(s,a_i) = \\sum_{a_{-i}} \\hat{\\pi}_{-i}(a_{-i}|s) Q_i(s,a_i,a_{-i}) $$最后选择\n$$ a_i^* = \\arg\\max_{a_i}\\hat{Q}_i(s,a_i) $$这个方法的直觉就是：我不需要知道对手内部怎么想，只要统计它在类似状态下过去怎么做，然后对这个经验分布做 best response。\n虚拟博弈的过程可以写成\nFictitious Play / Frequency Modeling 初始化 N(s, a_-i) = 0 for t = 0, 1, 2, ... do 观察当前状态 s_t 根据历史频率估计 pi_hat_-i(a_-i|s_t) a_i^t \u003c- argmax_{a_i} sum_{a_-i} pi_hat_-i(a_-i|s_t) Q_i(s_t, a_i, a_-i) 执行 a_i^t，观察对手动作 a_-i^t N(s_t, a_-i^t) \u003c- N(s_t, a_-i^t) + 1 end for 这个方法简单、可解释，但也有明显限制：它默认对手策略相对稳定。如果对手也在学习，历史频率就可能滞后于对手当前策略。\n对手类型建模 另一类直接建模方法是对手类型建模（Opponent Type Modeling）。\n它不是直接估计“对手在每个状态下出每个动作的概率”，而是假设对手来自某个类型集合：\n$$ \\Theta = \\{\\theta_1,\\theta_2,\\dots,\\theta_K\\} $$每个类型 $\\theta_k$ 对应一种策略模型：\n$$ \\pi_{-i}(a_{-i}|s,\\theta_k) $$比如在一个游戏里，对手可能是：\n类型 行为模式 $\\theta_1$ 保守型 $\\theta_2$ 激进型 $\\theta_3$ 随机型 $\\theta_4$ 针对型 agent 维护一个关于对手类型的 belief：\n$$ b(\\theta_k) = P(\\theta_k | h_t) $$其中 $h_t$ 表示到当前为止观察到的历史轨迹。\n当观察到对手在状态 $s_t$ 下选择动作 $a_{-i}^t$ 后，可以用 Bayes rule 更新类型概率：\n$$ b_{t+1}(\\theta_k) \\propto b_t(\\theta_k) \\pi_{-i}(a_{-i}^t|s_t,\\theta_k) $$归一化后得到新的 belief：\n$$ b_{t+1}(\\theta_k) = \\frac{ b_t(\\theta_k)\\pi_{-i}(a_{-i}^t|s_t,\\theta_k) }{ \\sum_j b_t(\\theta_j)\\pi_{-i}(a_{-i}^t|s_t,\\theta_j) } $$有了类型 belief 后，对手策略可以写成一个加权平均：\n$$ \\hat{\\pi}_{-i}(a_{-i}|s) = \\sum_k b(\\theta_k)\\pi_{-i}(a_{-i}|s,\\theta_k) $$然后再像前面一样，对这个估计策略做 best response：\n$$ a_i^* = \\arg\\max_{a_i} \\sum_{a_{-i}} \\hat{\\pi}_{-i}(a_{-i}|s) Q_i(s,a_i,a_{-i}) $$算法流程可以写成\nOpponent Type Modeling 给定类型集合 Theta = {theta_1, ..., theta_K} 初始化 belief b_0(theta_k) for t = 0, 1, 2, ... do pi_hat_-i(a_-i|s_t) \u003c- sum_k b_t(theta_k) pi_-i(a_-i|s_t, theta_k) a_i^t \u003c- argmax_{a_i} sum_{a_-i} pi_hat_-i(a_-i|s_t) Q_i(s_t, a_i, a_-i) 执行 a_i^t，观察 a_-i^t b_{t+1}(theta_k) \u003c- normalize[b_t(theta_k) pi_-i(a_-i^t|s_t, theta_k)] end for 类型建模比频率建模更有结构，因为它可以利用先验知识。但问题也很明显：如果真实对手不在预设类型集合里，那么 belief 更新得再好，也只能在错误的模型集合中选择一个“最像的”类型。\n递归建模 前面两种方法都在建模对手的行为，但还没有考虑一个问题：对手可能也在建模我。\n递归建模（Recursive Opponent Modeling）的核心就是引入这种层级推理：\n$$ \\text{我建模你，你也建模我，我再建模你如何建模我} $$可以粗略写成：\n层级 含义 Level-0 对手不建模别人，只按固定策略行动 Level-1 我认为对手是 Level-0，于是对它做 best response Level-2 我认为对手认为我是 Level-0，于是我再对这个推理做 best response 这种思想在博弈论和多智能体系统中很自然，但递归层数一高就会带来很大的计算复杂度。因为每多一层，都要多维护一层“对手的信念”和“对手对我的信念”。\n所以递归建模通常更适合用来理解多智能体推理结构，而不是直接在复杂深度 RL 场景中无限展开。\n神经虚拟博弈 现代方法会把虚拟博弈的思想和神经网络结合起来，可以简单理解为 Neural Fictitious Self-Play（NFSP）这一类方法。\n在普通虚拟博弈中，我们用显式频率统计来表示平均策略：\n$$ \\hat{\\pi}(a|s) $$但是在大规模状态空间中，不能为每个状态都维护一张表，所以可以用神经网络来近似这个平均策略：\n$$ \\Pi_\\phi(a|s) \\approx \\text{average policy} $$同时再用一个 Q 网络学习对平均策略的 best response：\n$$ Q_\\theta(s,a) $$因此 NFSP 类方法通常包含两部分：\n模块 作用 Best response network 学习当前对手平均策略下的最优反应 Average policy network 模仿自己的历史行为，近似虚拟博弈中的平均策略 可以把它理解为：\n$$ \\text{RL 学 best response} \\quad + \\quad \\text{SL 学 average policy} $$其中 RL 部分用于让 agent 变强，SL 部分用于记录长期平均策略，使训练过程更接近虚拟博弈中的策略平均。\n这个方向的意义在于：它把原本只适合小型矩阵博弈的虚拟博弈，扩展到了高维状态空间和深度强化学习场景。\nMARL 的三个困境 正式进入 MARL 算法之前，先把多智能体学习中最常见的三个问题单独拎出来：\n困境 问题 直觉 非平稳性 其他 agent 也在学习，环境转移分布会变 我以为环境固定，其实队友和对手一直在变 相对过度泛化 最优 joint action 因为协作失败被平均成低价值 最好的配合很脆弱，次优但稳的行为被学出来 信度分配 全局奖励很难分清每个 agent 的贡献 赢了不知道谁功劳大，输了不知道谁背锅 这三个问题会贯穿后面很多 MARL 方法。\n非平稳性 在单智能体 RL 中，我们通常假设环境转移是固定的：\n$$ P(s'|s,a) $$但是在 MARL 中，agent $i$ 看到的转移其实和其他 agent 的策略有关：\n$$ P(s'|s,a_i) = \\sum_{a_{-i}} P(s'|s,a_i,a_{-i}) \\pi_{-i}(a_{-i}|s) $$如果其他 agent 的策略 $\\pi_{-i}$ 也在学习，那么从 agent $i$ 的视角看，环境分布就在不断变化。\n$$ \\pi_{-i}^{t} \\neq \\pi_{-i}^{t+1} \\quad \\Longrightarrow \\quad P_t(s'|s,a_i) \\neq P_{t+1}(s'|s,a_i) $$这就是非平稳性（Non-stationarity）。\nIL 和 JAL 处理非平稳性的两种基础思路是 Independent Learner（IL）和 Joint Action Learner（JAL）。\n方法 Q function 是否显式考虑其他 agent 动作 IL $Q_i(s,a_i)$ 否 JAL $Q_i(s,\\mathbf{a})$ 是 IL 的做法是每个 agent 都把其他 agent 当成环境的一部分，直接学习\n$$ Q_i(s,a_i) $$它的更新形式和单智能体 Q-learning 很像：\n$$ Q_i(s_t,a_i^t) \\leftarrow Q_i(s_t,a_i^t) + \\alpha \\left[ r_i^t + \\gamma \\max_{a_i'}Q_i(s_{t+1},a_i') - Q_i(s_t,a_i^t) \\right] $$问题是，其他 agent 的策略变化被隐藏进了环境里，所以 IL 面对的是一个非平稳环境。\nJAL 的做法更进一步，它直接把 joint action 放进 Q function：\n$$ Q_i(s,\\mathbf{a}) $$其中 $\\mathbf{a}$ 表示所有 agent 的联合动作。\n这样 agent 至少知道“整个联合动作”产生了当前结果。在协作任务中，如果把下一状态中最好的联合动作当作 target，那么 JAL 的状态价值可以写成\n$$ V_i^{JAL}(s') = \\max_{\\mathbf{a}'} Q_i(s',\\mathbf{a}') $$和 Nash-Q 对比一下，Nash-Q 是先求下一状态 stage game 的 Nash equilibrium：\n$$ V_i^{Nash}(s') = \\sum_{\\mathbf{a}'} \\left( \\prod_j \\pi_j^*(a_j'|s') \\right) Q_i(s',\\mathbf{a}') $$而 JAL 直接在 joint action 上取最大值：\n$$ V_i^{JAL}(s') = \\textcolor{red}{ \\max_{\\mathbf{a}'} Q_i(s',\\mathbf{a}') } $$所以 JAL 和 Nash-Q 的关键区别是：\n$$ \\textcolor{blue}{\\text{Nash-Q: 求均衡策略 } \\boldsymbol{\\pi}^* \\text{ 后算期望价值}} \\quad \\Longrightarrow \\quad \\textcolor{red}{\\text{JAL: 直接对 joint action 取 max}} $$JAL 的更新可以写成\n$$ Q_i(s_t,\\mathbf{a}_t) \\leftarrow Q_i(s_t,\\mathbf{a}_t) + \\alpha \\left[ r_i^t + \\gamma \\textcolor{red}{ \\max_{\\mathbf{a}'}Q_i(s_{t+1},\\mathbf{a}') } - Q_i(s_t,\\mathbf{a}_t) \\right] $$算法流程可以写成\nJoint Action Learner 初始化 Q_i(s, a) for t = 0, 1, 2, ... do 在状态 s_t 观察或形成联合动作 a_t 执行 a_t，观察奖励 r_i^t 和下一状态 s_{t+1} V_i(s_{t+1}) \u003c- max_{a'} Q_i(s_{t+1}, a') Q_i(s_t, a_t) \u003c- Q_i(s_t, a_t) + alpha [r_i^t + gamma V_i(s_{t+1}) - Q_i(s_t, a_t)] end for 补充：把联合动作拆成自身动作和其他 agent 动作 如果把联合动作写成\n$$ \\mathbf{a}=(a_i,a_{-i}) $$那么 JAL 也可以配合一个对手模型\n$$ \\hat{\\pi}_{-i}(a_{-i}|s) $$来计算自己动作的 best response：\n$$ V_i(s') = \\max_{a_i'} \\sum_{a_{-i}'} \\hat{\\pi}_{-i}(a_{-i}'|s') Q_i(s',a_i',a_{-i}') $$完整流程可以写成\nJoint Action Learner with Opponent Model 初始化 Q_i(s, a_i, a_-i) 和对手模型 pi_hat_-i(a_-i|s) for t = 0, 1, 2, ... do 在状态 s_t 选择动作 a_i^t 观察 (a_i^t, a_-i^t)、奖励 r_i^t 和下一状态 s_{t+1} 更新对手模型 pi_hat_-i(a_-i^t|s_t) V_i(s_{t+1}) \u003c- max_{a_i'} sum_{a_-i'} pi_hat_-i(a_-i'|s_{t+1}) Q_i(s_{t+1}, a_i', a_-i') Q_i(s_t, a_i^t, a_-i^t) \u003c- Q_i(s_t, a_i^t, a_-i^t) + alpha [r_i^t + gamma V_i(s_{t+1}) - Q_i(s_t, a_i^t, a_-i^t)] end for JAL 比 IL 更能表达多智能体交互，但代价是 joint action 空间会随着 agent 数量指数增长。\n相对过度泛化 相对过度泛化（Relative Overgeneralization, RO）通常出现在协作型 MARL 中。\n它描述的是这样一种现象：某个 joint action 明明是全局最优，但是它需要多个 agent 精确配合。一旦队友没有配合好，这个动作就会得到很差的回报。结果在学习过程中，这个最优动作被“平均”成了低价值，最后 agent 反而学到了一个更稳但次优的策略。\n看一个简单例子，两个 agent 都有动作 $A$ 和 $B$，共享奖励如下：\nAgent 2: A Agent 2: B Agent 1: A $10$ $0$ Agent 1: B $6$ $7$ 全局最优显然是\n$$ (A,A) \\rightarrow 10 $$但是如果 Agent 2 还在随机探索，那么对 Agent 1 来说：\n$$ \\mathbb{E}[R|a_1=A] = \\frac{1}{2}\\cdot 10 + \\frac{1}{2}\\cdot 0 = 5 $$$$ \\mathbb{E}[R|a_1=B] = \\frac{1}{2}\\cdot 6 + \\frac{1}{2}\\cdot 7 = 6.5 $$于是 Agent 1 会觉得 $B$ 比 $A$ 更好。Agent 2 也会做出类似判断。最后系统可能收敛到 $(B,B)$，虽然它的回报 $7$ 小于最优的 $10$。\n这就是 RO 的核心：最优配合因为早期协作失败被低估，而次优但鲁棒的行为被过度泛化。\n滞后 Q-learning 滞后 Q-learning（Hysteretic Q-learning）的核心想法是：在协作任务中，负 TD error 不一定说明当前动作不好，也可能是队友探索导致配合失败。\n所以它使用两个学习率：\n$$ \\alpha \u003e \\beta $$当 TD error 为正时，用较大的学习率 $\\alpha$ 更新；当 TD error 为负时，用较小的学习率 $\\beta$ 更新：\n$$ \\delta_t = r_t + \\gamma \\max_{a_i'}Q_i(s_{t+1},a_i') - Q_i(s_t,a_i^t) $$$$ Q_i(s_t,a_i^t) \\leftarrow Q_i(s_t,a_i^t) + \\begin{cases} \\alpha \\delta_t, \u0026 \\delta_t \\geq 0 \\\\ \\beta \\delta_t, \u0026 \\delta_t \u003c 0 \\end{cases} $$直觉上，它更愿意相信“好结果”，而对“坏结果”保持宽容。\n算法流程可以写成\nHysteretic Q-learning 初始化 Q_i(s, a_i)，设置 alpha \u003e beta for t = 0, 1, 2, ... do 选择并执行动作 a_i^t，观察共享奖励 r_t 和 s_{t+1} delta_t \u003c- r_t + gamma max_{a_i'} Q_i(s_{t+1}, a_i') - Q_i(s_t, a_i^t) if delta_t \u003e= 0 then Q_i(s_t, a_i^t) \u003c- Q_i(s_t, a_i^t) + alpha delta_t else Q_i(s_t, a_i^t) \u003c- Q_i(s_t, a_i^t) + beta delta_t end if end for 宽容 Q-learning 宽容 Q-learning（Lenient Q-learning）和滞后 Q 的思想很像，也是为了避免早期协作失败过度惩罚好动作。\n不同之处在于，宽容 Q 会显式维护一个温度或宽容度：\n$$ T(s,a) $$训练早期温度高，对负 TD error 更宽容；访问次数增加后温度逐渐下降，agent 变得更严格。\n一种常见写法是根据温度定义宽容概率：\n$$ l(s,a) = 1 - e^{-K T(s,a)} $$当 $\\delta_t \u003c 0$ 时，以概率 $l(s,a)$ 忽略这次负更新；当 $\\delta_t \\geq 0$ 时正常更新。\n$$ Q_i(s_t,a_i^t) \\leftarrow Q_i(s_t,a_i^t) + \\alpha \\delta_t \\quad \\text{if } \\delta_t \\geq 0 \\text{ or } u \u003e l(s_t,a_i^t) $$其中 $u \\sim U(0,1)$。\n算法流程可以写成\nLenient Q-learning 初始化 Q_i(s, a_i) 和温度 T(s, a_i) for t = 0, 1, 2, ... do 选择动作 a_i^t，观察 r_t 和 s_{t+1} delta_t \u003c- r_t + gamma max_{a_i'} Q_i(s_{t+1}, a_i') - Q_i(s_t, a_i^t) l(s_t, a_i^t) \u003c- 1 - exp(-K T(s_t, a_i^t)) u \u003c- Uniform(0, 1) if delta_t \u003e= 0 or u \u003e l(s_t, a_i^t) then Q_i(s_t, a_i^t) \u003c- Q_i(s_t, a_i^t) + alpha delta_t end if T(s_t, a_i^t) \u003c- kappa T(s_t, a_i^t) end for 滞后 Q 是“负更新变小”，宽容 Q 是“早期负更新可能直接忽略”。\nPHC 在介绍 WoLF 之前，先介绍 PHC，也就是 Policy Hill-Climbing。\n普通 Q-learning 学到 $Q(s,a)$ 后，通常直接用 $\\epsilon$-greedy 选动作。但 PHC 会显式维护一个随机策略：\n$$ \\pi_i(a|s) $$然后一边用 Q-learning 更新 $Q_i(s,a)$，一边把策略往当前 greedy action 的方向推。\n设当前最优动作为\n$$ a^* = \\arg\\max_a Q_i(s,a) $$那么 PHC 的策略更新可以写成\n$$ \\pi_i(a|s) \\leftarrow \\pi_i(a|s) + \\Delta_{s,a} $$其中\n$$ \\Delta_{s,a} = \\begin{cases} \\delta, \u0026 a = a^* \\\\ -\\frac{\\delta}{|\\mathcal{A}|-1}, \u0026 a \\neq a^* \\end{cases} $$最后再把策略裁剪到合法概率范围，并重新归一化：\n$$ \\sum_a \\pi_i(a|s)=1, \\quad \\pi_i(a|s)\\geq 0 $$直觉上，PHC 就是：Q-learning 负责估计动作价值，policy hill-climbing 负责把策略慢慢推向当前看起来最好的动作。\n算法流程可以写成\nPolicy Hill-Climbing 初始化 Q_i(s, a_i) 和策略 pi_i(a_i|s) for t = 0, 1, 2, ... do 根据 pi_i(.|s_t) 选择动作 a_i^t 执行动作，观察奖励 r_i^t 和下一状态 s_{t+1} Q_i(s_t, a_i^t) \u003c- Q_i(s_t, a_i^t) + alpha [r_i^t + gamma max_{a_i'} Q_i(s_{t+1}, a_i') - Q_i(s_t, a_i^t)] a* \u003c- argmax_a Q_i(s_t, a) pi_i(a*|s_t) \u003c- pi_i(a*|s_t) + delta pi_i(a|s_t) \u003c- pi_i(a|s_t) - delta / (|A|-1), for a != a* 裁剪并归一化 pi_i(.|s_t) end for PHC 的问题是它使用固定策略步长 $\\delta$。在多智能体场景中，如果所有 agent 都用固定步长调整策略，很容易相互追逐，导致策略震荡。\nWoLF-PHC WoLF-PHC 是在 PHC 上加入 WoLF 原则。WoLF 的全称是 Win or Learn Fast，它的核心思想是：\n$$ \\text{winning 时学慢一点，losing 时学快一点} $$这里的 winning 通常通过当前策略 $\\pi_i$ 和平均策略 $\\bar{\\pi}_i$ 的价值比较来判断：\n$$ V_i(s,\\pi_i) = \\sum_a \\pi_i(a|s)Q_i(s,a) $$$$ V_i(s,\\bar{\\pi}_i) = \\sum_a \\bar{\\pi}_i(a|s)Q_i(s,a) $$如果\n$$ V_i(s,\\pi_i) \u003e V_i(s,\\bar{\\pi}_i) $$说明当前策略比平均策略更好，agent 处于 winning 状态，使用较小步长 $\\delta_w$；否则处于 losing 状态，使用较大步长 $\\delta_l$：\n$$ \\delta = \\begin{cases} \\delta_w, \u0026 V_i(s,\\pi_i) \u003e V_i(s,\\bar{\\pi}_i) \\\\ \\delta_l, \u0026 \\text{otherwise} \\end{cases} \\quad \\delta_w \u003c \\delta_l $$所以 WoLF-PHC 和 PHC 的区别就是：PHC 使用固定 $\\delta$，而 WoLF-PHC 根据当前是否 winning 自适应选择策略更新步长。\n算法流程可以写成\nWoLF-PHC 初始化 Q_i(s, a_i), pi_i(a_i|s), pi_bar_i(a_i|s) 设置 delta_w \u003c delta_l for t = 0, 1, 2, ... do 根据 pi_i(.|s_t) 选择动作 a_i^t 执行动作，观察奖励 r_i^t 和下一状态 s_{t+1} Q_i(s_t, a_i^t) \u003c- Q_i(s_t, a_i^t) + alpha [r_i^t + gamma max_{a_i'} Q_i(s_{t+1}, a_i') - Q_i(s_t, a_i^t)] 更新平均策略 pi_bar_i(.|s_t) if sum_a pi_i(a|s_t) Q_i(s_t,a) \u003e sum_a pi_bar_i(a|s_t) Q_i(s_t,a) then delta \u003c- delta_w else delta \u003c- delta_l end if a* \u003c- argmax_a Q_i(s_t, a) pi_i(a*|s_t) \u003c- pi_i(a*|s_t) + delta pi_i(a|s_t) \u003c- pi_i(a|s_t) - delta / (|A|-1), for a != a* 裁剪并归一化 pi_i(.|s_t) end for WoLF-PHC 的作用更偏向稳定多智能体中的策略变化：当自己表现不错时不要剧烈改变策略，当自己表现差时更快调整。\nrFMQ rFMQ 可以理解为 Frequency Maximum Q-value 这一类方法的递归版本，它的核心目标也是避免 RO。\n普通 Q 值是平均意义下的估计：\n$$ Q(s,a) \\approx \\mathbb{E}[R|s,a] $$但 RO 的问题恰好就出在“平均”上：一个动作只有在队友配合时才很好，配合失败时很差，于是平均值被拉低。\nrFMQ 会额外记录两个信息：\n量 含义 $Q_i(s,a_i)$ 平均回报 $Q_i^{max}(s,a_i)$ 这个动作曾经得到过的最大回报 $F_i(s,a_i)$ 这个动作达到最大回报的频率 这里最关键的是 $F_i(s,a_i)$ 的递归更新。更准确地说，rFMQ 不只是记录一个最大回报，还要记录这个最大回报是不是经常能够达到。\n记这次用于更新的样本 target 为\n$$ y_t = r_t + \\gamma \\max_{a_i'}Q_i(s_{t+1},a_i') $$如果这次出现了新的最大值：\n$$ y_t \u003e Q_i^{max}(s_t,a_i^t) $$那么直接更新最大值，并把频率重置为 $1$：\n$$ Q_i^{max}(s_t,a_i^t) \\leftarrow y_t, \\quad F_i(s_t,a_i^t) \\leftarrow 1 $$如果没有出现新的最大值，那么才用递归方式更新频率：\n$$ F_i(s_t,a_i^t) \\leftarrow (1-\\alpha_F)F_i(s_t,a_i^t) + \\alpha_F \\mathbb{I}\\left(y_t = Q_i^{max}(s_t,a_i^t)\\right) $$实际实现时，连续值场景中一般不会严格相等，所以可以把指示函数换成一个小阈值：\n$$ \\mathbb{I}\\left(|y_t - Q_i^{max}(s_t,a_i^t)| \u003c \\epsilon\\right) $$这也是 rFMQ 和 FMQ 的一个关键区别：FMQ 关注 maximum value 和达到 maximum 的频率，而 rFMQ 用递归方式在线维护这个频率，并且当新的最大值出现时把 $F$ 重置为 $1$。你刚才指出的理解是对的，这个重置是 rFMQ 的核心点。\n有了 $Q^{max}$ 和 $F$ 后，动作选择时使用的增强评价值是\n$$ E_i(s,a_i) = (1-F_i(s,a_i))Q_i(s,a_i) + F_i(s,a_i)Q_i^{max}(s,a_i) $$等价地写成\n$$ E_i(s,a_i) = Q_i(s,a_i) + F_i(s,a_i)\\left(Q_i^{max}(s,a_i)-Q_i(s,a_i)\\right) $$也就是说，$F$ 越大，说明这个动作越稳定地达到过高回报，那么 $E$ 就越接近 $Q^{max}$；$F$ 越小，说明最大回报更像偶然事件，那么 $E$ 就更接近普通平均 $Q$。\n再用这个增强后的评价值进行 Boltzmann 选择：\n$$ P(a_i|s) = \\frac{\\exp(E_i(s,a_i)/\\tau)} {\\sum_{a_i'}\\exp(E_i(s,a_i')/\\tau)} $$直觉上，rFMQ 在说：如果某个动作虽然平均回报不高，但它曾经稳定达到过很高的回报，那么它可能是一个需要队友配合的好动作，不应该太早放弃。\n算法流程可以写成\nrFMQ 初始化 Q_i(s, a_i), Q_i^max(s, a_i), F_i(s, a_i) for t = 0, 1, 2, ... do E_i(s_t, a_i) \u003c- Q_i(s_t, a_i) + F_i(s_t, a_i) [Q_i^max(s_t, a_i) - Q_i(s_t, a_i)] 根据 E_i(s_t, a_i) 用 Boltzmann 分布选择动作 a_i^t 观察奖励 r_t 和下一状态 s_{t+1} y_t \u003c- r_t + gamma max_{a_i'} Q_i(s_{t+1}, a_i') Q_i(s_t, a_i^t) \u003c- Q_i(s_t, a_i^t) + alpha [y_t - Q_i(s_t, a_i^t)] if y_t \u003e Q_i^max(s_t, a_i^t) then Q_i^max(s_t, a_i^t) \u003c- y_t F_i(s_t, a_i^t) \u003c- 1 else F_i(s_t, a_i^t) \u003c- (1-alpha_F)F_i(s_t, a_i^t) + alpha_F I(y_t = Q_i^max(s_t, a_i^t)) end if end for 这类方法和滞后 Q、宽容 Q 的区别是：滞后 Q 和宽容 Q 主要处理负反馈，而 rFMQ 通过记录最大回报与频率，让 agent 不要被平均回报误导。\n信度分配 在协作型 MARL 中，很多任务只给一个全局奖励：\n$$ R_t = R(s_t,\\mathbf{a}_t) $$但是这个奖励是所有 agent 共同产生的。问题是：如果团队成功了，到底是谁贡献最大？如果团队失败了，到底是哪个 agent 的动作导致失败？\n这就是信度分配问题（Credit Assignment）。\n最直接的做法是让所有 agent 都使用同一个全局奖励：\n$$ r_i = R $$但这会带来高方差和学习低效。因为某个 agent 的动作可能很好，却因为其他 agent 的错误导致全局奖励很差；反过来也可能某个 agent 做错了，但被队友补救，所以它仍然拿到高奖励。\n差分奖励 差分方法（Difference Reward）的核心思想是：衡量 agent $i$ 的贡献时，不看全局奖励本身，而是看“有它”和“没有它”之间的差别。\n设整个系统的状态和 joint action 记作 $z$，全局奖励是\n$$ G(z) $$如果把 agent $i$ 的行为替换成一个默认行为 $c_i$，得到 counterfactual 系统\n$$ z_{-i} + c_i $$那么 agent $i$ 的差分奖励定义为\n$$ D_i(z) = G(z) - G(z_{-i} + c_i) $$这里\n项 含义 $G(z)$ 真实团队表现 $G(z_{-i}+c_i)$ 如果 agent $i$ 不产生当前贡献，团队会怎样 $D_i(z)$ agent $i$ 对全局结果的边际贡献 差分奖励的好处是，它仍然和全局目标一致，但能去掉很多与 agent $i$ 无关的噪声。\n如果用于 Q-learning，可以直接把奖励替换成差分奖励：\n$$ Q_i(s_t,a_i^t) \\leftarrow Q_i(s_t,a_i^t) + \\alpha \\left[ \\textcolor{red}{D_i(z_t)} + \\gamma \\max_{a_i'}Q_i(s_{t+1},a_i') - Q_i(s_t,a_i^t) \\right] $$算法流程可以写成\nDifference Reward Learning 初始化每个 agent 的 Q_i(s, a_i) for t = 0, 1, 2, ... do 所有 agent 执行动作，得到系统结果 z_t 和全局奖励 G(z_t) for each agent i do 构造 counterfactual z_-i + c_i D_i(z_t) \u003c- G(z_t) - G(z_-i + c_i) Q_i(s_t, a_i^t) \u003c- Q_i(s_t, a_i^t) + alpha [D_i(z_t) + gamma max_{a_i'} Q_i(s_{t+1}, a_i') - Q_i(s_t, a_i^t)] end for end for 差分奖励最大的问题是 counterfactual 不一定容易得到。很多真实环境中，我们无法真的把 agent $i$ 的动作替换掉再跑一次环境，所以需要用模型估计或者用 critic 近似。\n其他解决思路 除了差分奖励，还有几类常见思路：\n方法 核心思路 Local reward 给每个 agent 设计局部奖励，降低全局奖励的噪声 Reward shaping 在全局奖励之外加入辅助奖励，引导中间行为 Centralized critic 训练时 critic 看到全局信息，给每个 actor 更准确的梯度 Counterfactual baseline 用反事实 baseline 估计某个 agent 动作的边际贡献 Value decomposition 把全局 $Q_{tot}$ 分解成每个 agent 的局部价值 比如 COMA 的思想就是使用 centralized critic 构造 counterfactual advantage：\n$$ A_i(s,\\mathbf{a}) = Q(s,\\mathbf{a}) - \\sum_{a_i'} \\pi_i(a_i'|o_i) Q(s,(a_i',a_{-i})) $$它不是简单问“团队奖励是多少”，而是问“在其他 agent 动作不变时，agent $i$ 当前这个动作比它自己的平均动作好多少”。\n再比如 VDN 和 QMIX 这类 value decomposition 方法，会把团队价值写成局部价值的组合：\n$$ Q_{tot}(s,\\mathbf{a}) = \\sum_i Q_i(o_i,a_i) $$或者更一般地写成\n$$ Q_{tot} = f_{\\text{mix}}(Q_1,Q_2,\\dots,Q_n,s) $$这类方法的目标是让每个 agent 能从全局价值中学到自己的局部贡献。\n总结一下，信度分配要解决的是：\n$$ \\text{全局结果} \\quad \\Longrightarrow \\quad \\text{个体贡献} $$而不同方法的区别，就在于它们是通过手工奖励、反事实估计、centralized critic，还是 value decomposition 来完成这个拆分。\n",
+  "wordCount" : "3125",
+  "inLanguage": "en",
+  "datePublished": "2026-06-26T11:48:59+08:00",
+  "dateModified": "2026-06-26T11:48:59+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://crazyjassbread.github.io/posts/reinforcement-learning/basic/05/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "CrazyBread' Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://crazyjassbread.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+     <script>
+  window.MathJax = {
+    loader: {
+      load: ["[tex]/color"],
+    },
+    tex: {
+      packages: { "[+]": ["color"] },
+      displayMath: [
+        ["\\[", "\\]"],
+        ["$$", "$$"],
+      ],
+      inlineMath: [
+        ["\\(", "\\)"],
+        ["$", "$"],
+      ],
+      processEscapes: true,
+    },
+  };
+</script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net.cn/npm/mathjax@3/es5/tex-chtml.js"
+></script>
+ 
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://crazyjassbread.github.io/" accesskey="h" title="CrazyBread&#39; Blog (Alt + H)">CrazyBread&#39; Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://crazyjassbread.github.io/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://crazyjassbread.github.io/papers/" title="Papers">
+                    <span>Papers</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://crazyjassbread.github.io/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://crazyjassbread.github.io/posts/" title="Notes">
+                    <span>Notes</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://crazyjassbread.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://crazyjassbread.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://crazyjassbread.github.io/posts/">Notes</a>&nbsp;»&nbsp;<a href="https://crazyjassbread.github.io/posts/reinforcement-learning/basic/">Reinforcement Learning 基础</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Multi-Agent Reinforcement Learning
+    </h1>
+    <div class="post-meta"><span title='2026-06-26 11:48:59 +0800 CST'>June 26, 2026</span>&nbsp;·&nbsp;15 min
+
+</div>
+  </header> 
+  <div class="post-content"><p>从这一节开始进入 Multi-Agent Reinforcement Learning，也就是多智能体强化学习。</p>
+<p>在单智能体 RL 中，我们通常只关心一个 agent 的 return：</p>
+$$
+J(\pi) = \mathbb{E}_{\pi}[G_t]
+$$<p>但是在多智能体场景下，环境中同时存在多个 agent，每个 agent 的收益不仅取决于自己的动作，也取决于其他 agent 的动作。也就是说，问题从“一个 agent 怎么最大化自己的回报”，变成了“多个 agent 在相互影响时会形成什么结果”。</p>
+<p>所以在正式进入 MARL 算法之前，需要先补充一些博弈论中的基本概念。</p>
+<h2 id="前置准备">前置准备<a hidden class="anchor" aria-hidden="true" href="#前置准备">#</a></h2>
+<h3 id="布雷斯悖论">布雷斯悖论<a hidden class="anchor" aria-hidden="true" href="#布雷斯悖论">#</a></h3>
+<p>先看一个很经典的例子：布雷斯悖论（Braess&rsquo;s Paradox）。</p>
+<p>假设有 $4000$ 辆车要从 Start 开到 End，中间有两个途径点 $A$ 和 $B$，一开始有两条路线可以选：</p>
+$$
+S \rightarrow A \rightarrow E
+$$$$
+S \rightarrow B \rightarrow E
+$$<p>每条边的通行时间如下，其中 $t$ 表示这条边上的车辆数：</p>
+<table>
+  <thead>
+      <tr>
+          <th>路段</th>
+          <th style="text-align: right">时间</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$S \rightarrow A$</td>
+          <td style="text-align: right">$\frac{t}{100}$</td>
+      </tr>
+      <tr>
+          <td>$A \rightarrow E$</td>
+          <td style="text-align: right">$45$</td>
+      </tr>
+      <tr>
+          <td>$S \rightarrow B$</td>
+          <td style="text-align: right">$45$</td>
+      </tr>
+      <tr>
+          <td>$B \rightarrow E$</td>
+          <td style="text-align: right">$\frac{t}{100}$</td>
+      </tr>
+  </tbody>
+</table>
+<p>设选择 $S \rightarrow A \rightarrow E$ 的车辆数是 $x$，那么选择 $S \rightarrow B \rightarrow E$ 的车辆数就是 $4000-x$。</p>
+<p>两条路线的时间分别是</p>
+$$
+T_{SAE}(x) = \frac{x}{100} + 45
+$$$$
+T_{SBE}(x) = 45 + \frac{4000-x}{100}
+$$<p>如果想让两条路都没有单方面换路的动力，就需要两条路时间相同：</p>
+$$
+\frac{x}{100} + 45 = 45 + \frac{4000-x}{100}
+$$<p>解得</p>
+$$
+x = 2000
+$$<p>所以最优分流是两条路线各走 $2000$ 辆车，此时每辆车的通行时间都是</p>
+$$
+T = \frac{2000}{100} + 45 = 65
+$$<p>这个结果很合理：一半车走上面，一半车走下面，大家的时间都是 $65$。</p>
+<p>现在加入一条新的 shortcut：</p>
+$$
+A \rightarrow B
+$$<p>并且这条路不需要时间：</p>
+$$
+T_{AB} = 0
+$$<p>看起来这应该只会让情况更好，因为每辆车多了一个选择。但是如果每辆车都只按照自己的局部最优来选，结果会变差。</p>
+<p>首先，从 $S$ 出发时：</p>
+<ul>
+<li>走 $S \rightarrow A$ 的时间是 $\frac{t}{100}$，最多也就是 $\frac{4000}{100}=40$</li>
+<li>走 $S \rightarrow B$ 的时间固定是 $45$</li>
+</ul>
+<p>所以每辆车都会更倾向于先走</p>
+$$
+S \rightarrow A
+$$<p>到达 $A$ 之后：</p>
+<ul>
+<li>直接走 $A \rightarrow E$ 的时间固定是 $45$</li>
+<li>走 shortcut 到 $B$，再走 $B \rightarrow E$ 的时间是 $0 + \frac{t}{100}$，最多也是 $40$</li>
+</ul>
+<p>所以每辆车又会更倾向于走</p>
+$$
+A \rightarrow B \rightarrow E
+$$<p>最后所有车都会选择新路线</p>
+$$
+S \rightarrow A \rightarrow B \rightarrow E
+$$<p>这时 $S \rightarrow A$ 上有 $4000$ 辆车，$B \rightarrow E$ 上也有 $4000$ 辆车，所以每辆车的时间变成</p>
+$$
+T = \frac{4000}{100} + 0 + \frac{4000}{100} = 80
+$$<p>也就是说，加入一条免费的 shortcut 之后，原来每辆车只需要 $65$，现在反而变成了 $80$。</p>
+<p>这就是布雷斯悖论：在多智能体系统中，给每个个体增加一个看似更好的选择，并不一定会提升整体效率。因为每个个体都在做局部最优决策，最后形成的均衡结果可能比原来的系统更差。</p>
+<h3 id="博弈结果的评判标准">博弈结果的评判标准<a hidden class="anchor" aria-hidden="true" href="#博弈结果的评判标准">#</a></h3>
+<p>假设有两个 agent，分别选择动作 $a_1$ 和 $a_2$，收益函数为</p>
+$$
+u_1(a_1,a_2), \quad u_2(a_1,a_2)
+$$<p>不同的评判标准对应不同的“什么结果是好结果”。</p>
+<table>
+  <thead>
+      <tr>
+          <th>标准</th>
+          <th>关注点</th>
+          <th>直觉</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>社会福利</td>
+          <td>所有 agent 的总收益</td>
+          <td>整体收益最大</td>
+      </tr>
+      <tr>
+          <td>帕累托优</td>
+          <td>是否还能让某些人更好且不让别人更差</td>
+          <td>没有免费的改进空间</td>
+      </tr>
+      <tr>
+          <td>纳什均衡</td>
+          <td>单个 agent 是否有动力单方面改变策略</td>
+          <td>谁都不想自己换动作</td>
+      </tr>
+      <tr>
+          <td>优超</td>
+          <td>某个动作是否无论对方怎么做都更好</td>
+          <td>不看对方，直接选更占优的动作</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="社会福利">社会福利<a hidden class="anchor" aria-hidden="true" href="#社会福利">#</a></h4>
+<p>社会福利（Social Welfare）关注所有 agent 的收益总和：</p>
+$$
+W(a_1,a_2) = \sum_i u_i(a_1,a_2)
+$$<p>对于两个 agent 来说就是</p>
+$$
+W(a_1,a_2) = u_1(a_1,a_2) + u_2(a_1,a_2)
+$$<p>如果只从社会福利角度评价，那么最好的 joint action 是</p>
+$$
+(a_1^*,a_2^*) = \arg\max_{a_1,a_2} W(a_1,a_2)
+$$<p>这个标准不关心收益怎么分配，只关心整体加起来是不是最大。</p>
+<h4 id="帕累托优">帕累托优<a hidden class="anchor" aria-hidden="true" href="#帕累托优">#</a></h4>
+<p>如果一个结果 $x$ 相比另一个结果 $y$，满足：</p>
+<ol>
+<li>对所有 agent 都不更差</li>
+<li>至少让一个 agent 变得更好</li>
+</ol>
+<p>那么就说 $x$ 帕累托优于 $y$。</p>
+<p>写成公式就是</p>
+$$
+u_i(x) \geq u_i(y), \quad \forall i
+$$<p>并且存在某个 agent $j$ 满足</p>
+$$
+u_j(x) > u_j(y)
+$$<p>如果一个结果已经不存在任何其他结果能帕累托优于它，那么这个结果就是帕累托最优（Pareto Optimal）的。</p>
+<p>需要注意的是，帕累托最优并不意味着总收益最大，也不意味着公平。它只表示：想让某个人更好，就一定会让至少另一个人更差。</p>
+<h4 id="纳什均衡">纳什均衡<a hidden class="anchor" aria-hidden="true" href="#纳什均衡">#</a></h4>
+<p>纳什均衡（Nash Equilibrium）关注的是稳定性。</p>
+<p>如果在一个 joint action $(a_1^*,a_2^*)$ 下，任意一个 agent 在其他 agent 动作不变时，都无法通过单方面改变自己的动作获得更高收益，那么这个 joint action 就是纳什均衡。</p>
+<p>对于两个 agent，可以写成</p>
+$$
+u_1(a_1^*,a_2^*) \geq u_1(a_1,a_2^*), \quad \forall a_1
+$$$$
+u_2(a_1^*,a_2^*) \geq u_2(a_1^*,a_2), \quad \forall a_2
+$$<p>也就是说，在纳什均衡处，每个 agent 的动作都是对其他 agent 当前动作的 best response。</p>
+<h4 id="优超">优超<a hidden class="anchor" aria-hidden="true" href="#优超">#</a></h4>
+<p>优超（Dominance）关注的是动作之间的比较。</p>
+<p>如果对 agent $i$ 来说，动作 $a_i$ 无论其他 agent 选择什么动作，都至少不比动作 $a_i'$ 差，并且在某些情况下更好，那么就说 $a_i$ 弱优超 $a_i'$：</p>
+$$
+u_i(a_i,a_{-i}) \geq u_i(a_i',a_{-i}), \quad \forall a_{-i}
+$$<p>并且存在某个 $a_{-i}$ 满足</p>
+$$
+u_i(a_i,a_{-i}) > u_i(a_i',a_{-i})
+$$<p>如果上面的不等式对所有 $a_{-i}$ 都严格成立，那么就是严格优超：</p>
+$$
+u_i(a_i,a_{-i}) > u_i(a_i',a_{-i}), \quad \forall a_{-i}
+$$<p>直觉上，优超策略就是“不管别人怎么选，我选这个都更好”。</p>
+<h3 id="囚徒困境">囚徒困境<a hidden class="anchor" aria-hidden="true" href="#囚徒困境">#</a></h3>
+<p>囚徒困境是最经典的双人博弈问题。两个 agent 都有两个动作：</p>
+<table>
+  <thead>
+      <tr>
+          <th>动作</th>
+          <th>含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>C</td>
+          <td>Cooperate，合作</td>
+      </tr>
+      <tr>
+          <td>D</td>
+          <td>Defect，背叛</td>
+      </tr>
+  </tbody>
+</table>
+<p>使用一个常见的收益矩阵：</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th style="text-align: right">Agent 2: C</th>
+          <th style="text-align: right">Agent 2: D</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Agent 1: C</td>
+          <td style="text-align: right">$(3,3)$</td>
+          <td style="text-align: right">$(0,5)$</td>
+      </tr>
+      <tr>
+          <td>Agent 1: D</td>
+          <td style="text-align: right">$(5,0)$</td>
+          <td style="text-align: right">$(1,1)$</td>
+      </tr>
+  </tbody>
+</table>
+<p>括号中第一个数是 Agent 1 的收益，第二个数是 Agent 2 的收益。</p>
+<h4 id="从社会福利看">从社会福利看<a hidden class="anchor" aria-hidden="true" href="#从社会福利看">#</a></h4>
+<p>计算每个结果的总收益：</p>
+<table>
+  <thead>
+      <tr>
+          <th>结果</th>
+          <th style="text-align: right">收益</th>
+          <th style="text-align: right">社会福利</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$(C,C)$</td>
+          <td style="text-align: right">$(3,3)$</td>
+          <td style="text-align: right">$6$</td>
+      </tr>
+      <tr>
+          <td>$(C,D)$</td>
+          <td style="text-align: right">$(0,5)$</td>
+          <td style="text-align: right">$5$</td>
+      </tr>
+      <tr>
+          <td>$(D,C)$</td>
+          <td style="text-align: right">$(5,0)$</td>
+          <td style="text-align: right">$5$</td>
+      </tr>
+      <tr>
+          <td>$(D,D)$</td>
+          <td style="text-align: right">$(1,1)$</td>
+          <td style="text-align: right">$2$</td>
+      </tr>
+  </tbody>
+</table>
+<p>所以从社会福利最大化的角度看，最好的结果是</p>
+$$
+(C,C)
+$$<p>也就是两个 agent 都合作。</p>
+<h4 id="从帕累托优看">从帕累托优看<a hidden class="anchor" aria-hidden="true" href="#从帕累托优看">#</a></h4>
+<p>$(D,D)$ 的收益是 $(1,1)$，而 $(C,C)$ 的收益是 $(3,3)$。</p>
+<p>因为</p>
+$$
+3 > 1, \quad 3 > 1
+$$<p>所以 $(C,C)$ 帕累托优于 $(D,D)$。</p>
+<p>但是 $(C,C)$、$(C,D)$ 和 $(D,C)$ 都是帕累托最优的。比如从 $(C,C)$ 变成 $(D,C)$，Agent 1 的收益从 $3$ 变成 $5$，但是 Agent 2 的收益从 $3$ 变成 $0$，这不是帕累托改进。</p>
+<p>因此帕累托视角下，$(D,D)$ 明显不是好结果，因为它可以被 $(C,C)$ 同时改善。</p>
+<h4 id="从纳什均衡看">从纳什均衡看<a hidden class="anchor" aria-hidden="true" href="#从纳什均衡看">#</a></h4>
+<p>如果 Agent 2 选择 $C$，Agent 1 选择 $D$ 的收益是 $5$，选择 $C$ 的收益是 $3$，所以 Agent 1 会选 $D$。</p>
+<p>如果 Agent 2 选择 $D$，Agent 1 选择 $D$ 的收益是 $1$，选择 $C$ 的收益是 $0$，所以 Agent 1 还是会选 $D$。</p>
+<p>对 Agent 2 也是完全对称的。</p>
+<p>所以 $(D,D)$ 是纳什均衡，因为在这个结果下，任何一方单独改成 $C$ 都会让自己的收益从 $1$ 变成 $0$。</p>
+$$
+(D,D) \quad \text{是囚徒困境中的唯一纳什均衡}
+$$<p>这里就出现了一个很重要的问题：纳什均衡不一定是社会福利最大的结果，也不一定是帕累托最优的结果。</p>
+<h4 id="从优超看">从优超看<a hidden class="anchor" aria-hidden="true" href="#从优超看">#</a></h4>
+<p>对 Agent 1 来说：</p>
+<ul>
+<li>如果 Agent 2 选择 $C$，那么 $D$ 的收益 $5$ 大于 $C$ 的收益 $3$</li>
+<li>如果 Agent 2 选择 $D$，那么 $D$ 的收益 $1$ 大于 $C$ 的收益 $0$</li>
+</ul>
+<p>所以 $D$ 严格优超 $C$。</p>
+<p>对 Agent 2 来说也是一样，$D$ 严格优超 $C$。</p>
+<p>因此从优超策略的角度看，两个 agent 都会选择 $D$，最后得到</p>
+$$
+(D,D)
+$$<p>这也是囚徒困境的核心矛盾：个体理性会把系统推向整体更差的结果。</p>
+<h3 id="纯策略纳什均衡和混合策略纳什均衡">纯策略纳什均衡和混合策略纳什均衡<a hidden class="anchor" aria-hidden="true" href="#纯策略纳什均衡和混合策略纳什均衡">#</a></h3>
+<p>前面囚徒困境中的 $(D,D)$ 是一个纯策略纳什均衡。</p>
+<p>纯策略（Pure Strategy）指的是 agent 直接选择某一个确定动作。比如在石头剪刀布中，直接选择“石头”就是一个纯策略。</p>
+<p>如果一个纯策略组合 $(a_1^*,a_2^*)$ 满足任意 agent 都不能通过单方面改变动作获得更高收益，那么它就是纯策略纳什均衡。</p>
+<p>但是不是所有博弈都有纯策略纳什均衡。一个典型例子就是石头剪刀布。</p>
+<h4 id="石头剪刀布">石头剪刀布<a hidden class="anchor" aria-hidden="true" href="#石头剪刀布">#</a></h4>
+<p>石头剪刀布的规则是：</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th style="text-align: right">石头</th>
+          <th style="text-align: right">剪刀</th>
+          <th style="text-align: right">布</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>石头</td>
+          <td style="text-align: right">$0$</td>
+          <td style="text-align: right">$1$</td>
+          <td style="text-align: right">$-1$</td>
+      </tr>
+      <tr>
+          <td>剪刀</td>
+          <td style="text-align: right">$-1$</td>
+          <td style="text-align: right">$0$</td>
+          <td style="text-align: right">$1$</td>
+      </tr>
+      <tr>
+          <td>布</td>
+          <td style="text-align: right">$1$</td>
+          <td style="text-align: right">$-1$</td>
+          <td style="text-align: right">$0$</td>
+      </tr>
+  </tbody>
+</table>
+<p>上表表示 Agent 1 的收益，Agent 2 的收益是它的相反数，所以这是一个 zero-sum game。</p>
+<p>石头剪刀布没有纯策略纳什均衡。原因很简单：</p>
+<ul>
+<li>如果双方都出石头，那么任意一方都可以改成布来赢</li>
+<li>如果一方赢了，输的一方总可以改成克制对方的动作</li>
+<li>如果双方平局，任意一方也可以改成能赢的动作</li>
+</ul>
+<p>也就是说，任何确定的动作组合都不是稳定的。</p>
+<p>这时就需要引入混合策略（Mixed Strategy）。</p>
+<p>混合策略不是直接选择一个确定动作，而是在动作上定义一个概率分布：</p>
+$$
+\pi_i(a_i) \in \Delta(\mathcal{A}_i)
+$$<p>对于石头剪刀布，Agent 可以用下面的策略：</p>
+$$
+\pi(\text{石头}) = \frac{1}{3}, \quad \pi(\text{剪刀}) = \frac{1}{3}, \quad \pi(\text{布}) = \frac{1}{3}
+$$<p>如果两个 agent 都使用这个均匀随机策略，那么任意一方改成固定出某个动作，期望收益都还是 $0$：</p>
+$$
+\mathbb{E}[u(\text{石头})] = \frac{1}{3}\cdot 0 + \frac{1}{3}\cdot 1 + \frac{1}{3}\cdot (-1) = 0
+$$<p>同理，固定出剪刀或布的期望收益也都是 $0$。</p>
+<p>因此没有任何一方能通过单方面改变自己的策略获得更高期望收益，所以</p>
+$$
+\left( \left(\frac{1}{3},\frac{1}{3},\frac{1}{3}\right), \left(\frac{1}{3},\frac{1}{3},\frac{1}{3}\right) \right)
+$$<p>是石头剪刀布的混合策略纳什均衡。</p>
+<h3 id="stackelberg-均衡">Stackelberg 均衡<a hidden class="anchor" aria-hidden="true" href="#stackelberg-均衡">#</a></h3>
+<p>前面的纳什均衡默认所有 agent 是同时做决策的。而 Stackelberg Game 中存在先后顺序：</p>
+<ol>
+<li>Leader 先选择策略</li>
+<li>Follower 观察到 Leader 的策略后，再选择自己的 best response</li>
+</ol>
+<p>因此 Stackelberg 均衡关注的是：Leader 在知道 Follower 会做最优回应的前提下，应该提前承诺什么策略。</p>
+<p>设 Leader 的策略为 $a_L$，Follower 的 best response 为</p>
+$$
+BR_F(a_L) = \arg\max_{a_F} u_F(a_L,a_F)
+$$<p>那么 Leader 要解的问题是</p>
+$$
+a_L^* = \arg\max_{a_L} u_L(a_L, BR_F(a_L))
+$$<p>最终得到的策略组合</p>
+$$
+(a_L^*, BR_F(a_L^*))
+$$<p>就是 Stackelberg 均衡。</p>
+<p>直观来说，Stackelberg 均衡不是“大家同时选完后谁都不想改”，而是“Leader 先承诺，Follower 再最优回应，Leader 提前把这个回应也考虑进去”。</p>
+<h2 id="均衡学习">均衡学习<a hidden class="anchor" aria-hidden="true" href="#均衡学习">#</a></h2>
+<p>在单智能体 Q-learning 中，下一状态的价值是通过对自己的 action 取最大值得到的：</p>
+$$
+V(s') = \max_{a'} Q(s',a')
+$$<p>因此标准 Q-learning 的更新可以写成</p>
+$$
+Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha \left[ r_t + \gamma \textcolor{blue}{\max_{a'} Q(s_{t+1},a')} - Q(s_t,a_t) \right]
+$$<p>但是在多智能体场景中，下一状态的价值不能只看自己的动作，因为其他 agent 的动作也会影响收益。也就是说，$V(s')$ 不再只是一个简单的 $\max_a Q(s',a)$，而是需要根据某种均衡概念，从当前状态对应的 stage game 中计算出来。</p>
+<p>这类方法可以统一写成</p>
+$$
+Q_i(s_t,\mathbf{a}_t) \leftarrow Q_i(s_t,\mathbf{a}_t) + \alpha \left[ r_i^t + \gamma \textcolor{red}{V_i(s_{t+1})} - Q_i(s_t,\mathbf{a}_t) \right]
+$$<p>其中</p>
+$$
+\mathbf{a}_t = (a_1^t,a_2^t,\dots,a_n^t)
+$$<p>表示所有 agent 的 joint action。</p>
+<p>所以均衡学习（Equilibrium Learning）的核心就是：每个状态 $s$ 都对应一个由 $Q_i(s,\mathbf{a})$ 构成的矩阵博弈，然后用某种均衡解法计算 $V_i(s)$，再把这个 $V_i(s)$ 放回 TD target 中。</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>适用博弈</th>
+          <th>$V_i(s)$ 的计算方式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Minimax-Q</td>
+          <td>two-player zero-sum</td>
+          <td>最大化自己在最坏对手下的收益</td>
+      </tr>
+      <tr>
+          <td>Nash-Q</td>
+          <td>general-sum game</td>
+          <td>先求 Nash equilibrium，再算均衡期望收益</td>
+      </tr>
+      <tr>
+          <td>Friend-or-Foe Q</td>
+          <td>friend / foe 关系已知</td>
+          <td>friend 用 max，foe 用 minimax</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="minimax-q">Minimax-Q<a hidden class="anchor" aria-hidden="true" href="#minimax-q">#</a></h3>
+<p>Minimax-Q 主要用于 two-player zero-sum game，也就是两个 agent 的收益完全相反：</p>
+$$
+u_1(s,\mathbf{a}) + u_2(s,\mathbf{a}) = 0
+$$<p>对于 agent $i$ 来说，对手不是一个普通环境，而是一个会尽可能让自己收益变低的 adversary。所以在计算 $V_i(s)$ 时，agent 需要选择一个混合策略 $\pi_i$，让自己在最坏情况下的收益最大。</p>
+<p>Minimax-Q 的核心函数是</p>
+$$
+V_i(s) = \max_{\pi_i \in \Delta(\mathcal{A}_i)} \min_{a_{-i} \in \mathcal{A}_{-i}} \sum_{a_i \in \mathcal{A}_i} \pi_i(a_i|s) Q_i(s,a_i,a_{-i})
+$$<p>这里和标准 Q-learning 最大的区别是：</p>
+$$
+\textcolor{blue}{\max_{a'} Q(s',a')} \quad \Longrightarrow \quad \textcolor{red}{ \max_{\pi_i}\min_{a_{-i}} \sum_{a_i}\pi_i(a_i|s')Q_i(s',a_i,a_{-i}) }
+$$<p>也就是说，标准 Q-learning 只假设自己下一步会选最好的动作，而 Minimax-Q 假设对手会选最坏的反制动作。</p>
+<p>Minimax-Q 的更新可以写成</p>
+$$
+Q_i(s_t,a_i^t,a_{-i}^t) \leftarrow Q_i(s_t,a_i^t,a_{-i}^t) + \alpha \left[ r_i^t + \gamma \textcolor{red}{ \max_{\pi_i}\min_{a_{-i}} \sum_{a_i}\pi_i(a_i|s_{t+1})Q_i(s_{t+1},a_i,a_{-i}) } - Q_i(s_t,a_i^t,a_{-i}^t) \right]
+$$<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Minimax-Q
+</span></span><span style="display:flex;"><span>初始化 Q_i(s, a_i, a_-i)
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    在状态 s_t 根据当前策略选择动作 a_i^t
+</span></span><span style="display:flex;"><span>    观察对手动作 a_-i^t、奖励 r_i^t 和下一状态 s_{t+1}
+</span></span><span style="display:flex;"><span>    V_i(s_{t+1}) &lt;- max_{pi_i} min_{a_-i} sum_{a_i} pi_i(a_i|s_{t+1}) Q_i(s_{t+1}, a_i, a_-i)
+</span></span><span style="display:flex;"><span>    Q_i(s_t, a_i^t, a_-i^t) &lt;- Q_i(s_t, a_i^t, a_-i^t) + alpha [r_i^t + gamma V_i(s_{t+1}) - Q_i(s_t, a_i^t, a_-i^t)]
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><h3 id="nash-q">Nash-Q<a hidden class="anchor" aria-hidden="true" href="#nash-q">#</a></h3>
+<p>Minimax-Q 适合 zero-sum game，但是很多多智能体问题不是零和的。比如两个 agent 可能既有竞争，也有合作，这时候不能简单假设“别人一定会让自己最差”。</p>
+<p>Nash-Q 的做法是：在每个状态 $s$，把所有 agent 的 $Q_i(s,\mathbf{a})$ 看成一个 normal-form game，然后先求这个 stage game 的 Nash equilibrium。</p>
+<p>设在状态 $s$ 下求得的 Nash equilibrium 为</p>
+$$
+\boldsymbol{\pi}^*(s) = (\pi_1^*(\cdot|s),\pi_2^*(\cdot|s),\dots,\pi_n^*(\cdot|s))
+$$<p>那么 agent $i$ 的状态价值定义为这个均衡下的期望收益：</p>
+$$
+V_i(s) = \sum_{\mathbf{a}} \left( \prod_{j=1}^{n}\pi_j^*(a_j|s) \right) Q_i(s,\mathbf{a})
+$$<p>这里和标准 Q-learning 的区别是：</p>
+$$
+\textcolor{blue}{\max_{a'} Q(s',a')} \quad \Longrightarrow \quad \textcolor{red}{ \sum_{\mathbf{a}'} \left( \prod_j \pi_j^*(a_j'|s') \right) Q_i(s',\mathbf{a}') }
+$$<p>也就是说，Nash-Q 不是直接取最大动作，而是先计算一个多智能体均衡策略，再用均衡策略下的期望收益作为 $V_i(s')$。</p>
+<p>Nash-Q 的更新可以写成</p>
+$$
+Q_i(s_t,\mathbf{a}_t) \leftarrow Q_i(s_t,\mathbf{a}_t) + \alpha \left[ r_i^t + \gamma \textcolor{red}{ \sum_{\mathbf{a}'} \left( \prod_j \pi_j^*(a_j'|s_{t+1}) \right) Q_i(s_{t+1},\mathbf{a}') } - Q_i(s_t,\mathbf{a}_t) \right]
+$$<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Nash-Q
+</span></span><span style="display:flex;"><span>初始化每个 agent 的 Q_i(s, a)
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    所有 agent 在状态 s_t 选择 joint action a_t
+</span></span><span style="display:flex;"><span>    观察奖励 r_i^t 和下一状态 s_{t+1}
+</span></span><span style="display:flex;"><span>    用 {Q_i(s_{t+1}, a&#39;)}_{i=1}^n 构造下一状态的 stage game
+</span></span><span style="display:flex;"><span>    求该 stage game 的 Nash equilibrium pi*(s_{t+1})
+</span></span><span style="display:flex;"><span>    V_i(s_{t+1}) &lt;- sum_{a&#39;} [prod_j pi_j*(a_j&#39;|s_{t+1})] Q_i(s_{t+1}, a&#39;)
+</span></span><span style="display:flex;"><span>    Q_i(s_t, a_t) &lt;- Q_i(s_t, a_t) + alpha [r_i^t + gamma V_i(s_{t+1}) - Q_i(s_t, a_t)]
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><p>Nash-Q 的直觉很自然，但是实际使用会遇到一个问题：一个 stage game 可能存在多个 Nash equilibrium，此时到底选择哪一个均衡会影响 $V_i(s)$ 的计算结果。</p>
+<h3 id="friend-or-foe-q">Friend-or-Foe Q<a hidden class="anchor" aria-hidden="true" href="#friend-or-foe-q">#</a></h3>
+<p>Friend-or-Foe Q 可以看作对 Nash-Q 的一个简化。它不在每个状态中求一般的 Nash equilibrium，而是提前假设其他 agent 和自己之间的关系只有两种：</p>
+<table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>含义</th>
+          <th>计算方式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Friend</td>
+          <td>目标一致，大家一起最大化收益</td>
+          <td>max</td>
+      </tr>
+      <tr>
+          <td>Foe</td>
+          <td>目标相反，对方会让自己收益最小</td>
+          <td>minimax</td>
+      </tr>
+  </tbody>
+</table>
+<p>如果其他 agent 是 friend，那么 agent $i$ 假设大家会一起选择让自己收益最大的 joint action：</p>
+$$
+V_i^{friend}(s) = \max_{\mathbf{a}} Q_i(s,\mathbf{a})
+$$<p>如果其他 agent 是 foe，那么就回到 Minimax-Q 的形式：</p>
+$$
+V_i^{foe}(s) = \max_{\pi_i} \min_{a_{-i}} \sum_{a_i}\pi_i(a_i|s)Q_i(s,a_i,a_{-i})
+$$<p>如果同时存在 friend 和 foe，可以把 joint action 拆成三部分：</p>
+$$
+\mathbf{a} = (a_i, \mathbf{a}_F, \mathbf{a}_E)
+$$<p>其中 $\mathbf{a}_F$ 表示 friend 的动作，$\mathbf{a}_E$ 表示 foe 的动作。那么更一般的形式可以写成</p>
+$$
+V_i(s) = \max_{\pi_i,\pi_F} \min_{\pi_E} \mathbb{E}_{a_i,\mathbf{a}_F,\mathbf{a}_E} \left[ Q_i(s,a_i,\mathbf{a}_F,\mathbf{a}_E) \right]
+$$<p>这里和标准 Q-learning 的区别是：</p>
+$$
+\textcolor{blue}{\max_{a'} Q(s',a')} \quad \Longrightarrow \quad \textcolor{red}{ \max_{\text{friend actions}} \min_{\text{foe actions}} Q_i(s',\mathbf{a}') }
+$$<p>也就是说，Friend-or-Foe Q 把其他 agent 先分类：friend 的动作和自己一起 max，foe 的动作进入 min。</p>
+<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Friend-or-Foe Q
+</span></span><span style="display:flex;"><span>初始化 Q_i(s, a)，并给定其他 agent 是 friend 还是 foe
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    在状态 s_t 选择动作，并观察 joint action a_t
+</span></span><span style="display:flex;"><span>    观察奖励 r_i^t 和下一状态 s_{t+1}
+</span></span><span style="display:flex;"><span>    if 其他 agent 是 friend then
+</span></span><span style="display:flex;"><span>        V_i(s_{t+1}) &lt;- max_{a&#39;} Q_i(s_{t+1}, a&#39;)
+</span></span><span style="display:flex;"><span>    else if 其他 agent 是 foe then
+</span></span><span style="display:flex;"><span>        V_i(s_{t+1}) &lt;- max_{pi_i} min_{a_-i} sum_{a_i} pi_i(a_i|s_{t+1}) Q_i(s_{t+1}, a_i, a_-i)
+</span></span><span style="display:flex;"><span>    end if
+</span></span><span style="display:flex;"><span>    Q_i(s_t, a_t) &lt;- Q_i(s_t, a_t) + alpha [r_i^t + gamma V_i(s_{t+1}) - Q_i(s_t, a_t)]
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><p>总结一下，这三类方法的区别主要就在于 $V_i(s')$ 的定义：</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>$V_i(s')$</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>标准 Q-learning</td>
+          <td>$\max_{a_i'} Q_i(s',a_i')$</td>
+      </tr>
+      <tr>
+          <td>Minimax-Q</td>
+          <td>$\max_{\pi_i}\min_{a_{-i}'} \mathbb{E}_{a_i'\sim\pi_i}[Q_i(s',a_i',a_{-i}')]$</td>
+      </tr>
+      <tr>
+          <td>Nash-Q</td>
+          <td>$\mathbb{E}_{\mathbf{a}'\sim\boldsymbol{\pi}^*}[Q_i(s',\mathbf{a}')]$</td>
+      </tr>
+      <tr>
+          <td>Friend-or-Foe Q</td>
+          <td>friend 部分取 $\max$，foe 部分取 $\min$</td>
+      </tr>
+  </tbody>
+</table>
+<p>从这个角度看，均衡学习其实就是把标准 Q-learning 中的</p>
+$$
+\max_a Q(s,a)
+$$<p>替换成一个由博弈均衡定义出来的</p>
+$$
+V_i(s)
+$$<p>而不同算法的差异，就体现在它们相信其他 agent 会如何行动。</p>
+<h2 id="对手建模">对手建模<a hidden class="anchor" aria-hidden="true" href="#对手建模">#</a></h2>
+<p>均衡学习的思路是：假设每个状态下都存在一个 stage game，然后通过某种均衡概念计算 $V_i(s)$。</p>
+<p>对手建模（Opponent Modeling）的思路不太一样。它不一定要求直接求均衡，而是尝试显式估计其他 agent 的行为模式：</p>
+$$
+\hat{\pi}_{-i}(a_{-i}|s)
+$$<p>然后 agent $i$ 在决策时，把这个估计出来的对手策略也考虑进去。</p>
+<p>如果在单智能体 Q-learning 中，我们的目标是</p>
+$$
+\max_{a_i} Q_i(s,a_i)
+$$<p>那么在对手建模中，更自然的形式是</p>
+$$
+a_i^* = \arg\max_{a_i} \mathbb{E}_{a_{-i}\sim \hat{\pi}_{-i}(\cdot|s)} \left[ Q_i(s,a_i,a_{-i}) \right]
+$$<p>也就是说，我们不再假设对手一定按照某个均衡行动，而是先学习一个对手模型，再基于这个模型选择自己的 best response。</p>
+<h3 id="策略频率建模">策略频率建模<a hidden class="anchor" aria-hidden="true" href="#策略频率建模">#</a></h3>
+<p>最直接的对手建模方法就是策略频率建模，也可以理解为虚拟博弈（Fictitious Play）的思想。</p>
+<p>它的核心假设很简单：对手未来的策略，可以用它过去的动作频率来估计。</p>
+<p>假设在状态 $s$ 下，对手动作 $a_{-i}$ 被观察到的次数是</p>
+$$
+N(s,a_{-i})
+$$<p>那么对手策略可以估计为</p>
+$$
+\hat{\pi}_{-i}(a_{-i}|s) = \frac{N(s,a_{-i})} {\sum_{a'_{-i}}N(s,a'_{-i})}
+$$<p>然后 agent $i$ 使用这个估计策略来计算自己每个动作的期望价值：</p>
+$$
+\hat{Q}_i(s,a_i) = \sum_{a_{-i}} \hat{\pi}_{-i}(a_{-i}|s) Q_i(s,a_i,a_{-i})
+$$<p>最后选择</p>
+$$
+a_i^* = \arg\max_{a_i}\hat{Q}_i(s,a_i)
+$$<p>这个方法的直觉就是：我不需要知道对手内部怎么想，只要统计它在类似状态下过去怎么做，然后对这个经验分布做 best response。</p>
+<p>虚拟博弈的过程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Fictitious Play / Frequency Modeling
+</span></span><span style="display:flex;"><span>初始化 N(s, a_-i) = 0
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    观察当前状态 s_t
+</span></span><span style="display:flex;"><span>    根据历史频率估计 pi_hat_-i(a_-i|s_t)
+</span></span><span style="display:flex;"><span>    a_i^t &lt;- argmax_{a_i} sum_{a_-i} pi_hat_-i(a_-i|s_t) Q_i(s_t, a_i, a_-i)
+</span></span><span style="display:flex;"><span>    执行 a_i^t，观察对手动作 a_-i^t
+</span></span><span style="display:flex;"><span>    N(s_t, a_-i^t) &lt;- N(s_t, a_-i^t) + 1
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><p>这个方法简单、可解释，但也有明显限制：它默认对手策略相对稳定。如果对手也在学习，历史频率就可能滞后于对手当前策略。</p>
+<h3 id="对手类型建模">对手类型建模<a hidden class="anchor" aria-hidden="true" href="#对手类型建模">#</a></h3>
+<p>另一类直接建模方法是对手类型建模（Opponent Type Modeling）。</p>
+<p>它不是直接估计“对手在每个状态下出每个动作的概率”，而是假设对手来自某个类型集合：</p>
+$$
+\Theta = \{\theta_1,\theta_2,\dots,\theta_K\}
+$$<p>每个类型 $\theta_k$ 对应一种策略模型：</p>
+$$
+\pi_{-i}(a_{-i}|s,\theta_k)
+$$<p>比如在一个游戏里，对手可能是：</p>
+<table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>行为模式</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$\theta_1$</td>
+          <td>保守型</td>
+      </tr>
+      <tr>
+          <td>$\theta_2$</td>
+          <td>激进型</td>
+      </tr>
+      <tr>
+          <td>$\theta_3$</td>
+          <td>随机型</td>
+      </tr>
+      <tr>
+          <td>$\theta_4$</td>
+          <td>针对型</td>
+      </tr>
+  </tbody>
+</table>
+<p>agent 维护一个关于对手类型的 belief：</p>
+$$
+b(\theta_k) = P(\theta_k | h_t)
+$$<p>其中 $h_t$ 表示到当前为止观察到的历史轨迹。</p>
+<p>当观察到对手在状态 $s_t$ 下选择动作 $a_{-i}^t$ 后，可以用 Bayes rule 更新类型概率：</p>
+$$
+b_{t+1}(\theta_k) \propto b_t(\theta_k) \pi_{-i}(a_{-i}^t|s_t,\theta_k)
+$$<p>归一化后得到新的 belief：</p>
+$$
+b_{t+1}(\theta_k) = \frac{ b_t(\theta_k)\pi_{-i}(a_{-i}^t|s_t,\theta_k) }{ \sum_j b_t(\theta_j)\pi_{-i}(a_{-i}^t|s_t,\theta_j) }
+$$<p>有了类型 belief 后，对手策略可以写成一个加权平均：</p>
+$$
+\hat{\pi}_{-i}(a_{-i}|s) = \sum_k b(\theta_k)\pi_{-i}(a_{-i}|s,\theta_k)
+$$<p>然后再像前面一样，对这个估计策略做 best response：</p>
+$$
+a_i^* = \arg\max_{a_i} \sum_{a_{-i}} \hat{\pi}_{-i}(a_{-i}|s) Q_i(s,a_i,a_{-i})
+$$<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Opponent Type Modeling
+</span></span><span style="display:flex;"><span>给定类型集合 Theta = {theta_1, ..., theta_K}
+</span></span><span style="display:flex;"><span>初始化 belief b_0(theta_k)
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    pi_hat_-i(a_-i|s_t) &lt;- sum_k b_t(theta_k) pi_-i(a_-i|s_t, theta_k)
+</span></span><span style="display:flex;"><span>    a_i^t &lt;- argmax_{a_i} sum_{a_-i} pi_hat_-i(a_-i|s_t) Q_i(s_t, a_i, a_-i)
+</span></span><span style="display:flex;"><span>    执行 a_i^t，观察 a_-i^t
+</span></span><span style="display:flex;"><span>    b_{t+1}(theta_k) &lt;- normalize[b_t(theta_k) pi_-i(a_-i^t|s_t, theta_k)]
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><p>类型建模比频率建模更有结构，因为它可以利用先验知识。但问题也很明显：如果真实对手不在预设类型集合里，那么 belief 更新得再好，也只能在错误的模型集合中选择一个“最像的”类型。</p>
+<h3 id="递归建模">递归建模<a hidden class="anchor" aria-hidden="true" href="#递归建模">#</a></h3>
+<p>前面两种方法都在建模对手的行为，但还没有考虑一个问题：对手可能也在建模我。</p>
+<p>递归建模（Recursive Opponent Modeling）的核心就是引入这种层级推理：</p>
+$$
+\text{我建模你，你也建模我，我再建模你如何建模我}
+$$<p>可以粗略写成：</p>
+<table>
+  <thead>
+      <tr>
+          <th>层级</th>
+          <th>含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Level-0</td>
+          <td>对手不建模别人，只按固定策略行动</td>
+      </tr>
+      <tr>
+          <td>Level-1</td>
+          <td>我认为对手是 Level-0，于是对它做 best response</td>
+      </tr>
+      <tr>
+          <td>Level-2</td>
+          <td>我认为对手认为我是 Level-0，于是我再对这个推理做 best response</td>
+      </tr>
+  </tbody>
+</table>
+<p>这种思想在博弈论和多智能体系统中很自然，但递归层数一高就会带来很大的计算复杂度。因为每多一层，都要多维护一层“对手的信念”和“对手对我的信念”。</p>
+<p>所以递归建模通常更适合用来理解多智能体推理结构，而不是直接在复杂深度 RL 场景中无限展开。</p>
+<h3 id="神经虚拟博弈">神经虚拟博弈<a hidden class="anchor" aria-hidden="true" href="#神经虚拟博弈">#</a></h3>
+<p>现代方法会把虚拟博弈的思想和神经网络结合起来，可以简单理解为 Neural Fictitious Self-Play（NFSP）这一类方法。</p>
+<p>在普通虚拟博弈中，我们用显式频率统计来表示平均策略：</p>
+$$
+\hat{\pi}(a|s)
+$$<p>但是在大规模状态空间中，不能为每个状态都维护一张表，所以可以用神经网络来近似这个平均策略：</p>
+$$
+\Pi_\phi(a|s) \approx \text{average policy}
+$$<p>同时再用一个 Q 网络学习对平均策略的 best response：</p>
+$$
+Q_\theta(s,a)
+$$<p>因此 NFSP 类方法通常包含两部分：</p>
+<table>
+  <thead>
+      <tr>
+          <th>模块</th>
+          <th>作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Best response network</td>
+          <td>学习当前对手平均策略下的最优反应</td>
+      </tr>
+      <tr>
+          <td>Average policy network</td>
+          <td>模仿自己的历史行为，近似虚拟博弈中的平均策略</td>
+      </tr>
+  </tbody>
+</table>
+<p>可以把它理解为：</p>
+$$
+\text{RL 学 best response} \quad + \quad \text{SL 学 average policy}
+$$<p>其中 RL 部分用于让 agent 变强，SL 部分用于记录长期平均策略，使训练过程更接近虚拟博弈中的策略平均。</p>
+<p>这个方向的意义在于：它把原本只适合小型矩阵博弈的虚拟博弈，扩展到了高维状态空间和深度强化学习场景。</p>
+<h2 id="marl-的三个困境">MARL 的三个困境<a hidden class="anchor" aria-hidden="true" href="#marl-的三个困境">#</a></h2>
+<p>正式进入 MARL 算法之前，先把多智能体学习中最常见的三个问题单独拎出来：</p>
+<table>
+  <thead>
+      <tr>
+          <th>困境</th>
+          <th>问题</th>
+          <th>直觉</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>非平稳性</td>
+          <td>其他 agent 也在学习，环境转移分布会变</td>
+          <td>我以为环境固定，其实队友和对手一直在变</td>
+      </tr>
+      <tr>
+          <td>相对过度泛化</td>
+          <td>最优 joint action 因为协作失败被平均成低价值</td>
+          <td>最好的配合很脆弱，次优但稳的行为被学出来</td>
+      </tr>
+      <tr>
+          <td>信度分配</td>
+          <td>全局奖励很难分清每个 agent 的贡献</td>
+          <td>赢了不知道谁功劳大，输了不知道谁背锅</td>
+      </tr>
+  </tbody>
+</table>
+<p>这三个问题会贯穿后面很多 MARL 方法。</p>
+<h2 id="非平稳性">非平稳性<a hidden class="anchor" aria-hidden="true" href="#非平稳性">#</a></h2>
+<p>在单智能体 RL 中，我们通常假设环境转移是固定的：</p>
+$$
+P(s'|s,a)
+$$<p>但是在 MARL 中，agent $i$ 看到的转移其实和其他 agent 的策略有关：</p>
+$$
+P(s'|s,a_i) = \sum_{a_{-i}} P(s'|s,a_i,a_{-i}) \pi_{-i}(a_{-i}|s)
+$$<p>如果其他 agent 的策略 $\pi_{-i}$ 也在学习，那么从 agent $i$ 的视角看，环境分布就在不断变化。</p>
+$$
+\pi_{-i}^{t} \neq \pi_{-i}^{t+1} \quad \Longrightarrow \quad P_t(s'|s,a_i) \neq P_{t+1}(s'|s,a_i)
+$$<p>这就是非平稳性（Non-stationarity）。</p>
+<h3 id="il-和-jal">IL 和 JAL<a hidden class="anchor" aria-hidden="true" href="#il-和-jal">#</a></h3>
+<p>处理非平稳性的两种基础思路是 Independent Learner（IL）和 Joint Action Learner（JAL）。</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>Q function</th>
+          <th>是否显式考虑其他 agent 动作</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>IL</td>
+          <td>$Q_i(s,a_i)$</td>
+          <td>否</td>
+      </tr>
+      <tr>
+          <td>JAL</td>
+          <td>$Q_i(s,\mathbf{a})$</td>
+          <td>是</td>
+      </tr>
+  </tbody>
+</table>
+<p>IL 的做法是每个 agent 都把其他 agent 当成环境的一部分，直接学习</p>
+$$
+Q_i(s,a_i)
+$$<p>它的更新形式和单智能体 Q-learning 很像：</p>
+$$
+Q_i(s_t,a_i^t) \leftarrow Q_i(s_t,a_i^t) + \alpha \left[ r_i^t + \gamma \max_{a_i'}Q_i(s_{t+1},a_i') - Q_i(s_t,a_i^t) \right]
+$$<p>问题是，其他 agent 的策略变化被隐藏进了环境里，所以 IL 面对的是一个非平稳环境。</p>
+<p>JAL 的做法更进一步，它直接把 joint action 放进 Q function：</p>
+$$
+Q_i(s,\mathbf{a})
+$$<p>其中 $\mathbf{a}$ 表示所有 agent 的联合动作。</p>
+<p>这样 agent 至少知道“整个联合动作”产生了当前结果。在协作任务中，如果把下一状态中最好的联合动作当作 target，那么 JAL 的状态价值可以写成</p>
+$$
+V_i^{JAL}(s') = \max_{\mathbf{a}'} Q_i(s',\mathbf{a}')
+$$<p>和 Nash-Q 对比一下，Nash-Q 是先求下一状态 stage game 的 Nash equilibrium：</p>
+$$
+V_i^{Nash}(s') = \sum_{\mathbf{a}'} \left( \prod_j \pi_j^*(a_j'|s') \right) Q_i(s',\mathbf{a}')
+$$<p>而 JAL 直接在 joint action 上取最大值：</p>
+$$
+V_i^{JAL}(s') = \textcolor{red}{ \max_{\mathbf{a}'} Q_i(s',\mathbf{a}') }
+$$<p>所以 JAL 和 Nash-Q 的关键区别是：</p>
+$$
+\textcolor{blue}{\text{Nash-Q: 求均衡策略 } \boldsymbol{\pi}^* \text{ 后算期望价值}} \quad \Longrightarrow \quad \textcolor{red}{\text{JAL: 直接对 joint action 取 max}}
+$$<p>JAL 的更新可以写成</p>
+$$
+Q_i(s_t,\mathbf{a}_t) \leftarrow Q_i(s_t,\mathbf{a}_t) + \alpha \left[ r_i^t + \gamma \textcolor{red}{ \max_{\mathbf{a}'}Q_i(s_{t+1},\mathbf{a}') } - Q_i(s_t,\mathbf{a}_t) \right]
+$$<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Joint Action Learner
+</span></span><span style="display:flex;"><span>初始化 Q_i(s, a)
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    在状态 s_t 观察或形成联合动作 a_t
+</span></span><span style="display:flex;"><span>    执行 a_t，观察奖励 r_i^t 和下一状态 s_{t+1}
+</span></span><span style="display:flex;"><span>    V_i(s_{t+1}) &lt;- max_{a&#39;} Q_i(s_{t+1}, a&#39;)
+</span></span><span style="display:flex;"><span>    Q_i(s_t, a_t) &lt;- Q_i(s_t, a_t) + alpha [r_i^t + gamma V_i(s_{t+1}) - Q_i(s_t, a_t)]
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><details>
+<summary>补充：把联合动作拆成自身动作和其他 agent 动作</summary>
+<p>如果把联合动作写成</p>
+$$
+\mathbf{a}=(a_i,a_{-i})
+$$<p>那么 JAL 也可以配合一个对手模型</p>
+$$
+\hat{\pi}_{-i}(a_{-i}|s)
+$$<p>来计算自己动作的 best response：</p>
+$$
+V_i(s') = \max_{a_i'} \sum_{a_{-i}'} \hat{\pi}_{-i}(a_{-i}'|s') Q_i(s',a_i',a_{-i}')
+$$<p>完整流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Joint Action Learner with Opponent Model
+</span></span><span style="display:flex;"><span>初始化 Q_i(s, a_i, a_-i) 和对手模型 pi_hat_-i(a_-i|s)
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    在状态 s_t 选择动作 a_i^t
+</span></span><span style="display:flex;"><span>    观察 (a_i^t, a_-i^t)、奖励 r_i^t 和下一状态 s_{t+1}
+</span></span><span style="display:flex;"><span>    更新对手模型 pi_hat_-i(a_-i^t|s_t)
+</span></span><span style="display:flex;"><span>    V_i(s_{t+1}) &lt;- max_{a_i&#39;} sum_{a_-i&#39;} pi_hat_-i(a_-i&#39;|s_{t+1}) Q_i(s_{t+1}, a_i&#39;, a_-i&#39;)
+</span></span><span style="display:flex;"><span>    Q_i(s_t, a_i^t, a_-i^t) &lt;- Q_i(s_t, a_i^t, a_-i^t) + alpha [r_i^t + gamma V_i(s_{t+1}) - Q_i(s_t, a_i^t, a_-i^t)]
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div></details>
+<p>JAL 比 IL 更能表达多智能体交互，但代价是 joint action 空间会随着 agent 数量指数增长。</p>
+<h2 id="相对过度泛化">相对过度泛化<a hidden class="anchor" aria-hidden="true" href="#相对过度泛化">#</a></h2>
+<p>相对过度泛化（Relative Overgeneralization, RO）通常出现在协作型 MARL 中。</p>
+<p>它描述的是这样一种现象：某个 joint action 明明是全局最优，但是它需要多个 agent 精确配合。一旦队友没有配合好，这个动作就会得到很差的回报。结果在学习过程中，这个最优动作被“平均”成了低价值，最后 agent 反而学到了一个更稳但次优的策略。</p>
+<p>看一个简单例子，两个 agent 都有动作 $A$ 和 $B$，共享奖励如下：</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th style="text-align: right">Agent 2: A</th>
+          <th style="text-align: right">Agent 2: B</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Agent 1: A</td>
+          <td style="text-align: right">$10$</td>
+          <td style="text-align: right">$0$</td>
+      </tr>
+      <tr>
+          <td>Agent 1: B</td>
+          <td style="text-align: right">$6$</td>
+          <td style="text-align: right">$7$</td>
+      </tr>
+  </tbody>
+</table>
+<p>全局最优显然是</p>
+$$
+(A,A) \rightarrow 10
+$$<p>但是如果 Agent 2 还在随机探索，那么对 Agent 1 来说：</p>
+$$
+\mathbb{E}[R|a_1=A] = \frac{1}{2}\cdot 10 + \frac{1}{2}\cdot 0 = 5
+$$$$
+\mathbb{E}[R|a_1=B] = \frac{1}{2}\cdot 6 + \frac{1}{2}\cdot 7 = 6.5
+$$<p>于是 Agent 1 会觉得 $B$ 比 $A$ 更好。Agent 2 也会做出类似判断。最后系统可能收敛到 $(B,B)$，虽然它的回报 $7$ 小于最优的 $10$。</p>
+<p>这就是 RO 的核心：最优配合因为早期协作失败被低估，而次优但鲁棒的行为被过度泛化。</p>
+<h3 id="滞后-q-learning">滞后 Q-learning<a hidden class="anchor" aria-hidden="true" href="#滞后-q-learning">#</a></h3>
+<p>滞后 Q-learning（Hysteretic Q-learning）的核心想法是：在协作任务中，负 TD error 不一定说明当前动作不好，也可能是队友探索导致配合失败。</p>
+<p>所以它使用两个学习率：</p>
+$$
+\alpha > \beta
+$$<p>当 TD error 为正时，用较大的学习率 $\alpha$ 更新；当 TD error 为负时，用较小的学习率 $\beta$ 更新：</p>
+$$
+\delta_t = r_t + \gamma \max_{a_i'}Q_i(s_{t+1},a_i') - Q_i(s_t,a_i^t)
+$$$$
+Q_i(s_t,a_i^t) \leftarrow Q_i(s_t,a_i^t) + \begin{cases}
+\alpha \delta_t, & \delta_t \geq 0 \\
+\beta \delta_t, & \delta_t < 0
+\end{cases}
+$$<p>直觉上，它更愿意相信“好结果”，而对“坏结果”保持宽容。</p>
+<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Hysteretic Q-learning
+</span></span><span style="display:flex;"><span>初始化 Q_i(s, a_i)，设置 alpha &gt; beta
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    选择并执行动作 a_i^t，观察共享奖励 r_t 和 s_{t+1}
+</span></span><span style="display:flex;"><span>    delta_t &lt;- r_t + gamma max_{a_i&#39;} Q_i(s_{t+1}, a_i&#39;) - Q_i(s_t, a_i^t)
+</span></span><span style="display:flex;"><span>    if delta_t &gt;= 0 then
+</span></span><span style="display:flex;"><span>        Q_i(s_t, a_i^t) &lt;- Q_i(s_t, a_i^t) + alpha delta_t
+</span></span><span style="display:flex;"><span>    else
+</span></span><span style="display:flex;"><span>        Q_i(s_t, a_i^t) &lt;- Q_i(s_t, a_i^t) + beta delta_t
+</span></span><span style="display:flex;"><span>    end if
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><h3 id="宽容-q-learning">宽容 Q-learning<a hidden class="anchor" aria-hidden="true" href="#宽容-q-learning">#</a></h3>
+<p>宽容 Q-learning（Lenient Q-learning）和滞后 Q 的思想很像，也是为了避免早期协作失败过度惩罚好动作。</p>
+<p>不同之处在于，宽容 Q 会显式维护一个温度或宽容度：</p>
+$$
+T(s,a)
+$$<p>训练早期温度高，对负 TD error 更宽容；访问次数增加后温度逐渐下降，agent 变得更严格。</p>
+<p>一种常见写法是根据温度定义宽容概率：</p>
+$$
+l(s,a) = 1 - e^{-K T(s,a)}
+$$<p>当 $\delta_t < 0$ 时，以概率 $l(s,a)$ 忽略这次负更新；当 $\delta_t \geq 0$ 时正常更新。</p>
+$$
+Q_i(s_t,a_i^t) \leftarrow Q_i(s_t,a_i^t) + \alpha \delta_t \quad \text{if } \delta_t \geq 0 \text{ or } u > l(s_t,a_i^t)
+$$<p>其中 $u \sim U(0,1)$。</p>
+<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Lenient Q-learning
+</span></span><span style="display:flex;"><span>初始化 Q_i(s, a_i) 和温度 T(s, a_i)
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    选择动作 a_i^t，观察 r_t 和 s_{t+1}
+</span></span><span style="display:flex;"><span>    delta_t &lt;- r_t + gamma max_{a_i&#39;} Q_i(s_{t+1}, a_i&#39;) - Q_i(s_t, a_i^t)
+</span></span><span style="display:flex;"><span>    l(s_t, a_i^t) &lt;- 1 - exp(-K T(s_t, a_i^t))
+</span></span><span style="display:flex;"><span>    u &lt;- Uniform(0, 1)
+</span></span><span style="display:flex;"><span>    if delta_t &gt;= 0 or u &gt; l(s_t, a_i^t) then
+</span></span><span style="display:flex;"><span>        Q_i(s_t, a_i^t) &lt;- Q_i(s_t, a_i^t) + alpha delta_t
+</span></span><span style="display:flex;"><span>    end if
+</span></span><span style="display:flex;"><span>    T(s_t, a_i^t) &lt;- kappa T(s_t, a_i^t)
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><p>滞后 Q 是“负更新变小”，宽容 Q 是“早期负更新可能直接忽略”。</p>
+<h3 id="phc">PHC<a hidden class="anchor" aria-hidden="true" href="#phc">#</a></h3>
+<p>在介绍 WoLF 之前，先介绍 PHC，也就是 Policy Hill-Climbing。</p>
+<p>普通 Q-learning 学到 $Q(s,a)$ 后，通常直接用 $\epsilon$-greedy 选动作。但 PHC 会显式维护一个随机策略：</p>
+$$
+\pi_i(a|s)
+$$<p>然后一边用 Q-learning 更新 $Q_i(s,a)$，一边把策略往当前 greedy action 的方向推。</p>
+<p>设当前最优动作为</p>
+$$
+a^* = \arg\max_a Q_i(s,a)
+$$<p>那么 PHC 的策略更新可以写成</p>
+$$
+\pi_i(a|s) \leftarrow \pi_i(a|s) + \Delta_{s,a}
+$$<p>其中</p>
+$$
+\Delta_{s,a} = \begin{cases}
+\delta, & a = a^* \\
+-\frac{\delta}{|\mathcal{A}|-1}, & a \neq a^*
+\end{cases}
+$$<p>最后再把策略裁剪到合法概率范围，并重新归一化：</p>
+$$
+\sum_a \pi_i(a|s)=1, \quad \pi_i(a|s)\geq 0
+$$<p>直觉上，PHC 就是：Q-learning 负责估计动作价值，policy hill-climbing 负责把策略慢慢推向当前看起来最好的动作。</p>
+<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Policy Hill-Climbing
+</span></span><span style="display:flex;"><span>初始化 Q_i(s, a_i) 和策略 pi_i(a_i|s)
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    根据 pi_i(.|s_t) 选择动作 a_i^t
+</span></span><span style="display:flex;"><span>    执行动作，观察奖励 r_i^t 和下一状态 s_{t+1}
+</span></span><span style="display:flex;"><span>    Q_i(s_t, a_i^t) &lt;- Q_i(s_t, a_i^t) + alpha [r_i^t + gamma max_{a_i&#39;} Q_i(s_{t+1}, a_i&#39;) - Q_i(s_t, a_i^t)]
+</span></span><span style="display:flex;"><span>    a* &lt;- argmax_a Q_i(s_t, a)
+</span></span><span style="display:flex;"><span>    pi_i(a*|s_t) &lt;- pi_i(a*|s_t) + delta
+</span></span><span style="display:flex;"><span>    pi_i(a|s_t) &lt;- pi_i(a|s_t) - delta / (|A|-1), for a != a*
+</span></span><span style="display:flex;"><span>    裁剪并归一化 pi_i(.|s_t)
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><p>PHC 的问题是它使用固定策略步长 $\delta$。在多智能体场景中，如果所有 agent 都用固定步长调整策略，很容易相互追逐，导致策略震荡。</p>
+<h3 id="wolf-phc">WoLF-PHC<a hidden class="anchor" aria-hidden="true" href="#wolf-phc">#</a></h3>
+<p>WoLF-PHC 是在 PHC 上加入 WoLF 原则。WoLF 的全称是 Win or Learn Fast，它的核心思想是：</p>
+$$
+\text{winning 时学慢一点，losing 时学快一点}
+$$<p>这里的 winning 通常通过当前策略 $\pi_i$ 和平均策略 $\bar{\pi}_i$ 的价值比较来判断：</p>
+$$
+V_i(s,\pi_i) = \sum_a \pi_i(a|s)Q_i(s,a)
+$$$$
+V_i(s,\bar{\pi}_i) = \sum_a \bar{\pi}_i(a|s)Q_i(s,a)
+$$<p>如果</p>
+$$
+V_i(s,\pi_i) > V_i(s,\bar{\pi}_i)
+$$<p>说明当前策略比平均策略更好，agent 处于 winning 状态，使用较小步长 $\delta_w$；否则处于 losing 状态，使用较大步长 $\delta_l$：</p>
+$$
+\delta =
+\begin{cases}
+\delta_w, & V_i(s,\pi_i) > V_i(s,\bar{\pi}_i) \\
+\delta_l, & \text{otherwise}
+\end{cases}
+\quad \delta_w < \delta_l
+$$<p>所以 WoLF-PHC 和 PHC 的区别就是：PHC 使用固定 $\delta$，而 WoLF-PHC 根据当前是否 winning 自适应选择策略更新步长。</p>
+<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>WoLF-PHC
+</span></span><span style="display:flex;"><span>初始化 Q_i(s, a_i), pi_i(a_i|s), pi_bar_i(a_i|s)
+</span></span><span style="display:flex;"><span>设置 delta_w &lt; delta_l
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    根据 pi_i(.|s_t) 选择动作 a_i^t
+</span></span><span style="display:flex;"><span>    执行动作，观察奖励 r_i^t 和下一状态 s_{t+1}
+</span></span><span style="display:flex;"><span>    Q_i(s_t, a_i^t) &lt;- Q_i(s_t, a_i^t) + alpha [r_i^t + gamma max_{a_i&#39;} Q_i(s_{t+1}, a_i&#39;) - Q_i(s_t, a_i^t)]
+</span></span><span style="display:flex;"><span>    更新平均策略 pi_bar_i(.|s_t)
+</span></span><span style="display:flex;"><span>    if sum_a pi_i(a|s_t) Q_i(s_t,a) &gt; sum_a pi_bar_i(a|s_t) Q_i(s_t,a) then
+</span></span><span style="display:flex;"><span>        delta &lt;- delta_w
+</span></span><span style="display:flex;"><span>    else
+</span></span><span style="display:flex;"><span>        delta &lt;- delta_l
+</span></span><span style="display:flex;"><span>    end if
+</span></span><span style="display:flex;"><span>    a* &lt;- argmax_a Q_i(s_t, a)
+</span></span><span style="display:flex;"><span>    pi_i(a*|s_t) &lt;- pi_i(a*|s_t) + delta
+</span></span><span style="display:flex;"><span>    pi_i(a|s_t) &lt;- pi_i(a|s_t) - delta / (|A|-1), for a != a*
+</span></span><span style="display:flex;"><span>    裁剪并归一化 pi_i(.|s_t)
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><p>WoLF-PHC 的作用更偏向稳定多智能体中的策略变化：当自己表现不错时不要剧烈改变策略，当自己表现差时更快调整。</p>
+<h3 id="rfmq">rFMQ<a hidden class="anchor" aria-hidden="true" href="#rfmq">#</a></h3>
+<p>rFMQ 可以理解为 Frequency Maximum Q-value 这一类方法的递归版本，它的核心目标也是避免 RO。</p>
+<p>普通 Q 值是平均意义下的估计：</p>
+$$
+Q(s,a) \approx \mathbb{E}[R|s,a]
+$$<p>但 RO 的问题恰好就出在“平均”上：一个动作只有在队友配合时才很好，配合失败时很差，于是平均值被拉低。</p>
+<p>rFMQ 会额外记录两个信息：</p>
+<table>
+  <thead>
+      <tr>
+          <th>量</th>
+          <th>含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$Q_i(s,a_i)$</td>
+          <td>平均回报</td>
+      </tr>
+      <tr>
+          <td>$Q_i^{max}(s,a_i)$</td>
+          <td>这个动作曾经得到过的最大回报</td>
+      </tr>
+      <tr>
+          <td>$F_i(s,a_i)$</td>
+          <td>这个动作达到最大回报的频率</td>
+      </tr>
+  </tbody>
+</table>
+<p>这里最关键的是 $F_i(s,a_i)$ 的递归更新。更准确地说，rFMQ 不只是记录一个最大回报，还要记录这个最大回报是不是经常能够达到。</p>
+<p>记这次用于更新的样本 target 为</p>
+$$
+y_t = r_t + \gamma \max_{a_i'}Q_i(s_{t+1},a_i')
+$$<p>如果这次出现了新的最大值：</p>
+$$
+y_t > Q_i^{max}(s_t,a_i^t)
+$$<p>那么直接更新最大值，并把频率重置为 $1$：</p>
+$$
+Q_i^{max}(s_t,a_i^t) \leftarrow y_t, \quad F_i(s_t,a_i^t) \leftarrow 1
+$$<p>如果没有出现新的最大值，那么才用递归方式更新频率：</p>
+$$
+F_i(s_t,a_i^t) \leftarrow (1-\alpha_F)F_i(s_t,a_i^t) + \alpha_F \mathbb{I}\left(y_t = Q_i^{max}(s_t,a_i^t)\right)
+$$<p>实际实现时，连续值场景中一般不会严格相等，所以可以把指示函数换成一个小阈值：</p>
+$$
+\mathbb{I}\left(|y_t - Q_i^{max}(s_t,a_i^t)| < \epsilon\right)
+$$<p>这也是 rFMQ 和 FMQ 的一个关键区别：FMQ 关注 maximum value 和达到 maximum 的频率，而 rFMQ 用递归方式在线维护这个频率，并且当新的最大值出现时把 $F$ 重置为 $1$。你刚才指出的理解是对的，这个重置是 rFMQ 的核心点。</p>
+<p>有了 $Q^{max}$ 和 $F$ 后，动作选择时使用的增强评价值是</p>
+$$
+E_i(s,a_i) = (1-F_i(s,a_i))Q_i(s,a_i) + F_i(s,a_i)Q_i^{max}(s,a_i)
+$$<p>等价地写成</p>
+$$
+E_i(s,a_i) = Q_i(s,a_i) + F_i(s,a_i)\left(Q_i^{max}(s,a_i)-Q_i(s,a_i)\right)
+$$<p>也就是说，$F$ 越大，说明这个动作越稳定地达到过高回报，那么 $E$ 就越接近 $Q^{max}$；$F$ 越小，说明最大回报更像偶然事件，那么 $E$ 就更接近普通平均 $Q$。</p>
+<p>再用这个增强后的评价值进行 Boltzmann 选择：</p>
+$$
+P(a_i|s) = \frac{\exp(E_i(s,a_i)/\tau)} {\sum_{a_i'}\exp(E_i(s,a_i')/\tau)}
+$$<p>直觉上，rFMQ 在说：如果某个动作虽然平均回报不高，但它曾经稳定达到过很高的回报，那么它可能是一个需要队友配合的好动作，不应该太早放弃。</p>
+<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>rFMQ
+</span></span><span style="display:flex;"><span>初始化 Q_i(s, a_i), Q_i^max(s, a_i), F_i(s, a_i)
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    E_i(s_t, a_i) &lt;- Q_i(s_t, a_i) + F_i(s_t, a_i) [Q_i^max(s_t, a_i) - Q_i(s_t, a_i)]
+</span></span><span style="display:flex;"><span>    根据 E_i(s_t, a_i) 用 Boltzmann 分布选择动作 a_i^t
+</span></span><span style="display:flex;"><span>    观察奖励 r_t 和下一状态 s_{t+1}
+</span></span><span style="display:flex;"><span>    y_t &lt;- r_t + gamma max_{a_i&#39;} Q_i(s_{t+1}, a_i&#39;)
+</span></span><span style="display:flex;"><span>    Q_i(s_t, a_i^t) &lt;- Q_i(s_t, a_i^t) + alpha [y_t - Q_i(s_t, a_i^t)]
+</span></span><span style="display:flex;"><span>    if y_t &gt; Q_i^max(s_t, a_i^t) then
+</span></span><span style="display:flex;"><span>        Q_i^max(s_t, a_i^t) &lt;- y_t
+</span></span><span style="display:flex;"><span>        F_i(s_t, a_i^t) &lt;- 1
+</span></span><span style="display:flex;"><span>    else
+</span></span><span style="display:flex;"><span>        F_i(s_t, a_i^t) &lt;- (1-alpha_F)F_i(s_t, a_i^t) + alpha_F I(y_t = Q_i^max(s_t, a_i^t))
+</span></span><span style="display:flex;"><span>    end if
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><p>这类方法和滞后 Q、宽容 Q 的区别是：滞后 Q 和宽容 Q 主要处理负反馈，而 rFMQ 通过记录最大回报与频率，让 agent 不要被平均回报误导。</p>
+<h2 id="信度分配">信度分配<a hidden class="anchor" aria-hidden="true" href="#信度分配">#</a></h2>
+<p>在协作型 MARL 中，很多任务只给一个全局奖励：</p>
+$$
+R_t = R(s_t,\mathbf{a}_t)
+$$<p>但是这个奖励是所有 agent 共同产生的。问题是：如果团队成功了，到底是谁贡献最大？如果团队失败了，到底是哪个 agent 的动作导致失败？</p>
+<p>这就是信度分配问题（Credit Assignment）。</p>
+<p>最直接的做法是让所有 agent 都使用同一个全局奖励：</p>
+$$
+r_i = R
+$$<p>但这会带来高方差和学习低效。因为某个 agent 的动作可能很好，却因为其他 agent 的错误导致全局奖励很差；反过来也可能某个 agent 做错了，但被队友补救，所以它仍然拿到高奖励。</p>
+<h3 id="差分奖励">差分奖励<a hidden class="anchor" aria-hidden="true" href="#差分奖励">#</a></h3>
+<p>差分方法（Difference Reward）的核心思想是：衡量 agent $i$ 的贡献时，不看全局奖励本身，而是看“有它”和“没有它”之间的差别。</p>
+<p>设整个系统的状态和 joint action 记作 $z$，全局奖励是</p>
+$$
+G(z)
+$$<p>如果把 agent $i$ 的行为替换成一个默认行为 $c_i$，得到 counterfactual 系统</p>
+$$
+z_{-i} + c_i
+$$<p>那么 agent $i$ 的差分奖励定义为</p>
+$$
+D_i(z) = G(z) - G(z_{-i} + c_i)
+$$<p>这里</p>
+<table>
+  <thead>
+      <tr>
+          <th>项</th>
+          <th>含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$G(z)$</td>
+          <td>真实团队表现</td>
+      </tr>
+      <tr>
+          <td>$G(z_{-i}+c_i)$</td>
+          <td>如果 agent $i$ 不产生当前贡献，团队会怎样</td>
+      </tr>
+      <tr>
+          <td>$D_i(z)$</td>
+          <td>agent $i$ 对全局结果的边际贡献</td>
+      </tr>
+  </tbody>
+</table>
+<p>差分奖励的好处是，它仍然和全局目标一致，但能去掉很多与 agent $i$ 无关的噪声。</p>
+<p>如果用于 Q-learning，可以直接把奖励替换成差分奖励：</p>
+$$
+Q_i(s_t,a_i^t) \leftarrow Q_i(s_t,a_i^t) + \alpha \left[ \textcolor{red}{D_i(z_t)} + \gamma \max_{a_i'}Q_i(s_{t+1},a_i') - Q_i(s_t,a_i^t) \right]
+$$<p>算法流程可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Difference Reward Learning
+</span></span><span style="display:flex;"><span>初始化每个 agent 的 Q_i(s, a_i)
+</span></span><span style="display:flex;"><span>for t = 0, 1, 2, ... do
+</span></span><span style="display:flex;"><span>    所有 agent 执行动作，得到系统结果 z_t 和全局奖励 G(z_t)
+</span></span><span style="display:flex;"><span>    for each agent i do
+</span></span><span style="display:flex;"><span>        构造 counterfactual z_-i + c_i
+</span></span><span style="display:flex;"><span>        D_i(z_t) &lt;- G(z_t) - G(z_-i + c_i)
+</span></span><span style="display:flex;"><span>        Q_i(s_t, a_i^t) &lt;- Q_i(s_t, a_i^t) + alpha [D_i(z_t) + gamma max_{a_i&#39;} Q_i(s_{t+1}, a_i&#39;) - Q_i(s_t, a_i^t)]
+</span></span><span style="display:flex;"><span>    end for
+</span></span><span style="display:flex;"><span>end for
+</span></span></code></pre></div><p>差分奖励最大的问题是 counterfactual 不一定容易得到。很多真实环境中，我们无法真的把 agent $i$ 的动作替换掉再跑一次环境，所以需要用模型估计或者用 critic 近似。</p>
+<h3 id="其他解决思路">其他解决思路<a hidden class="anchor" aria-hidden="true" href="#其他解决思路">#</a></h3>
+<p>除了差分奖励，还有几类常见思路：</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>核心思路</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Local reward</td>
+          <td>给每个 agent 设计局部奖励，降低全局奖励的噪声</td>
+      </tr>
+      <tr>
+          <td>Reward shaping</td>
+          <td>在全局奖励之外加入辅助奖励，引导中间行为</td>
+      </tr>
+      <tr>
+          <td>Centralized critic</td>
+          <td>训练时 critic 看到全局信息，给每个 actor 更准确的梯度</td>
+      </tr>
+      <tr>
+          <td>Counterfactual baseline</td>
+          <td>用反事实 baseline 估计某个 agent 动作的边际贡献</td>
+      </tr>
+      <tr>
+          <td>Value decomposition</td>
+          <td>把全局 $Q_{tot}$ 分解成每个 agent 的局部价值</td>
+      </tr>
+  </tbody>
+</table>
+<p>比如 COMA 的思想就是使用 centralized critic 构造 counterfactual advantage：</p>
+$$
+A_i(s,\mathbf{a}) = Q(s,\mathbf{a}) - \sum_{a_i'} \pi_i(a_i'|o_i) Q(s,(a_i',a_{-i}))
+$$<p>它不是简单问“团队奖励是多少”，而是问“在其他 agent 动作不变时，agent $i$ 当前这个动作比它自己的平均动作好多少”。</p>
+<p>再比如 VDN 和 QMIX 这类 value decomposition 方法，会把团队价值写成局部价值的组合：</p>
+$$
+Q_{tot}(s,\mathbf{a}) = \sum_i Q_i(o_i,a_i)
+$$<p>或者更一般地写成</p>
+$$
+Q_{tot} = f_{\text{mix}}(Q_1,Q_2,\dots,Q_n,s)
+$$<p>这类方法的目标是让每个 agent 能从全局价值中学到自己的局部贡献。</p>
+<p>总结一下，信度分配要解决的是：</p>
+$$
+\text{全局结果} \quad \Longrightarrow \quad \text{个体贡献}
+$$<p>而不同方法的区别，就在于它们是通过手工奖励、反事实估计、centralized critic，还是 value decomposition 来完成这个拆分。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://crazyjassbread.github.io/tags/marl/">MARL</a></li>
+      <li><a href="https://crazyjassbread.github.io/tags/reinforcement-learning/">Reinforcement Learning</a></li>
+    </ul>
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Multi-Agent Reinforcement Learning on x"
+            href="https://x.com/intent/tweet/?text=Multi-Agent%20Reinforcement%20Learning&amp;url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2freinforcement-learning%2fbasic%2f05%2f&amp;hashtags=MARL%2cReinforcementLearning">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Multi-Agent Reinforcement Learning on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2freinforcement-learning%2fbasic%2f05%2f&amp;title=Multi-Agent%20Reinforcement%20Learning&amp;summary=Multi-Agent%20Reinforcement%20Learning&amp;source=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2freinforcement-learning%2fbasic%2f05%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Multi-Agent Reinforcement Learning on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2freinforcement-learning%2fbasic%2f05%2f&title=Multi-Agent%20Reinforcement%20Learning">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Multi-Agent Reinforcement Learning on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2freinforcement-learning%2fbasic%2f05%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Multi-Agent Reinforcement Learning on whatsapp"
+            href="https://api.whatsapp.com/send?text=Multi-Agent%20Reinforcement%20Learning%20-%20https%3a%2f%2fcrazyjassbread.github.io%2fposts%2freinforcement-learning%2fbasic%2f05%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Multi-Agent Reinforcement Learning on telegram"
+            href="https://telegram.me/share/url?text=Multi-Agent%20Reinforcement%20Learning&amp;url=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2freinforcement-learning%2fbasic%2f05%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Multi-Agent Reinforcement Learning on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=Multi-Agent%20Reinforcement%20Learning&u=https%3a%2f%2fcrazyjassbread.github.io%2fposts%2freinforcement-learning%2fbasic%2f05%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://crazyjassbread.github.io/">CrazyBread&#39; Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
